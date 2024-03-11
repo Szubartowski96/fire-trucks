@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../shared/interfaces/car.interfaces';
 import { employees } from '../shared/interfaces/eployee.interfaces';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { carDetailsService } from '../services/car-details.service';
 
 @Component({
   selector: 'app-car-add-edit',
@@ -19,36 +20,61 @@ export class CarAddEditComponent implements OnInit {
 
   users: employees[] = [
     { name: 'John', surname: 'Kowalski' },
-    { name: 'John', surname: 'Kowalski' },
-    { name: 'John', surname: 'Kowalski' },
-    { name: 'John', surname: 'Kowalski' },
-    { name: 'John', surname: 'Kowalski' },
-    { name: 'John', surname: 'Kowalski' },
+    { name: 'Paweł', surname: 'Nowak' },
+    { name: 'Artur', surname: 'Izdebski' },
+    { name: 'Przemek', surname: 'Adamiak' },
+    { name: 'Marcin', surname: 'Sudół' },
+    { name: 'Łukasz', surname: 'Zebra' },
   ];
 
   myControl = new FormControl<string | employees>('');
   options: employees[] = this.users;
   filteredOptions!: Observable<employees[]>;
+  empForm: FormGroup;
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map((value) => {
-        const name = typeof value === 'string' ? value : value?.name;
-        return name ? this._filter(name as string) : this.options.slice();
+        const inputValue =
+          typeof value === 'string'
+            ? value
+            : value?.name + ' ' + value?.surname;
+        return inputValue ? this._filter(inputValue) : this.options.slice();
       })
     );
   }
 
   displayFn(user: employees): string {
-    return user && user.name ? user.name : '';
+    return user && user.name ? `${user.name} ${user.surname}` : '';
   }
 
-  private _filter(name: string): employees[] {
-    const filterValue = name.toLowerCase();
+  private _filter(inputValue: string): employees[] {
+    const filterValue = inputValue.toLowerCase();
 
     return this.options.filter((option) =>
-      option.name.toLowerCase().includes(filterValue)
+      (option.name.toLowerCase() + ' ' + option.surname.toLowerCase()).includes(
+        filterValue
+      )
     );
+  }
+  constructor(private _fb: FormBuilder, private _carService: carDetailsService ) {
+    this.empForm = this._fb.group({
+      carName: '',
+      type: '',
+      marking: '',
+      dateEntry: '',
+      destiny: '',
+      operationalNumber: '',
+      employee: '',
+    });
+    this.myControl.valueChanges.subscribe((newValue) => {
+      this.empForm.patchValue({ employee: newValue });
+    });
+  }
+  onFormSubmit() {
+    if (this.empForm.valid) {
+      console.log(this.empForm.value);
+    }
   }
 }
