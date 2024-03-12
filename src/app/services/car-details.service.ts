@@ -10,4 +10,7 @@ export class carDetailsService {
   addCar(data:any):Observable<any>{
     return this._http.post(' http://localhost:3000/car', data)
 }
+  getCarList():Observable<any>{
+    return this._http.get(' http://localhost:3000/car')
+}
 }

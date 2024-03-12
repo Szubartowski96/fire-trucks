@@ -2,60 +2,59 @@
     <h1>Created car</h1>
 </div>
 <form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
-    <div mat-dialog-content class="content">
-        <div class="row">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Car name</mat-label>
-                <input matInput formControlName="carName">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Types of fire trucks</mat-label>
-                <mat-select formControlName="type">
-                    <mat-option *ngFor="let car of cars" [value]="car.value">{{car.viewValue}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Fire truck marking (m³/hl)</mat-label>
-                <input matInput formControlName="marking">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Date of entry</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="dateEntry">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-radio-group aria-label="Select an option" formControlName="destiny">
-                <mat-label>Destiny</mat-label>
-                <mat-radio-button value="1">KP PSP</mat-radio-button>
-                <mat-radio-button value="2">JRG PSP</mat-radio-button>
-            </mat-radio-group>
-        </div>
-        <div class="row">
-            <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>Operational numbers</mat-label>
-                <input matInput placeholder="Ex. 421-22" formControlName="operationalNumber">
-            </mat-form-field>
-            <form class="example-form">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Employee</mat-label>
-                    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto"
-                        formControlName="employee">
-                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                        @for (option of filteredOptions | async; track option) {
-                        <mat-option [value]="option">{{option.name}} {{option.surname}}</mat-option>
-                        }
-                    </mat-autocomplete>
-                </mat-form-field>
-            </form>
-        </div>
+<div mat-dialog-content class="content">
+    <div class="row">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Car name</mat-label>
+            <input matInput formControlName="carName">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Types of fire trucks</mat-label>
+            <mat-select formControlName="type">
+                <mat-option *ngFor="let car of cars" [value]="car.value">{{car.viewValue}}</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
-    <div mat-dialog-actions class="buttons">
-        <button mat-raised-button>Cancle</button>
-        <button mat-raised-button color="primary" type="submit">Save</button>
+    <div class="row">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Fire truck marking (m³/hl)</mat-label>
+            <input matInput formControlName="marking">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Date of entry</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dateEntry">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
     </div>
+    <div class="row">
+        <mat-radio-group aria-label="Select an option" formControlName="destiny">
+            <mat-label>Destiny</mat-label>
+            <mat-radio-button [value]="1">KP PSP</mat-radio-button>
+            <mat-radio-button [value]="2">JRG PSP</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="row">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Operational numbers</mat-label>
+            <input matInput placeholder="Ex. 421-22" formControlName="operationalNumber">
+        </mat-form-field>
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Employee</mat-label>
+              <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" formControlName="employee">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                @for (option of filteredOptions | async; track option) {
+                  <mat-option [value]="option">{{option.name}} {{option.surname}}</mat-option>
+                }
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+    </div>
+</div>
+<div mat-dialog-actions class="buttons">
+    <button mat-raised-button>Cancle</button>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+</div>
 </form>
