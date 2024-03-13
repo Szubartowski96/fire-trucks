@@ -28,28 +28,28 @@
   },
   "car": [
     {
-      "carName": "Volvo",
+      "carName": "volvo",
       "type": "GCBA",
-      "marking": "5/32",
-      "dateEntry": "2024-03-18T23:00:00.000Z",
-      "destiny": "2",
+      "marking": "21/21",
+      "dateEntry": "2024-03-13T23:00:00.000Z",
+      "destiny": 1,
       "operationalNumber": "421-22",
       "employee": {
-        "name": "Paweł",
-        "surname": "Nowak"
+        "name": "John",
+        "surname": "Kowalski"
       },
       "id": 1
     },
     {
-      "carName": "Tatra",
-      "type": "GBA",
-      "marking": "2,7/28",
-      "dateEntry": "2023-11-07T23:00:00.000Z",
+      "carName": "Volvo",
+      "type": "GCBA",
+      "marking": "5/32",
+      "dateEntry": "2024-03-13T23:00:00.000Z",
       "destiny": 2,
-      "operationalNumber": "421-21",
+      "operationalNumber": "421-22",
       "employee": {
-        "name": "Marcin",
-        "surname": "Sudół"
+        "name": "Artur",
+        "surname": "Izdebski"
       },
       "id": 2
     }

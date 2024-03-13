@@ -20,6 +20,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule
     
     
   ],

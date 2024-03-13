@@ -39,7 +39,13 @@ export class AppComponent implements OnInit {
     this.getCarList();
   }
   openAddEditDialog() {
-    this._dialog.open(CarAddEditComponent);
+   const dialogRef = this._dialog.open(CarAddEditComponent);
+   dialogRef.afterClosed().subscribe({
+    next: (val) => {
+      if(val){
+        this.getCarList();
+      }
+   }});
   }
 
   getCarList() {
@@ -63,4 +69,17 @@ export class AppComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  deleteCar(id:number) {
+    this._carService.deleteCar(id).subscribe({
+      next: (res) => {
+        alert('Car deleted');
+        this.getCarList();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  
+}
 }
