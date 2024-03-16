@@ -5,8 +5,7 @@ import { carDetailsService } from './services/car-details.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 @Component({
   selector: 'app-root',
@@ -82,4 +81,16 @@ export class AppComponent implements OnInit {
     });
   
 }
+
+openEditForm(data:any) {
+const dialogRef = this._dialog.open(CarAddEditComponent, {
+  data,
+});
+dialogRef.afterClosed().subscribe({
+  next: (val) => {
+    if(val){
+      this.getCarList();
+    }
+ }});
+ }
 }

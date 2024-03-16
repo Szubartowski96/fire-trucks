@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Car } from '../shared/interfaces/car.interfaces';
 import { employees } from '../shared/interfaces/eployee.interfaces';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { carDetailsService } from '../services/car-details.service';
 import { DialogRef } from '@angular/cdk/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-car-add-edit',
@@ -34,7 +34,7 @@ export class CarAddEditComponent implements OnInit {
   filteredOptions!: Observable<employees[]>;
   empForm: FormGroup;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map((value) => {
@@ -45,6 +45,7 @@ export class CarAddEditComponent implements OnInit {
         return inputValue ? this._filter(inputValue) : this.options.slice();
       })
     );
+    this.empForm.patchValue(this.data);
   }
 
   displayFn(user: employees): string {
@@ -63,7 +64,8 @@ export class CarAddEditComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _carService: carDetailsService,
-    private _dialogRef: MatDialogRef<CarAddEditComponent>
+    private _dialogRef: MatDialogRef<CarAddEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.empForm = this._fb.group({
       carName: '',
@@ -80,14 +82,18 @@ export class CarAddEditComponent implements OnInit {
   }
   onFormSubmit() {
     if (this.empForm.valid) {
-      this._carService.addCar(this.empForm.value).subscribe({
-        next: (val: any) => {
-          this._dialogRef.close(true);
-        },
-        error: (err: any) => {
-          console.error(err);
-        },
-      });
+      if (this.data) {
+        this._carService.updateCar(this.data.id, this.empForm.value).subscribe({
+          next: (val: any) => {
+            alert('Car details updated');
+            this._dialogRef.close(true);
+          },
+          error: (err: any) => {
+            console.error(err);
+          },
+        });
+      } else {
+      }
     }
   }
 }

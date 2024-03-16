@@ -10,6 +10,9 @@ export class carDetailsService {
   addCar(data: any): Observable<any> {
     return this._http.post(' http://localhost:3000/car', data);
   }
+  updateCar(id: number, data: any): Observable<any> {
+    return this._http.put(` http://localhost:3000/car/${id}`, data);
+  }
   getCarList(): Observable<any> {
     return this._http.get(' http://localhost:3000/car');
   }
