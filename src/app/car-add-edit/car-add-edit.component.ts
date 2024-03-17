@@ -8,12 +8,14 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
 
+
 @Component({
   selector: 'app-car-add-edit',
   templateUrl: './car-add-edit.component.html',
   styleUrls: ['./car-add-edit.component.css'],
 })
 export class CarAddEditComponent implements OnInit {
+[x: string]: any;
   cars: Car[] = [
     { value: 'GBA', viewValue: 'GBA' },
     { value: 'GCBA', viewValue: 'GCBA' },
@@ -29,7 +31,7 @@ export class CarAddEditComponent implements OnInit {
     { name: 'Marcin', surname: 'Sudół' },
     { name: 'Łukasz', surname: 'Zebra' },
   ];
-
+ 
   myControl = new FormControl<string | employees>('');
   options: employees[] = this.users;
   filteredOptions!: Observable<employees[]>;
@@ -87,7 +89,6 @@ export class CarAddEditComponent implements OnInit {
       if (this.data) {
         this._carService.updateCar(this.data.id, this.empForm.value).subscribe({
           next: (val: any) => {
-            
             this._coreService.openSnackBar('Car details updated');
             this._dialogRef.close(true);
           },
@@ -96,9 +97,8 @@ export class CarAddEditComponent implements OnInit {
           },
         });
       } else {
-        this._carService.addCar( this.empForm.value).subscribe({
+        this._carService.addCar(this.empForm.value).subscribe({
           next: (val: any) => {
-            
             this._coreService.openSnackBar('Car added successfully');
             this._dialogRef.close(true);
           },

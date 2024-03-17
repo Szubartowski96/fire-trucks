@@ -52,6 +52,19 @@
         "surname": "Izdebski"
       },
       "id": 2
+    },
+    {
+      "carName": "Volvo",
+      "type": "GCBA",
+      "marking": "5/32",
+      "dateEntry": "2024-03-17T23:00:00.000Z",
+      "destiny": 2,
+      "operationalNumber": "421-22",
+      "employee": {
+        "name": "John",
+        "surname": "Kowalski"
+      },
+      "id": 3
     }
   ]
 }
