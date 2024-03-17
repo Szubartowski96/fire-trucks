@@ -5,7 +5,7 @@ import { carDetailsService } from './services/car-details.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-
+import { CoreService } from './core/core.service';
 
 @Component({
   selector: 'app-root',
@@ -31,28 +31,30 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _dialog: MatDialog,
-    private _carService: carDetailsService
+    private _carService: carDetailsService,
+    private _coreService: CoreService
   ) {}
 
   ngOnInit(): void {
     this.getCarList();
   }
   openAddEditDialog() {
-   const dialogRef = this._dialog.open(CarAddEditComponent);
-   dialogRef.afterClosed().subscribe({
-    next: (val) => {
-      if(val){
-        this.getCarList();
-      }
-   }});
+    const dialogRef = this._dialog.open(CarAddEditComponent);
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getCarList();
+        }
+      },
+    });
   }
 
   getCarList() {
     this._carService.getCarList().subscribe({
       next: (res) => {
-       this.dataSource = new MatTableDataSource(res);
-       this.dataSource.sort = this.sort;
-       this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       },
       error: (err) => {
         console.error(err);
@@ -69,28 +71,29 @@ export class AppComponent implements OnInit {
     }
   }
 
-  deleteCar(id:number) {
+  deleteCar(id: number) {
     this._carService.deleteCar(id).subscribe({
       next: (res) => {
-        alert('Car deleted');
+     
+        this._coreService.openSnackBar('Car deleted', 'ok');
         this.getCarList();
       },
       error: (err) => {
         console.log(err);
       },
     });
-  
-}
+  }
 
-openEditForm(data:any) {
-const dialogRef = this._dialog.open(CarAddEditComponent, {
-  data,
-});
-dialogRef.afterClosed().subscribe({
-  next: (val) => {
-    if(val){
-      this.getCarList();
-    }
- }});
- }
+  openEditForm(data: any) {
+    const dialogRef = this._dialog.open(CarAddEditComponent, {
+      data,
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getCarList();
+        }
+      },
+    });
+  }
 }

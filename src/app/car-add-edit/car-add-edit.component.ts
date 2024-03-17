@@ -6,6 +6,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { carDetailsService } from '../services/car-details.service';
 import { DialogRef } from '@angular/cdk/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CoreService } from '../core/core.service';
 
 @Component({
   selector: 'app-car-add-edit',
@@ -65,7 +66,8 @@ export class CarAddEditComponent implements OnInit {
     private _fb: FormBuilder,
     private _carService: carDetailsService,
     private _dialogRef: MatDialogRef<CarAddEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _coreService: CoreService
   ) {
     this.empForm = this._fb.group({
       carName: '',
@@ -85,7 +87,8 @@ export class CarAddEditComponent implements OnInit {
       if (this.data) {
         this._carService.updateCar(this.data.id, this.empForm.value).subscribe({
           next: (val: any) => {
-            alert('Car details updated');
+            
+            this._coreService.openSnackBar('Car details updated');
             this._dialogRef.close(true);
           },
           error: (err: any) => {
@@ -93,6 +96,16 @@ export class CarAddEditComponent implements OnInit {
           },
         });
       } else {
+        this._carService.addCar( this.empForm.value).subscribe({
+          next: (val: any) => {
+            
+            this._coreService.openSnackBar('Car added successfully');
+            this._dialogRef.close(true);
+          },
+          error: (err: any) => {
+            console.error(err);
+          },
+        });
       }
     }
   }
