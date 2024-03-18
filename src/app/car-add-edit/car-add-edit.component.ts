@@ -36,6 +36,15 @@ export class CarAddEditComponent implements OnInit {
   options: employees[] = this.users;
   filteredOptions!: Observable<employees[]>;
   empForm: FormGroup;
+  userData ={
+    carName: '',
+    type: '',
+    marking: '',
+    dateEntry: '',
+    destiny: '',
+    operationalNumber: '',
+    employee: '',
+  }
 
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(

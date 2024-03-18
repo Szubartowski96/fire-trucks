@@ -6,12 +6,16 @@
         <div class="row">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Car name</mat-label>
-                <input matInput formControlName="carName" required minlength="3" pattern="^[A-Z].*$" title="First letter must be uppercase">
+                <input matInput formControlName="carName" required minlength="3" pattern="^[A-Z].*$"
+                    title="First letter must be uppercase">
                 <mat-error *ngIf="empForm && empForm.get('carName')?.hasError('pattern')">
                     First letter must be uppercase.
                 </mat-error>
+                <mat-error *ngIf="empForm && empForm.get('carName')?.hasError('minlength')">
+                    Must contain at least 3 characters.
+                </mat-error>
             </mat-form-field>
-            
+
             <mat-form-field>
                 <mat-label>Types of fire trucks</mat-label>
                 <mat-select formControlName="type" required>

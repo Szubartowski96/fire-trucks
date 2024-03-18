@@ -22,10 +22,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AlertComponent } from './shared/alert/alert.component';
 
 
 @NgModule({
-  declarations: [AppComponent, CarAddEditComponent],
+  declarations: [AppComponent, CarAddEditComponent, AlertComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -47,6 +48,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
+    
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
