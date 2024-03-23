@@ -1,13 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Car } from '../shared/interfaces/car.interfaces';
-import { employees } from '../shared/interfaces/eployee.interfaces';
+import { Employees } from '../shared/interfaces/eployee.interfaces';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, map, startWith, Subscription } from 'rxjs';
 import { carDetailsService } from '../services/car-details.service';
-import { DialogRef } from '@angular/cdk/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
-
 
 @Component({
   selector: 'app-car-add-edit',
@@ -15,7 +13,6 @@ import { CoreService } from '../core/core.service';
   styleUrls: ['./car-add-edit.component.css'],
 })
 export class CarAddEditComponent implements OnInit {
-[x: string]: any;
   cars: Car[] = [
     { value: 'GBA', viewValue: 'GBA' },
     { value: 'GCBA', viewValue: 'GCBA' },
@@ -23,7 +20,7 @@ export class CarAddEditComponent implements OnInit {
     { value: 'SLOP', viewValue: 'SLOP' },
   ];
 
-  users: employees[] = [
+  users: Employees[] = [
     { name: 'John', surname: 'Kowalski' },
     { name: 'Paweł', surname: 'Nowak' },
     { name: 'Artur', surname: 'Izdebski' },
@@ -31,14 +28,15 @@ export class CarAddEditComponent implements OnInit {
     { name: 'Marcin', surname: 'Sudół' },
     { name: 'Łukasz', surname: 'Zebra' },
   ];
- 
-  myControl = new FormControl<string | employees>('');
-  options: employees[] = this.users;
-  filteredOptions!: Observable<employees[]>;
+
+  emloyeeFormControl = new FormControl<string | Employees>('');
+  options: Employees[] = this.users;
+  filteredOptions!: Observable<Employees[]>;
   empForm: FormGroup;
+  private employeeSubscription: Subscription;
 
   ngOnInit(): void {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredOptions = this.emloyeeFormControl.valueChanges.pipe(
       startWith(''),
       map((value) => {
         const inputValue =
@@ -51,11 +49,11 @@ export class CarAddEditComponent implements OnInit {
     this.empForm.patchValue(this.data);
   }
 
-  displayFn(user: employees): string {
+  displayFn(user: Employees): string {
     return user && user.name ? `${user.name} ${user.surname}` : '';
   }
 
-  private _filter(inputValue: string): employees[] {
+  private _filter(inputValue: string): Employees[] {
     const filterValue = inputValue.toLowerCase();
 
     return this.options.filter((option) =>
@@ -80,25 +78,33 @@ export class CarAddEditComponent implements OnInit {
       operationalNumber: '',
       employee: '',
     });
-    this.myControl.valueChanges.subscribe((newValue) => {
-      this.empForm.patchValue({ employee: newValue });
-    });
+    this.employeeSubscription = this.emloyeeFormControl.valueChanges.subscribe(
+      (newValue) => {
+        this.empForm.patchValue({ employee: newValue });
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    if (this.employeeSubscription) {
+      this.employeeSubscription.unsubscribe();
+    }
   }
   onFormSubmit() {
     if (this.empForm.valid) {
       if (this.data) {
         this._carService.updateCar(this.data.id, this.empForm.value).subscribe({
-          next: (val: any) => {
+          next: (val: string) => {
             this._coreService.openSnackBar('Car details updated');
             this._dialogRef.close(true);
           },
-          error: (err: any) => {
+          error: (err: string) => {
             console.error(err);
           },
         });
       } else {
         this._carService.addCar(this.empForm.value).subscribe({
-          next: (val: any) => {
+          next: (val: string) => {
             this._coreService.openSnackBar('Car added successfully');
             this._dialogRef.close(true);
           },
