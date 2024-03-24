@@ -1,23 +1,30 @@
-.content{
-    padding-top: 10px;
+.content {
+  padding-top: 10px;
 }
-.row{
-   display: flex;
-   gap: 10px;
+.row {
+  display: flex;
+  gap: 10px;
 
-   mat-form-field{
+  mat-form-field {
     width: 100%;
-   } 
+  }
 
-   mat-radio-group{
+  mat-radio-group {
     margin-bottom: 20px;
-   }
+  }
 }
 
-.buttons{
-    padding: 0px 25px 20px;
-    button{
-        flex: 1;
-    }
+.buttons {
+  padding: 0px 25px 20px;
+  button {
+    flex: 1;
+  }
 }
+
+mat-error{
+  background-color: rgb(89, 88, 88);
+}
+
+
+
 
