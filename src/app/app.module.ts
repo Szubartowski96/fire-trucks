@@ -22,10 +22,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ModalComponent } from './shared/component/modal/modal.component';
 
 
 @NgModule({
-  declarations: [AppComponent, CarAddEditComponent],
+  declarations: [AppComponent, CarAddEditComponent, ModalComponent],
   imports: [
     BrowserModule,
     FormsModule,

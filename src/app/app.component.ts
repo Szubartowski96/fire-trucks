@@ -6,6 +6,7 @@ import { MatPaginator  } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CoreService } from './core/core.service';
+import { ModalServiceService } from './services/modal-service.service';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ export class AppComponent implements OnInit {
   constructor(
     private _dialog: MatDialog,
     private _carService: carDetailsService,
-    private _coreService: CoreService
+    private _coreService: CoreService,
+    private modalService:  ModalServiceService
   ) {}
 
   ngOnInit(): void {
@@ -95,5 +97,8 @@ export class AppComponent implements OnInit {
         }
       },
     });
+  }
+  openEquipmentModal(): void {
+    this.modalService.openEquipmentModal();
   }
 }
