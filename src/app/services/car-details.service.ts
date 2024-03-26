@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class carDetailsService {
   carNames: string[] = [];
+  type: string [] = [];
+
   constructor(private _http: HttpClient) {}
   addCar(data: any): Observable<any> {
     return this._http.post(' http://localhost:3000/car', data);

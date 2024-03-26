@@ -23,10 +23,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ModalComponent } from './shared/component/modal/modal.component';
+import { RouterModule } from '@angular/router';
+import { EquipmentCarComponent } from './equipment-car/equipment-car.component';
 
 
 @NgModule({
-  declarations: [AppComponent, CarAddEditComponent, ModalComponent],
+  declarations: [AppComponent, CarAddEditComponent, ModalComponent, EquipmentCarComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -48,6 +50,7 @@ import { ModalComponent } from './shared/component/modal/modal.component';
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
+    RouterModule
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
