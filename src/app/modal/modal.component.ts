@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
-import { carDetailsService } from '../../../services/car-details.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, Inject } from '@angular/core';
+import { CarDetailsService } from '../services/car-details.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -8,13 +7,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css',
 })
-export class ModalComponent implements OnInit, OnDestroy {
+export class ModalComponent implements OnInit {
   carNames: string[] = [];
-  carSubscription: Subscription | undefined;
   dialogRef: any;
 
   constructor(
-    private carService: carDetailsService,
+    private CarService: CarDetailsService,
     public _dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
@@ -22,7 +20,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.getCarNames();
   }
   getCarNames() {
-    this.carSubscription = this.carService.getCarList().subscribe({
+    this.CarService.getCarList().subscribe({
       next: (res: any[]) => {
         this.carNames = res.map((car) => car.carName);
       },
@@ -31,12 +29,10 @@ export class ModalComponent implements OnInit, OnDestroy {
       },
     });
   }
-
-  ngOnDestroy(): void {
-    if (this.carSubscription) {
-      this.carSubscription.unsubscribe();
-    }
+  onCarSelectionChange(event: any): void {
+    const selectedCarName = event.value;
   }
+
   closeModal() {
     this._dialogRef.close();
   }

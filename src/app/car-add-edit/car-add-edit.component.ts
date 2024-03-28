@@ -3,7 +3,7 @@ import { Car } from '../shared/interfaces/car.interfaces';
 import { Employees } from '../shared/interfaces/eployee.interfaces';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, map, startWith, Subscription } from 'rxjs';
-import { carDetailsService } from '../services/car-details.service';
+import { CarDetailsService } from '../services/car-details.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
 
@@ -65,7 +65,7 @@ export class CarAddEditComponent implements OnInit {
   }
   constructor(
     private _fb: FormBuilder,
-    private _carService: carDetailsService,
+    private _carService: CarDetailsService,
     private _dialogRef: MatDialogRef<CarAddEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _coreService: CoreService

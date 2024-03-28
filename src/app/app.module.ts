@@ -22,13 +22,17 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ModalComponent } from './shared/component/modal/modal.component';
+import { ModalComponent } from './modal/modal.component';
 import { RouterModule } from '@angular/router';
 import { EquipmentCarComponent } from './equipment-car/equipment-car.component';
 
-
 @NgModule({
-  declarations: [AppComponent, CarAddEditComponent, ModalComponent, EquipmentCarComponent],
+  declarations: [
+    AppComponent,
+    CarAddEditComponent,
+    ModalComponent,
+    EquipmentCarComponent,
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -50,7 +54,7 @@ import { EquipmentCarComponent } from './equipment-car/equipment-car.component';
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
