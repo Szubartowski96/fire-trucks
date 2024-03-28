@@ -6,23 +6,38 @@
         <div class="row">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Car name</mat-label>
-                <input matInput formControlName="carName" required minlength="3" pattern="^[A-Z].*$" title="First letter must be uppercase">
+                <input matInput formControlName="carName" required minlength="3" pattern="^[A-Z].*$">
                 <mat-error *ngIf="empForm && empForm.get('carName')?.hasError('pattern')">
                     First letter must be uppercase.
                 </mat-error>
+                <mat-error *ngIf="empForm && empForm.get('carName')?.hasError('minlength')">
+                    You have to 3 letters.
+                </mat-error>
+                <mat-error *ngIf="empForm && empForm.get('carName')?.hasError('required')">
+                    The field cannot be empty.
+                </mat-error>
             </mat-form-field>
-            
+
             <mat-form-field>
                 <mat-label>Types of fire trucks</mat-label>
                 <mat-select formControlName="type" required>
                     <mat-option *ngFor="let car of cars" [value]="car.value">{{car.viewValue}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="empForm && empForm.get('type')?.hasError('required')">
+                    You have to choose something.
+                </mat-error>
             </mat-form-field>
         </div>
         <div class="row">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Fire truck marking (m³/hl)</mat-label>
-                <input matInput formControlName="marking" required>
+                <input matInput formControlName="marking" required pattern="^\d+(\.\d+)?\/\d+$">
+                <mat-error *ngIf="empForm && empForm.get('marking')?.hasError('required')">
+                    The field cannot be empty.
+                </mat-error>
+                <mat-error *ngIf="empForm && empForm.get('marking')?.hasError('pattern')">
+                    Example 3.5/30.
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Date of entry</mat-label>
@@ -30,6 +45,9 @@
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="empForm && empForm.get('dateEntry')?.hasError('required')">
+                    You have to choose something.
+                </mat-error>
             </mat-form-field>
         </div>
         <div class="row">
@@ -37,25 +55,33 @@
                 <mat-label>Destiny</mat-label>
                 <mat-radio-button [value]="1">KP PSP</mat-radio-button>
                 <mat-radio-button [value]="2">JRG PSP</mat-radio-button>
+                <mat-error *ngIf="empForm && empForm.get('destiny')?.hasError('required')">
+                    You have to choose something.
+                </mat-error>
             </mat-radio-group>
         </div>
         <div class="row">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Operational numbers</mat-label>
                 <input matInput placeholder="Ex. 421-22" formControlName="operationalNumber" required>
+                <mat-error *ngIf="empForm && empForm.get('destiny')?.hasError('required')">
+                    The field cannot be empty.
+                </mat-error>
             </mat-form-field>
-            <form class="example-form">
-                <mat-form-field class="example-full-width">
-                    <mat-label>Employee</mat-label>
-                    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto"
-                        formControlName="employee" required>
-                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                        @for (option of filteredOptions | async; track option) {
-                        <mat-option [value]="option">{{option.name}} {{option.surname}}</mat-option>
-                        }
-                    </mat-autocomplete>
-                </mat-form-field>
-            </form>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Employee</mat-label>
+                <input type="text" matInput [formControl]="emloyeeFormControl" [matAutocomplete]="auto"
+                    formControlName="employee" required>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{ option.name }} {{ option.surname }}
+                    </mat-option>
+                </mat-autocomplete>
+
+            </mat-form-field>
+
+
         </div>
     </div>
     <div mat-dialog-actions class="buttons">

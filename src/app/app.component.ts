@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CarAddEditComponent } from './car-add-edit/car-add-edit.component';
-import { carDetailsService } from './services/car-details.service';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { CarDetailsService } from './services/car-details.service';
+import { MatPaginator  } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { CoreService } from './core/core.service';
+import { ModalServiceService } from './services/modal-service.service';
 
 @Component({
   selector: 'app-root',
@@ -31,8 +32,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _dialog: MatDialog,
-    private _carService: carDetailsService,
-    private _coreService: CoreService
+    private _carService: CarDetailsService,
+    private _coreService: CoreService,
+    private modalService:  ModalServiceService
   ) {}
 
   ngOnInit(): void {
@@ -95,5 +97,8 @@ export class AppComponent implements OnInit {
         }
       },
     });
+  }
+  openEquipmentModal(): void {
+    this.modalService.openEquipmentModal();
   }
 }
