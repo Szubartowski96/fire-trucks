@@ -1,8 +1,8 @@
 <mat-toolbar color="warn">
-  <span>Fire truck</span>
+  <span routerLink="/">Fire truck</span>
   <span class="example-spacer"></span>
   <button mat-raised-button (click)=" openAddEditDialog()">Add car</button>
-  <button mat-raised-button (click)="openEquipmentModal()">Equipment</button>
+  <button mat-raised-button routerLink="/equipment" target="_blank">Equipment</button>
 </mat-toolbar>
 
 <div class="main-body">
@@ -89,3 +89,4 @@
     <mat-paginator [pageSize]="3" [pageSizeOptions]="[1, 2, 3]" aria-label="Select page of users"></mat-paginator>
   </div>
 </div>
+
