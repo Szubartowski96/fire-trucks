@@ -28,19 +28,6 @@
   },
   "car": [
     {
-      "carName": "Iveco",
-      "type": "GBA",
-      "marking": "3/32",
-      "dateEntry": "2024-03-11T23:00:00.000Z",
-      "destiny": 1,
-      "operationalNumber": "421-22",
-      "employee": {
-        "name": "Artur",
-        "surname": "Izdebski"
-      },
-      "id": 1
-    },
-    {
       "carName": "Volvo",
       "type": "GCBA",
       "marking": "5/32",

@@ -26,6 +26,7 @@ import { ModalComponent } from './modal/modal.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { EquipmentCarComponent } from './equipment-car/equipment-car.component';
+import { HomeComponentComponent } from './home-component/home-component.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { EquipmentCarComponent } from './equipment-car/equipment-car.component';
     CarAddEditComponent,
     ModalComponent,
     EquipmentCarComponent,
+    HomeComponentComponent,
   ],
   imports: [
     BrowserModule,

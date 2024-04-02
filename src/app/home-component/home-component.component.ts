@@ -1,20 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CarAddEditComponent } from './car-add-edit/car-add-edit.component';
-import { CarDetailsService } from './services/car-details.service';
 import { MatPaginator  } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CoreService } from './core/core.service';
-import { ModalServiceService } from './services/modal-service.service';
+import { CarDetailsService } from '../services/car-details.service';
+import { CoreService } from '../core/core.service';
+import { CarAddEditComponent } from '../car-add-edit/car-add-edit.component';
 
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-home-component',
+  templateUrl: './home-component.component.html',
+  styleUrl: './home-component.component.css'
 })
-export class AppComponent  {
+export class HomeComponentComponent implements OnInit {
+  [x: string]: any;
   displayedColumns: string[] = [
     'id',
     'carName',
@@ -36,7 +36,7 @@ export class AppComponent  {
     private _dialog: MatDialog,
     private _carService: CarDetailsService,
     private _coreService: CoreService,
-    private modalService:  ModalServiceService,
+  
     
   ) {}
 
@@ -101,9 +101,10 @@ export class AppComponent  {
       },
     });
   }
-  openEquipmentModal(): void {
-    this.modalService.openEquipmentModal();
-  }
-
 
 }
+
+
+
+
+

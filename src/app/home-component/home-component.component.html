@@ -1,0 +1,84 @@
+<div class="main-body">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+  
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort>
+  
+  
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="carName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Car name </th>
+          <td mat-cell *matCellDef="let row"> {{row.carName}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+          <td mat-cell *matCellDef="let row"> {{row.type}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="marking">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Marking </th>
+          <td mat-cell *matCellDef="let row"> {{row.marking}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="dateEntry">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date entry </th>
+          <td mat-cell *matCellDef="let row"> {{row.dateEntry | date}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="destiny">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Destiny </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.destiny === 1 ? 'KP PSP' : 'JRG PSP' }} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="operationalNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Operational number </th>
+          <td mat-cell *matCellDef="let row"> {{row.operationalNumber}} </td>
+        </ng-container>
+  
+  
+        <ng-container matColumnDef="employee">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Person responsible for the car</th>
+          <td mat-cell *matCellDef="let row"> {{row.employee.name}} {{row.employee.surname}}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button color="primary" (click)="openEditForm(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteCar(row.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon>info</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+  
+      <mat-paginator [pageSize]="3" [pageSizeOptions]="[1, 2, 3]" aria-label="Select page of users"></mat-paginator>
+    </div>
+  </div>
