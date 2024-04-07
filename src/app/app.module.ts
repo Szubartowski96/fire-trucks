@@ -27,6 +27,11 @@ import { ModalComponent } from './modal/modal.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EquipmentCarComponent } from './equipment-car/equipment-car.component';
 import { HomeComponentComponent } from './home-component/home-component.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { ButtonTextService } from './services/button-text.service';
 
 @NgModule({
   declarations: [
@@ -58,6 +63,14 @@ import { HomeComponentComponent } from './home-component/home-component.componen
     MatSortModule,
     MatSnackBarModule,
     AppRoutingModule,
+    MatGridListModule,
+    CommonModule,
+    MatCardModule,
+    MatListModule
+  ],
+  
+  providers: [
+    ButtonTextService  
   ],
 
   bootstrap: [AppComponent],

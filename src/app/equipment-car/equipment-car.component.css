@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+}
+
+.left-side,
+.right-side {
+  flex: 1; 
+  padding: 0 10px; 
+}
+
+.right-side {
+  margin-left: 5px;
+}
+.title {
+    display: flex;
+    justify-content: center;
+  }
+
+  .title-equipment,
+  .title-info{
+    margin-top: 1rem;
+    padding: 3rem;
+    font-size: 34px;
+    font-weight: bold;
+  }
+  
+  

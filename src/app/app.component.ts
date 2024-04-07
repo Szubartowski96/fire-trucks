@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CoreService } from './core/core.service';
 import { ModalServiceService } from './services/modal-service.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { ModalServiceService } from './services/modal-service.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent  {
+export class AppComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'carName',
@@ -31,17 +32,28 @@ export class AppComponent  {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   router: any;
+  buttonLabel: string = ''
 
   constructor(
     private _dialog: MatDialog,
     private _carService: CarDetailsService,
     private _coreService: CoreService,
     private modalService:  ModalServiceService,
+    private _router: Router
     
   ) {}
 
   ngOnInit(): void {
     this.getCarList();
+    this._router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateButtonLabel(event.url);
+      }
+    });
+ 
+  }
+  updateButtonLabel(url: string) {
+    this.buttonLabel = url.includes('/equipment') ? 'Change Car' : 'Equipment';
   }
   openAddEditDialog() {
     const dialogRef = this._dialog.open(CarAddEditComponent);
