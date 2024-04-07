@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CoreService } from './core/core.service';
 import { ModalServiceService } from './services/modal-service.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { ModalComponent } from './modal/modal.component';
 
 
 @Component({
@@ -54,6 +55,10 @@ export class AppComponent implements OnInit {
   }
   updateButtonLabel(url: string) {
     this.buttonLabel = url.includes('/equipment') ? 'Change Car' : 'Equipment';
+  }
+
+  openChangeCarModal(): void {
+    this._dialog.open(ModalComponent);
   }
   openAddEditDialog() {
     const dialogRef = this._dialog.open(CarAddEditComponent);

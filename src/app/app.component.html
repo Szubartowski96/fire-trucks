@@ -2,7 +2,7 @@
   <span routerLink="/">Fire truck</span>
   <span class="example-spacer"></span>
   <button mat-raised-button (click)=" openAddEditDialog()">Add car</button>
-  <button mat-raised-button routerLink="/equipment">{{ buttonLabel }}</button>
+  <button mat-raised-button routerLink="/equipment"(click)="buttonLabel==='Change Car'? openChangeCarModal() : null">{{ buttonLabel }}</button>
 </mat-toolbar>
 
 
