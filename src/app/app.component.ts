@@ -2,14 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CarAddEditComponent } from './car-add-edit/car-add-edit.component';
 import { CarDetailsService } from './services/car-details.service';
-import { MatPaginator  } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CoreService } from './core/core.service';
 import { ModalServiceService } from './services/modal-service.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
-
 
 @Component({
   selector: 'app-root',
@@ -33,28 +32,33 @@ export class AppComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   router: any;
-  buttonLabel: string = ''
+  addCarLabel: string = 'Add car';
+  equipmentLabel: string = 'Equipment';
 
   constructor(
     private _dialog: MatDialog,
     private _carService: CarDetailsService,
     private _coreService: CoreService,
-    private modalService:  ModalServiceService,
+    private modalService: ModalServiceService,
     private _router: Router
-    
   ) {}
 
   ngOnInit(): void {
     this.getCarList();
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.updateButtonLabel(event.url);
+        this.updateButtonLabels(event.url);
       }
     });
- 
   }
-  updateButtonLabel(url: string) {
-    this.buttonLabel = url.includes('/equipment') ? 'Change Car' : 'Equipment';
+  updateButtonLabels(url: string) {
+    if (url.includes('/equipment')) {
+      this.addCarLabel = 'Back';
+      this.equipmentLabel = 'Change Car';
+    } else {
+      this.addCarLabel = 'Add car';
+      this.equipmentLabel = 'Equipment';
+    }
   }
 
   openChangeCarModal(): void {
@@ -96,7 +100,6 @@ export class AppComponent implements OnInit {
   deleteCar(id: number) {
     this._carService.deleteCar(id).subscribe({
       next: (res) => {
-     
         this._coreService.openSnackBar('Car deleted', 'ok');
         this.getCarList();
       },
@@ -121,6 +124,4 @@ export class AppComponent implements OnInit {
   openEquipmentModal(): void {
     this.modalService.openEquipmentModal();
   }
-
-
 }

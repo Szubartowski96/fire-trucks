@@ -1,8 +1,10 @@
 <mat-toolbar color="warn">
   <span routerLink="/">Fire truck</span>
   <span class="example-spacer"></span>
-  <button mat-raised-button (click)=" openAddEditDialog()">Add car</button>
-  <button mat-raised-button routerLink="/equipment"(click)="buttonLabel==='Change Car'? openChangeCarModal() : null">{{ buttonLabel }}</button>
+  <button mat-raised-button (click)=" openAddEditDialog()">{{addCarLabel}}</button>
+  <button mat-raised-button routerLink="/equipment" (click)="openChangeCarModal()">
+    {{ equipmentLabel }}
+  </button>
 </mat-toolbar>
 
 
