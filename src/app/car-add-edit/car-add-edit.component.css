@@ -21,10 +21,12 @@
   }
 }
 
-mat-error{
+mat-error {
   background-color: rgb(89, 88, 88);
 }
 
-
-
-
+.title {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+}

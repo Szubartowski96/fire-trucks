@@ -1,5 +1,4 @@
 .dialog-title {
-  background-color: #f0f0f0;
   color: #333;
   padding: 30px;
   display: flex;
@@ -12,7 +11,7 @@
 
 .dialog-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 10px;
 }
 

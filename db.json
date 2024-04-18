@@ -1,45 +1,5 @@
 {
-  "posts": [
-    {
-      "id": "1",
-      "title": "a title",
-      "views": 100
-    },
-    {
-      "id": "2",
-      "title": "another title",
-      "views": 200
-    }
-  ],
-  "comments": [
-    {
-      "id": "1",
-      "text": "a comment about post 1",
-      "postId": "1"
-    },
-    {
-      "id": "2",
-      "text": "another comment about post 1",
-      "postId": "1"
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  },
   "car": [
-    {
-      "carName": "Iveco",
-      "type": "GBA",
-      "marking": "3/32",
-      "dateEntry": "2024-03-11T23:00:00.000Z",
-      "destiny": 1,
-      "operationalNumber": "421-22",
-      "employee": {
-        "name": "Artur",
-        "surname": "Izdebski"
-      },
-      "id": 1
-    },
     {
       "carName": "Volvo",
       "type": "GCBA",
@@ -48,8 +8,8 @@
       "destiny": 2,
       "operationalNumber": "421-22",
       "employee": {
-        "name": "John",
-        "surname": "Kowalski"
+        "name": "Artur",
+        "surname": "Izdebski"
       },
       "id": 2
     },
@@ -80,4 +40,5 @@
       "id": 4
     }
   ]
+  
 }

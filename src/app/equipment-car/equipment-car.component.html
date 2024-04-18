@@ -1,1 +1,62 @@
-<p>equipment-car works!</p>
+<div class="container">
+    <div class="left-side">
+
+        <mat-card>
+            <mat-card-header class="title">
+                <mat-card-title class="title-info">Information about car</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="" alt="photo of car">
+            <mat-card-content>
+                <p>Car name: </p>
+                <p>Type: ABC</p>
+                <p>Marking: 2023</p>
+                <p>Destiny: XYZ123</p>
+                <p>Operational number: XYZ123</p>
+                <p>Person responsible for the car: XYZ123</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="right-side">
+
+        <mat-card>
+            <mat-card-header class="title">
+                <mat-card-title class="title-equipment">Equipment on car</mat-card-title>
+            </mat-card-header>
+            <mat-form-field class="filter">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+            </mat-form-field>
+            <mat-card-content>
+                <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                   
+                    <ng-container matColumnDef="position">
+                        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+                    </ng-container>
+
+                  
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                    </ng-container>
+
+                   
+                    <ng-container matColumnDef="weight">
+                        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+                    </ng-container>
+
+                    
+                    <ng-container matColumnDef="symbol">
+                        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+</div>
