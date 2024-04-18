@@ -8,8 +8,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent implements OnInit {
+
   carNames: string[] = [];
   dialogRef: any;
+  selectedCarName: string = '';
 
   constructor(
     private CarService: CarDetailsService,
@@ -32,6 +34,11 @@ export class ModalComponent implements OnInit {
   onCarSelectionChange(event: any): void {
     const selectedCarName = event.value;
   }
+
+  sumbit() {
+   this._dialogRef.close(this.selectedCarName);
+  
+    }
 
   closeModal() {
     this._dialogRef.close();

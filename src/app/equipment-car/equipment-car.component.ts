@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { Router } from '@angular/router';
 
 export interface PeriodicElement {
   name: string;
@@ -52,10 +53,12 @@ export class EquipmentCarComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-constructor(private dialog: MatDialog){}
+constructor(private dialog: MatDialog,
+  private router: Router
+){}
 
   ngOnInit(): void {
-    this.openModal();
+   
   }
 
   openModal(){

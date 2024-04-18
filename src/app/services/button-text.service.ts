@@ -5,14 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class ButtonTextService {
 
-  buttonText = 'Equipmen';
+
 
 
   constructor() { }
 
-  toggleButtonText() {
-    this.buttonText = this.buttonText === 'Equipmen' ? 'Change Car' : 'Equipment';
-
-    
-  }
+ 
 }
