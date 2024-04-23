@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { CarDetailsService } from '../services/car-details.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-modal',
@@ -8,7 +9,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent implements OnInit {
-
   carNames: string[] = [];
   dialogRef: any;
   selectedCarName: string = '';
@@ -16,7 +16,8 @@ export class ModalComponent implements OnInit {
   constructor(
     private CarService: CarDetailsService,
     public _dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private http: HttpClient
   ) {}
   ngOnInit(): void {
     this.getCarNames();
@@ -36,9 +37,15 @@ export class ModalComponent implements OnInit {
   }
 
   sumbit() {
-   this._dialogRef.close(this.selectedCarName);
-  
-    }
+    this.CarService.getCarList().subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
   closeModal() {
     this._dialogRef.close();

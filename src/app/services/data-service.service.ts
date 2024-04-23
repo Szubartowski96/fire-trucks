@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class DataServiceService {
   private homeData: any[] = [];
+
+  private selectedCarData = new BehaviorSubject<any>(null);
 
   constructor() {}
 
@@ -15,5 +18,12 @@ export class DataServiceService {
 
   getHomeData() {
     return this.homeData;
+  }
+
+ 
+  selectedCarData$ = this.selectedCarData.asObservable();
+
+  setSelectedCarData(data: any) {
+    this.selectedCarData.next(data);
   }
 }
