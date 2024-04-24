@@ -18,9 +18,7 @@ export class ModalServiceService {
   openEquipmentModal(): void {
     const dialogRef = this.dialog.open(ModalComponent, {});
   }
-
-  getNameCar(carId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}${carId}`);
-   
+  geNameCar(carId:number): Observable<any> {
+    return this.http.get(`http://localhost:3000/car/${carId}`);
   }
 }
