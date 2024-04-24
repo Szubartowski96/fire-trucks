@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { CarDetailsService } from '../services/car-details.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
+import { ModalServiceService } from '../services/modal-service.service';
 
 @Component({
   selector: 'app-modal',
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent implements OnInit {
-  carNames: string[] = [];
+  carNames: { id: number; name: string }[] = [];
   dialogRef: any;
   selectedCarName: string = '';
 
@@ -17,7 +18,8 @@ export class ModalComponent implements OnInit {
     private CarService: CarDetailsService,
     public _dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private http: HttpClient
+    private http: HttpClient,
+    private modalService: ModalServiceService
   ) {}
   ngOnInit(): void {
     this.getCarNames();
@@ -25,7 +27,7 @@ export class ModalComponent implements OnInit {
   getCarNames() {
     this.CarService.getCarList().subscribe({
       next: (res: any[]) => {
-        this.carNames = res.map((car) => car.carName);
+        this.carNames = res.map((car) => ({ id: car.id, name: car.carName }));
       },
       error: (err) => {
         console.error(err);

@@ -5,11 +5,11 @@
     <mat-form-field>
         <mat-label>Select</mat-label>
         <mat-select (selectionChange)="onCarSelectionChange($event)">
-            <mat-option *ngFor="let carName of carNames" [value]="carName">{{ carName }}</mat-option>
+            <mat-option *ngFor="let car of carNames" [value]="car.id">{{ car.name}}</mat-option>
         </mat-select>
     </mat-form-field>
 </div>
 <div mat-dialog-actions class="dialog-actions">
-    <button mat-raised-button (click)="sumbit()" >Submit</button>
+    <button mat-raised-button (click)="sumbit()">Submit</button>
     <button mat-raised-button (click)="closeModal()">Cancel</button>
 </div>
