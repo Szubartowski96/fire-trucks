@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CarDetailsService } from '../services/car-details.service';
 import { CoreService } from '../core/core.service';
 import { CarAddEditComponent } from '../car-add-edit/car-add-edit.component';
-
+import { DataServiceService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-home-component',
@@ -36,6 +36,7 @@ export class HomeComponentComponent implements OnInit {
     private _dialog: MatDialog,
     private _carService: CarDetailsService,
     private _coreService: CoreService,
+    private dataService: DataServiceService,
   
     
   ) {}
@@ -60,6 +61,7 @@ export class HomeComponentComponent implements OnInit {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.dataService.setHomeData(res)
       },
       error: (err) => {
         console.error(err);

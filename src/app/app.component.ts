@@ -51,6 +51,8 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  
   updateButtonLabels(url: string) {
     if (url.includes('/equipment')) {
       this.addCarLabel = 'Back';
@@ -65,15 +67,21 @@ export class AppComponent implements OnInit {
     this._dialog.open(ModalComponent);
   }
   openAddEditDialog() {
-    const dialogRef = this._dialog.open(CarAddEditComponent);
-    dialogRef.afterClosed().subscribe({
-      next: (val) => {
-        if (val) {
-          this.getCarList();
-        }
-      },
-    });
+    if (this._router.url === '/equipment') {
+      this._router.navigateByUrl('/');
+    } else {
+      const dialogRef = this._dialog.open(CarAddEditComponent);
+      dialogRef.afterClosed().subscribe({
+        next: (val) => {
+          if (val) {
+            this.getCarList();
+          }
+        },
+      });
+    }
   }
+  
+  
 
   getCarList() {
     this._carService.getCarList().subscribe({
