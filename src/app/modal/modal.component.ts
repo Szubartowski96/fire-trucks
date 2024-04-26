@@ -3,6 +3,8 @@ import { CarDetailsService } from '../services/car-details.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { ModalServiceService } from '../services/modal-service.service';
+import { MatSelectChange } from '@angular/material/select';
+import { DataServiceService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-modal',
@@ -14,12 +16,18 @@ export class ModalComponent implements OnInit {
   dialogRef: any;
   selectedCarName: string = '';
 
+  // TODO: add proper type for car
+  private selectedCar: any;
+
+  private selectedCarId: number | undefined;
+
   constructor(
     private CarService: CarDetailsService,
+    private dataService: DataServiceService,
     public _dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient,
-    private modalService: ModalServiceService
+    private modalService: ModalServiceService,
   ) {}
   ngOnInit(): void {
     this.getCarNames();
@@ -34,14 +42,18 @@ export class ModalComponent implements OnInit {
       },
     });
   }
-  onCarSelectionChange(event: any): void {
-    const selectedCarName = event.value;
+  onCarSelectionChange(event: MatSelectChange): void {
+    this.selectedCarId = event.value;
   }
 
   sumbit() {
-    this.CarService.getCarList().subscribe({
+    if (!this.selectedCarId) return;
+    this.CarService.getCarById(this.selectedCarId).subscribe({
       next: (res) => {
         console.log(res);
+        this.selectedCar = res;
+        this.dataService.setSelectedCarData(res);
+        this._dialogRef.close(res);
       },
       error: (err) => {
         console.log(err);
@@ -50,6 +62,6 @@ export class ModalComponent implements OnInit {
   }
 
   closeModal() {
-    this._dialogRef.close();
+    this._dialogRef.close(this.selectedCar);
   }
 }
