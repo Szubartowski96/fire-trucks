@@ -6,8 +6,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataServiceService {
   private homeData: any[] = [];
-
-  //TODO: typ
   private selectedCarData = new BehaviorSubject<any>(null);
 
   constructor() {}

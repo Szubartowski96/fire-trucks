@@ -16,9 +16,7 @@ export class ModalComponent implements OnInit {
   dialogRef: any;
   selectedCarName: string = '';
 
-  // TODO: add proper type for car
-  private selectedCar: any;
-
+  private selectedCar!: number;
   private selectedCarId: number | undefined;
 
   constructor(
@@ -44,6 +42,7 @@ export class ModalComponent implements OnInit {
   }
   onCarSelectionChange(event: MatSelectChange): void {
     this.selectedCarId = event.value;
+    console.log(this.selectedCarId);
   }
 
   sumbit() {

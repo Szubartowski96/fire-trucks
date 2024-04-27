@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { ModalComponent } from '../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -6,6 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { DataServiceService } from '../services/data-service.service';
+import { CarData } from '../shared/interfaces/carData.interfaces';
+
 
 export interface PeriodicElement {
   name: string;
@@ -45,9 +47,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class EquipmentCarComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-  //TODO: ADD car type
-  carData: any;
+  carData!: CarData;
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -61,9 +61,9 @@ export class EquipmentCarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //TODO: unsubscribe
     this.dataService.selectedCarData$.subscribe((carData) => {
       this.carData = carData;
+     
     });
   }
 }
