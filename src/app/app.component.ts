@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     private _carService: CarDetailsService,
     private _coreService: CoreService,
     private modalService: ModalServiceService,
-    private _router: Router
+    private _router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +52,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  
   updateButtonLabels(url: string) {
     if (url.includes('/equipment')) {
       this.addCarLabel = 'Back';
@@ -80,8 +79,6 @@ export class AppComponent implements OnInit {
       });
     }
   }
-  
-  
 
   getCarList() {
     this._carService.getCarList().subscribe({

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CarDetailsService {
   carNames: string[] = [];
-  type: string [] = [];
+  type: string[] = [];
 
   constructor(private _http: HttpClient) {}
   addCar(data: string): Observable<any> {
@@ -18,6 +18,9 @@ export class CarDetailsService {
   }
   getCarList(): Observable<any> {
     return this._http.get(' http://localhost:3000/car');
+  }
+  getCarById(id: number): Observable<any> {
+    return this._http.get(`http://localhost:3000/car/${id}`);
   }
   deleteCar(id: number): Observable<any> {
     return this._http.delete(` http://localhost:3000/car/${id}`);
