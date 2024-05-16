@@ -14,7 +14,6 @@ import { DataServiceService } from '../services/data-service.service';
   styleUrl: './home-component.component.css'
 })
 export class HomeComponentComponent implements OnInit {
-  [x: string]: any;
   displayedColumns: string[] = [
     'id',
     'carName',
@@ -30,7 +29,7 @@ export class HomeComponentComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  router: any;
+  
 
   constructor(
     private _dialog: MatDialog,
@@ -94,6 +93,7 @@ export class HomeComponentComponent implements OnInit {
   openEditForm(data: any) {
     const dialogRef = this._dialog.open(CarAddEditComponent, {
       data,
+    
     });
     dialogRef.afterClosed().subscribe({
       next: (val) => {

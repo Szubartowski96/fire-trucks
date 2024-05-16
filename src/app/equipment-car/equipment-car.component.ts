@@ -1,9 +1,6 @@
 import { Component,  OnInit } from '@angular/core';
-import { ModalComponent } from '../modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { Router } from '@angular/router';
 import { DataServiceService } from '../services/data-service.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
@@ -49,6 +46,7 @@ export class EquipmentCarComponent implements OnInit {
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   carData!: CarData;
 
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -61,6 +59,7 @@ export class EquipmentCarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.dataService.selectedCarData$.subscribe((carData) => {
       this.carData = carData;
      

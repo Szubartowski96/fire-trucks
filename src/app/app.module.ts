@@ -27,7 +27,7 @@ import { ModalComponent } from './modal/modal.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EquipmentCarComponent } from './equipment-car/equipment-car.component';
 import { HomeComponentComponent } from './home-component/home-component.component';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
@@ -66,12 +66,11 @@ import { ButtonTextService } from './services/button-text.service';
     MatGridListModule,
     CommonModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule,
   ],
-  
-  providers: [
-    ButtonTextService  
-  ],
+
+  providers: [ButtonTextService],
 
   bootstrap: [AppComponent],
 })

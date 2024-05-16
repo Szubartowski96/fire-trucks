@@ -25,4 +25,5 @@ export class CarDetailsService {
   deleteCar(id: number): Observable<any> {
     return this._http.delete(` http://localhost:3000/car/${id}`);
   }
+  
 }

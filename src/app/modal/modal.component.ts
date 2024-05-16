@@ -13,7 +13,7 @@ import { DataServiceService } from '../services/data-service.service';
 })
 export class ModalComponent implements OnInit {
   carNames: { id: number; name: string }[] = [];
-  dialogRef: any;
+  dialogRef!: MatDialogRef<ModalComponent, void>;
   selectedCarName: string = '';
 
   private selectedCar!: number;
@@ -24,8 +24,6 @@ export class ModalComponent implements OnInit {
     private dataService: DataServiceService,
     public _dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private http: HttpClient,
-    private modalService: ModalServiceService,
   ) {}
   ngOnInit(): void {
     this.getCarNames();
@@ -45,20 +43,21 @@ export class ModalComponent implements OnInit {
     console.log(this.selectedCarId);
   }
 
-  sumbit() {
-    if (!this.selectedCarId) return;
-    this.CarService.getCarById(this.selectedCarId).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.selectedCar = res;
-        this.dataService.setSelectedCarData(res);
-        this._dialogRef.close(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
+sumbit() {
+  if (!this.selectedCarId) return;
+  this.CarService.getCarById(this.selectedCarId).subscribe({
+    next: (res) => {
+      console.log(res);
+      const imagePath = `assets/images/${res.link}`;
+      this.selectedCar = { ...res, imagePath };
+      this.dataService.setSelectedCarData(this.selectedCar);
+      this._dialogRef.close(this.selectedCar);
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  });
+}
 
   closeModal() {
     this._dialogRef.close(this.selectedCar);

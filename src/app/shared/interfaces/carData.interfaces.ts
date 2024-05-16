@@ -10,4 +10,5 @@ export interface CarData {
     surname: string;
   };
   id: number;
+  link: string;
 }
