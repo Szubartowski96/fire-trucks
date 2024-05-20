@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { PeriodicElement } from '../equipment-car/equipment-car.component';
 
 @Injectable({
   providedIn: 'root',
@@ -7,8 +10,9 @@ import { BehaviorSubject } from 'rxjs';
 export class DataServiceService {
   private homeData: any[] = [];
   private selectedCarData = new BehaviorSubject<any>(null);
+  private apiUrl = 'http://localhost:3000/elements';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   setHomeData(data: any[]) {
     this.homeData = data;
@@ -22,5 +26,8 @@ export class DataServiceService {
 
   setSelectedCarData(data: any) {
     this.selectedCarData.next(data);
+  }
+  getElements(): Observable<PeriodicElement[]> {
+    return this.http.get<PeriodicElement[]>(this.apiUrl);
   }
 }

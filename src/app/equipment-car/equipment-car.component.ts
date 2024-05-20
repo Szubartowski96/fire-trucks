@@ -7,34 +7,19 @@ import { CarData } from '../shared/interfaces/carData.interfaces';
 
 
 export interface PeriodicElement {
+  section?: string;
   name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  position: number | null
+ count: number | null;
+  coments: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+// const ELEMENT_DATA: PeriodicElement[] = [
+//   { position: null, name: '', count: null, coments: '' },
+//   { position: 1, name: 'Hydrogen', count: 1.0079, coments: 'H' },
+//   { position: 1, name: 'Hydrogen', count: 1.0079, coments: 'H' },
+  
+// ];
 
 @Component({
   selector: 'app-equipment-car',
@@ -42,8 +27,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrl: './equipment-car.component.css',
 })
 export class EquipmentCarComponent implements OnInit {
+[x: string]: any;
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<PeriodicElement>();
   carData!: CarData;
 
 
@@ -59,10 +45,12 @@ export class EquipmentCarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.dataService.selectedCarData$.subscribe((carData) => {
       this.carData = carData;
-     
     });
+
+    this.dataService.getElements().subscribe((data) => {
+      this.dataSource.data = data;
+    })
   }
 }

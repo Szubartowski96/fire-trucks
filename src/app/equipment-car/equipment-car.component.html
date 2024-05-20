@@ -5,7 +5,7 @@
             <mat-card-header class="title">
                 <mat-card-title class="title-info">Information about car</mat-card-title>
             </mat-card-header>
-            
+
             <mat-card-content>
                 <p>Car name: {{carData?.carName}} </p>
                 <p>Type: {{carData?.type}}</p>
@@ -15,7 +15,7 @@
                 <p>Person responsible for the car: {{carData?.employee?.surname}} {{carData?.employee?.name}}</p>
                 <img class="image-car" mat-card-image [src]="carData?.link" alt="photo of car">
             </mat-card-content>
-            
+
         </mat-card>
     </div>
     <div class="right-side">
@@ -31,6 +31,7 @@
             <mat-card-content>
                 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
+
                     <ng-container matColumnDef="position">
                         <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
@@ -44,14 +45,14 @@
 
 
                     <ng-container matColumnDef="weight">
-                        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+                        <mat-header-cell *matHeaderCellDef> Count </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.count}} </mat-cell>
                     </ng-container>
 
 
                     <ng-container matColumnDef="symbol">
-                        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+                        <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.coments}} </mat-cell>
                     </ng-container>
 
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

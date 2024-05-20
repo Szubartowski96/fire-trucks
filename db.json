@@ -42,5 +42,15 @@
       "id": 4,
       "link": "http://localhost:4200/assets/images/GBA_MAN.jpg"
     }
+  ],
+  "elements": [
+    { "section": "KABINA", "position": null, "name": "", "count": null, "comments": "" },
+    { "position": 1, "name": "Radio samochodowe Volvo", "count": 1, "comments": "sprawne" },
+    { "position": 2, "name": "Model radiowy pojazdu", "count": 1, "comments": "gotowy do użycia" },
+  
+    { "section": "SKRYTKA NR 1", "position": null, "name": "", "count": null, "comments": "" },
+    { "position": 3, "name": "Butle powietrze do poduszek", "count": 1, "comments": "" },
+    { "position": 4, "name": "Reduktor do butli", "count": 1, "comments": "" }
+ 
   ]
 }
