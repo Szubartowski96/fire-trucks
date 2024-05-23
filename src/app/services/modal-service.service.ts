@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ModalServiceService {
-  private apiUrl = 'http://localhost:3000/car/';
+
 
   constructor(private dialog: MatDialog,
     private http: HttpClient,

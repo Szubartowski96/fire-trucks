@@ -13,7 +13,7 @@
                 <p>Destiny: {{carData?.destiny}}</p>
                 <p>Operational number: {{carData?.operationalNumber}}</p>
                 <p>Person responsible for the car: {{carData?.employee?.surname}} {{carData?.employee?.name}}</p>
-                <img class="image-car" mat-card-image [src]="carData?.link" alt="photo of car">
+                <img class="image-car" mat-card-image [src]="carData?.link" alt="photo of {{carData?.carName}}">
             </mat-card-content>
 
         </mat-card>

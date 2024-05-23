@@ -31,7 +31,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
-import { ButtonTextService } from './services/button-text.service';
+
 
 @NgModule({
   declarations: [
@@ -70,7 +70,7 @@ import { ButtonTextService } from './services/button-text.service';
     HttpClientModule,
   ],
 
-  providers: [ButtonTextService],
+  providers: [],
 
   bootstrap: [AppComponent],
 })
