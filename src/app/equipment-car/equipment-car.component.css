@@ -8,6 +8,12 @@
   padding: 0 10px; 
 }
 
+.left-side-photo{
+  display: flex;
+  justify-content: center;
+  
+}
+
 .right-side {
   margin-left: 5px;
 }
@@ -36,4 +42,8 @@
   
   mat-form-field {
     width: 100%;
+  }
+.image-car{
+    width: 100%;
+    height: 60%;
   }
