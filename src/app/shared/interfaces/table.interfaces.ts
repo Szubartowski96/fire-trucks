@@ -1,7 +1,8 @@
 export interface PeriodicElement {
-    section?: string;
-    name: string;
-    position: number | null
-   count: number | null;
-    coments: string;
+  isHeader: boolean;
+  location?: string;
+  name?: string;
+  quantity?: string;
+  notes?: string;
+  inventoryNumber?: string;
   }

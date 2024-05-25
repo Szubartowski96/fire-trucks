@@ -12,7 +12,6 @@ export class DataServiceService {
   private homeData: any[] = [];
   private selectedCarData = new BehaviorSubject<any>(null);
   private apiUrl = `${environment.apiUrl}/elements`;
-  // private apiUrl = `${environment.apiUrl}/car`;
 
   constructor(private http: HttpClient) {}
 

@@ -40,7 +40,6 @@ export class ModalComponent implements OnInit {
   }
   onCarSelectionChange(event: MatSelectChange): void {
     this.selectedCarId = event.value;
-    console.log(this.selectedCarId);
   }
 
 sumbit() {

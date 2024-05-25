@@ -31,6 +31,9 @@
             <mat-card-content>
                 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
+                    <tr class="mat-row section-header">
+                        <td mat-cell *matCellDef colspan="4" class="section-header">KABINA</td>
+                    </tr>
 
                     <ng-container matColumnDef="position">
                         <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>

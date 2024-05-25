@@ -32,8 +32,14 @@ export class EquipmentCarComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.selectedCarData$.subscribe((carData) => {
       this.carData = carData;
+      if(carData){
+        this.loadEquipmentData();
+      }
     });
 
+  }
+
+  loadEquipmentData(){
     this.dataService.getElements().subscribe((data) => {
       this.dataSource.data = data;
     })
