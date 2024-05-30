@@ -13,9 +13,11 @@ import { PeriodicElement } from '../shared/interfaces/table.interfaces';
   styleUrl: './equipment-car.component.css',
 })
 export class EquipmentCarComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+[x: string]: any;
+  displayedColumns: string[] = ['position', 'name', 'count', 'comments'];
   dataSource = new MatTableDataSource<PeriodicElement>();
   carData!: CarData;
+
 
 
   applyFilter(event: Event) {
@@ -24,8 +26,6 @@ export class EquipmentCarComponent implements OnInit {
   }
 
   constructor(
-    private dialog: MatDialog,
-    private router: Router,
     private dataService: DataServiceService,
   ) {}
 

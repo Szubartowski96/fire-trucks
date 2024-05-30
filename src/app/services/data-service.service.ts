@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PeriodicElement } from '../shared/interfaces/table.interfaces';
 import { environment } from '../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { environment } from '../../environments/environment';
 export class DataServiceService {
   private homeData: any[] = [];
   private selectedCarData = new BehaviorSubject<any>(null);
-  private apiUrl = `${environment.apiUrl}/elements`;
+  private apiUrl = `${environment.apiUrl}/equipment`;
 
   constructor(private http: HttpClient) {}
 
