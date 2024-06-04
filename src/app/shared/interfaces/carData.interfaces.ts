@@ -1,3 +1,5 @@
+import { Equipment } from './equipments.interfaces';
+
 export interface CarData {
   carName: string;
   type: string;
@@ -11,4 +13,5 @@ export interface CarData {
   };
   id: number;
   link: string;
+  equipments: Equipment[];
 }

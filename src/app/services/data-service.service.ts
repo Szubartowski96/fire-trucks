@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PeriodicElement } from '../shared/interfaces/table.interfaces';
+
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
+
+import { CarData } from '../shared/interfaces/carData.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { map } from 'rxjs/operators';
 export class DataServiceService {
   private homeData: any[] = [];
   private selectedCarData = new BehaviorSubject<any>(null);
-  private apiUrl = `${environment.apiUrl}/equipment`;
+  private apiUrl = `${environment.apiUrl}/car`;
 
   constructor(private http: HttpClient) {}
 
@@ -29,7 +30,7 @@ export class DataServiceService {
   setSelectedCarData(data: any) {
     this.selectedCarData.next(data);
   }
-  getElements(): Observable<PeriodicElement[]> {
-    return this.http.get<PeriodicElement[]>(this.apiUrl);
+  getElements(): Observable<CarData[]> {
+    return this.http.get<CarData[]>(this.apiUrl);
   }
 }
