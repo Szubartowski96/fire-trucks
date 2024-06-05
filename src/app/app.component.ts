@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   router: any;
   addCarLabel: string = 'Add car';
-  equipmentLabel: string = 'Equipment';
+  equipmentLabel: string = 'Informations about car';
 
   constructor(
     private _dialog: MatDialog,
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
       this.equipmentLabel = 'Change Car';
     } else {
       this.addCarLabel = 'Add car';
-      this.equipmentLabel = 'Equipment';
+      this.equipmentLabel = 'Informations about car';
     }
   }
 

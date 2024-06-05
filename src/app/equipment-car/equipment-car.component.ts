@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { DataServiceService } from '../services/data-service.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { Equipment } from '../shared/interfaces/equipments.interfaces';

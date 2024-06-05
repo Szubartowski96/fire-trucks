@@ -1,8 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { CarDetailsService } from '../services/car-details.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
-import { ModalServiceService } from '../services/modal-service.service';
 import { MatSelectChange } from '@angular/material/select';
 import { DataServiceService } from '../services/data-service.service';
 
