@@ -14,4 +14,5 @@ export interface CarData {
   id: number;
   link: string;
   equipments: Equipment[];
+  filteredEquipments?: Equipment[];
 }

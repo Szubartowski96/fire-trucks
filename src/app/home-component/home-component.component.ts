@@ -7,6 +7,8 @@ import { CarDetailsService } from '../services/car-details.service';
 import { CoreService } from '../core/core.service';
 import { CarAddEditComponent } from '../car-add-edit/car-add-edit.component';
 import { DataServiceService } from '../services/data-service.service';
+import { Equipment } from '../shared/interfaces/equipments.interfaces';
+import { CarData } from '../shared/interfaces/carData.interfaces';
 
 @Component({
   selector: 'app-home-component',
@@ -14,6 +16,7 @@ import { DataServiceService } from '../services/data-service.service';
   styleUrl: './home-component.component.css'
 })
 export class HomeComponentComponent implements OnInit {
+
   displayedColumns: string[] = [
     'id',
     'carName',
@@ -26,6 +29,10 @@ export class HomeComponentComponent implements OnInit {
     'action',
   ];
   dataSource!: MatTableDataSource<any>;
+  filteredCars: CarData[] = [];  
+  allCars: CarData[] = [];  
+  filterValue: string = '';
+  showNoEquipmentMessage: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -42,6 +49,7 @@ export class HomeComponentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCarList();
+    console.log(this.filteredCars);
   }
   openAddEditDialog() {
     const dialogRef = this._dialog.open(CarAddEditComponent);
@@ -60,7 +68,10 @@ export class HomeComponentComponent implements OnInit {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.dataService.setHomeData(res)
+        this.dataService.setHomeData(res);
+        this.allCars = res;
+        console.log(this.allCars);
+     
       },
       error: (err) => {
         console.error(err);
@@ -104,6 +115,26 @@ export class HomeComponentComponent implements OnInit {
     });
   }
 
+
+  applyEquipmentFilter(event: Event) {
+    this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase(); 
+    console.log(this.filterValue); // wyswietlanie w clg liter wpisanych w input
+
+    if (this.filterValue) {
+      this.filteredCars = this.allCars.map(car => {
+        const filteredEquipments = car.equipments?.filter((equipment: Equipment) =>
+          equipment.name.toLowerCase().includes(this.filterValue) ||
+          equipment.position.toLowerCase().includes(this.filterValue)
+        ) || [];
+        return { ...car, filteredEquipments };
+      }).filter(car => car.filteredEquipments && car.filteredEquipments.length > 0);
+      this.showNoEquipmentMessage = this.filteredCars.length === 0;
+    } else {
+      this.filteredCars = [];
+      this.showNoEquipmentMessage = false;
+    }
+  }
+  
 }
 
 

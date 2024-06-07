@@ -82,11 +82,19 @@
     <mat-paginator [pageSize]="3" [pageSizeOptions]="[1, 2, 3]" aria-label="Select page of users"></mat-paginator>
   </div>
   <div>
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Element search engine</mat-label>
-        <input matInput placeholder="Equipment item name" value="">
-      </mat-form-field>
-    </form>
-  </div>
-</div>
+    <mat-form-field>
+      <mat-label>Filter Equipments</mat-label>
+      <input matInput (keyup)="applyEquipmentFilter($event)" placeholder="Ex. Radio" #inputEquipment>
+    </mat-form-field>
+
+    <div *ngIf="filteredCars.length > 0; else noEquipmentsFound">
+      <div *ngFor="let car of filteredCars">
+        <p>{{ car.carName }} - {{ car.type }} - {{ car.operationalNumber }}</p>
+        <ul>
+          <li *ngFor="let equipment of car.filteredEquipments">{{ equipment.name }} ({{ equipment.position }})</li>
+        </ul>
+      </div>
+    </div>
+    <ng-template #noEquipmentsFound>
+      <p *ngIf="filterValue && showNoEquipmentMessage">No equipment found matching the filter "{{ filterValue }}"</p>
+    </ng-template>

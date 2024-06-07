@@ -28,6 +28,8 @@ export class EquipmentCarComponent implements OnInit {
       console.log(carData);
       if (carData) {
         this.loadEquipmentData(carData);
+      }else {
+        this.clearTableData();
       }
     });
   }
@@ -37,5 +39,9 @@ export class EquipmentCarComponent implements OnInit {
       this.dataSource.data = carData.equipments;
      
     });
+  }
+
+  clearTableData(): void {
+    this.dataSource.data = []; 
   }
 }

@@ -18,6 +18,88 @@
           "position": "Kabina",
           "name": "Radio samochodowe Volvo",
           "count": 1,
+          "comments": ""
+        },
+        {
+          "position": "Kabina",
+          "name": "Moduł lokalizacji pojazdów GETAK",
+          "count": 1,
+          "comments": ""
+        },
+        {
+          "position": "Kabina",
+          "name": "Radiotelefon przewoźny HYTERA",
+          "count": 1,
+          "comments": ""
+        },
+        {
+          "position": "Kabina",
+          "name": "Radiotelefon nasobny HYTERA",
+          "count": 5,
+          "comments": ""
+        },
+        {
+          "position": "Kabina",
+          "name": "Ładowarka samochodowa",
+          "count": 5,
+          "comments": ""
+        },
+        {
+          "position": "Kabina",
+          "name": "Aparat fotograficzny FUJI XP80",
+          "count": 1,
+          "comments": ""
+        },
+        {
+          "position": "Kabina",
+          "name": "Dokumentacja operacyjna",
+          "count": 1,
+          "comments": "Czerwona teczka"
+        },
+        {
+          "position": "Kabina",
+          "name": "Model radiowy pojazdu",
+          "count": 1,
+          "comments": "gotowy do użycia"
+        },
+        {
+          "position": "Kabina",
+          "name": "Kamizelka KDR",
+          "count": 1,
+          "comments": ""
+        },
+        {
+          "position": "Kabina",
+          "name": "Klucz do bramy Via Carpatia S19",
+          "count": 1,
+          "comments": "W drzwiach d-cy"
+        },
+        {
+          "position": "Kabina",
+          "name": "Klucz do szlabanów leśnych",
+          "count": 1,
+          "comments": "w drzwiach d-cy"
+        }
+      ]
+    },
+    {
+      "carName": "Tatra",
+      "type": "GCBA",
+      "marking": "5/32",
+      "dateEntry": "2024-03-17T23:00:00.000Z",
+      "destiny": 2,
+      "operationalNumber": "421-22",
+      "employee": {
+        "name": "John",
+        "surname": "Kowalski"
+      },
+      "id": 3,
+      "link": "http://localhost:4200/assets/images/GBA_TATRA.jpg",
+      "equipments": [
+        {
+          "position": "Kabina",
+          "name": "Radio samochodowe Volvo",
+          "count": 1,
           "comments": "sprawne"
         },
         {
@@ -70,7 +152,7 @@
         },
         {
           "position": "Skrytka nr 1",
-          "name": "Butle powietrze do poduszek",
+          "name": "Apteczka",
           "count": 1,
           "comments": ""
         },
@@ -81,20 +163,6 @@
           "comments": ""
         }
       ]
-    },
-    {
-      "carName": "Tatra",
-      "type": "GCBA",
-      "marking": "5/32",
-      "dateEntry": "2024-03-17T23:00:00.000Z",
-      "destiny": 2,
-      "operationalNumber": "421-22",
-      "employee": {
-        "name": "John",
-        "surname": "Kowalski"
-      },
-      "id": 3,
-      "link": "http://localhost:4200/assets/images/GBA_TATRA.jpg"
     },
     {
       "carName": "Man",

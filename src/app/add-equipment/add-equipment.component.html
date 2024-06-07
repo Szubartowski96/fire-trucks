@@ -1,1 +1,30 @@
-<p>add-equipment works!</p>
+<mat-card-content>
+
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="position">
+            <mat-header-cell *matHeaderCellDef>Position </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="count">
+            <mat-header-cell *matHeaderCellDef> Count </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.count}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="comments">
+            <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.comments}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+
+
+</mat-card-content>
