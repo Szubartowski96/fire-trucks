@@ -118,7 +118,7 @@ export class HomeComponentComponent implements OnInit {
 
   applyEquipmentFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase(); 
-    console.log(this.filterValue); // wyswietlanie w clg liter wpisanych w input
+    console.log(this.filterValue); 
 
     if (this.filterValue) {
       this.filteredCars = this.allCars.map(car => {

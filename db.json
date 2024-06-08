@@ -12,49 +12,13 @@
         "surname": "Izdebski"
       },
       "id": 2,
-      "link": "http://localhost:4200/assets/images/GCBA_VOLVO.jpg",
-      "equipments": [
+      "link":"http://localhost:4200/assets/images/GCBA_VOLVO.jpg",
+      "equipments":[
         {
           "position": "Kabina",
           "name": "Radio samochodowe Volvo",
           "count": 1,
-          "comments": ""
-        },
-        {
-          "position": "Kabina",
-          "name": "Moduł lokalizacji pojazdów GETAK",
-          "count": 1,
-          "comments": ""
-        },
-        {
-          "position": "Kabina",
-          "name": "Radiotelefon przewoźny HYTERA",
-          "count": 1,
-          "comments": ""
-        },
-        {
-          "position": "Kabina",
-          "name": "Radiotelefon nasobny HYTERA",
-          "count": 5,
-          "comments": ""
-        },
-        {
-          "position": "Kabina",
-          "name": "Ładowarka samochodowa",
-          "count": 5,
-          "comments": ""
-        },
-        {
-          "position": "Kabina",
-          "name": "Aparat fotograficzny FUJI XP80",
-          "count": 1,
-          "comments": ""
-        },
-        {
-          "position": "Kabina",
-          "name": "Dokumentacja operacyjna",
-          "count": 1,
-          "comments": "Czerwona teczka"
+          "comments": "sprawne"
         },
         {
           "position": "Kabina",
@@ -64,21 +28,57 @@
         },
         {
           "position": "Kabina",
-          "name": "Kamizelka KDR",
+          "name": "Model radiowy pojazdu",
+          "count": 1,
+          "comments": "gotowy do użycia"
+        },
+        {
+          "position": "Kabina",
+          "name": "Model radiowy pojazdu",
+          "count": 1,
+          "comments": "gotowy do użycia"
+        },
+        {
+          "position": "Kabina",
+          "name": "Model radiowy pojazdu",
+          "count": 1,
+          "comments": "gotowy do użycia"
+        },
+        {
+          "position": "Kabina",
+          "name": "Model radiowy pojazdu",
+          "count": 1,
+          "comments": "gotowy do użycia"
+        },
+        {
+          "position": "Kabina",
+          "name": "Model radiowy pojazdu",
+          "count": 1,
+          "comments": "gotowy do użycia"
+        },
+        {
+          "position": "Kabina",
+          "name": "Model radiowy pojazdu",
+          "count": 1,
+          "comments": "gotowy do użycia"
+        },
+        {
+          "position": "Kabina",
+          "name": "Model radiowy pojazdu",
+          "count": 1,
+          "comments": "gotowy do użycia"
+        },
+        {
+          "position": "Skrytka nr 1",
+          "name": "Apteczka",
           "count": 1,
           "comments": ""
         },
         {
-          "position": "Kabina",
-          "name": "Klucz do bramy Via Carpatia S19",
+          "position": "Skrytka nr 1",
+          "name": "Reduktor do butli",
           "count": 1,
-          "comments": "W drzwiach d-cy"
-        },
-        {
-          "position": "Kabina",
-          "name": "Klucz do szlabanów leśnych",
-          "count": 1,
-          "comments": "w drzwiach d-cy"
+          "comments": ""
         }
       ]
     },

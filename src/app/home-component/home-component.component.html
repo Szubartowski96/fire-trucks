@@ -84,7 +84,7 @@
   <div>
     <mat-form-field>
       <mat-label>Filter Equipments</mat-label>
-      <input matInput (keyup)="applyEquipmentFilter($event)" placeholder="Ex. Radio" #inputEquipment>
+      <input matInput (keyup)="applyEquipmentFilter($event)" placeholder="Info about equipment" #inputEquipment>
     </mat-form-field>
 
     <div *ngIf="filteredCars.length > 0; else noEquipmentsFound">
