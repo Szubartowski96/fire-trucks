@@ -44,7 +44,6 @@ sumbit() {
   if (!this.selectedCarId) return;
   this.CarService.getCarById(this.selectedCarId).subscribe({
     next: (res) => {
-      // console.log(res);
       const imagePath = `assets/images/${res.link}`;
       this.selectedCar = { ...res, imagePath };
       this.dataService.setSelectedCarData(this.selectedCar);

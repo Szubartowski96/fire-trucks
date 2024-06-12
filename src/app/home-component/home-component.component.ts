@@ -49,7 +49,7 @@ export class HomeComponentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCarList();
-    console.log(this.filteredCars);
+   
   }
   openAddEditDialog() {
     const dialogRef = this._dialog.open(CarAddEditComponent);
@@ -70,7 +70,7 @@ export class HomeComponentComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataService.setHomeData(res);
         this.allCars = res;
-        console.log(this.allCars);
+
      
       },
       error: (err) => {
@@ -118,7 +118,7 @@ export class HomeComponentComponent implements OnInit {
 
   applyEquipmentFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase(); 
-    console.log(this.filterValue); 
+
 
     if (this.filterValue) {
       this.filteredCars = this.allCars.map(car => {

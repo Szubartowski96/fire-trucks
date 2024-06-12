@@ -10,7 +10,6 @@ import { Equipment } from '../shared/interfaces/equipments.interfaces';
   styleUrl: './equipment-car.component.css',
 })
 export class EquipmentCarComponent implements OnInit {
-  [x: string]: any;
   displayedColumns: string[] = ['position', 'name', 'count', 'comments'];
   dataSource = new MatTableDataSource<Equipment>();
   carData!: CarData;
@@ -25,7 +24,6 @@ export class EquipmentCarComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.selectedCarData$.subscribe((carData) => {
       this.carData = carData;
-      console.log(carData);
       if (carData) {
         this.loadEquipmentData(carData);
       }else {

@@ -1,5 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Form, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import {
+  Form,
+  FormBuilder,
+  FormGroup,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { DataServiceService } from '../services/data-service.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,13 +19,19 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-equipment.component.css'],
 })
 export class AddEquipmentComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['position', 'name', 'count', 'comments', 'actions'];
+  displayedColumns: string[] = [
+    'position',
+    'name',
+    'count',
+    'comments',
+    'actions',
+  ];
   dataSource = new MatTableDataSource<Equipment>();
   carData!: CarData;
   newEquipment: Equipment = { position: '', name: '', count: 1, comments: '' };
   private carDataSubscription: Subscription | undefined;
   equipmentForm!: FormGroup;
-  
+
   constructor(
     private dataService: DataServiceService,
     public dialog: MatDialog,
@@ -31,13 +43,15 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
       position: ['', Validators.required],
       name: ['', Validators.required],
       count: [1, [Validators.required, Validators.min(1)]],
-      comments: ['']
+      comments: ['',],
     });
 
-    this.carDataSubscription = this.dataService.selectedCarData$.subscribe((carData) => {
-      this.carData = carData;
-      this.loadEquipmentData(carData);
-    });
+    this.carDataSubscription = this.dataService.selectedCarData$.subscribe(
+      (carData) => {
+        this.carData = carData;
+        this.loadEquipmentData(carData);
+      }
+    );
   }
 
   loadEquipmentData(carData: CarData): void {
@@ -48,11 +62,18 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
 
   addEquipment(form: NgForm): void {
     if (form.valid) {
-      const newEquipment: Equipment = form.value
+      const newEquipment: Equipment = form.value;
       const data = this.dataSource.data;
       data.push(newEquipment);
       this.dataSource.data = data;
-      this.equipmentForm.reset({ position: '', name: '', count: 0, comments: '' });
+      console.log(data);
+      form.resetForm({
+        position: '',
+        name: '',
+        count: 0,
+        comments: '',
+      });
+      
     }
   }
 
