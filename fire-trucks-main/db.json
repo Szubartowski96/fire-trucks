@@ -12,12 +12,12 @@
         "surname": "Izdebski"
       },
       "id": 2,
-      "link": "http://localhost:4200/assets/images/GCBA_VOLVO.jpg",
-      "equipments": [
+      "link":"http://localhost:4200/assets/images/GCBA_VOLVO.jpg",
+      "equipments":[
         {
           "position": "Kabina",
           "name": "Radio samochodowe Volvo",
-          "count": 55,
+          "count": 1,
           "comments": "sprawne"
         },
         {

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { environment } from '../../environments/environment';
+
 import { CarData } from '../shared/interfaces/carData.interfaces';
 
 @Injectable({
@@ -11,7 +13,7 @@ import { CarData } from '../shared/interfaces/carData.interfaces';
 export class DataServiceService {
   private homeData: any[] = [];
   private selectedCarData = new BehaviorSubject<any>(null);
-  private apiUrl = `${environment}/car`;
+  private apiUrl = `${environment.apiUrl}/car`;
 
   constructor(private http: HttpClient) {}
 
