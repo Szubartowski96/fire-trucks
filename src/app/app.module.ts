@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -33,10 +33,6 @@ import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -73,10 +69,11 @@ import { environment } from '../environments/environment';
     CommonModule,
     MatCardModule,
     MatListModule,
-  ],
-  providers: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+  ],
+  providers: [
+    // You can add additional services here if needed
   ],
   bootstrap: [AppComponent],
 })
