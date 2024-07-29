@@ -18,7 +18,6 @@ import { CrudService } from '../services/crud.service';
 export class HomeComponentComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'id',
     'carName',
     'type',
     'marking',
@@ -111,21 +110,27 @@ export class HomeComponentComponent implements OnInit {
 
   applyEquipmentFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase(); 
-
+  
+    
+  
     if (this.filterValue) {
       this.filteredCars = this.allCars.map(car => {
-        const filteredEquipments = car.equipments?.filter((equipment: Equipment) =>
+        const filteredEquipments = car.equipments?.filter((equipment: any) =>
           equipment.name.toLowerCase().includes(this.filterValue) ||
           equipment.position.toLowerCase().includes(this.filterValue)
         ) || [];
         return { ...car, filteredEquipments };
       }).filter(car => car.filteredEquipments && car.filteredEquipments.length > 0);
+  
+     
+  
       this.showNoEquipmentMessage = this.filteredCars.length === 0;
     } else {
       this.filteredCars = [];
       this.showNoEquipmentMessage = false;
     }
   }
+  
 }
 
 

@@ -43,7 +43,7 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
       position: ['', Validators.required],
       name: ['', Validators.required],
       count: [1, [Validators.required, Validators.min(1)]],
-      comments: ['',],
+      comments: [''],
     });
 
     this.carDataSubscription = this.dataService.selectedCarData$.subscribe(
@@ -73,7 +73,6 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
         count: 0,
         comments: '',
       });
-      
     }
   }
 

@@ -7,17 +7,14 @@ import { ModalComponent } from '../modal/modal.component';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CrudService {
   private homeData: any[] = [];
   private selectedCarData = new BehaviorSubject<any>(null);
-  private basePath = '/car';
+  private basePath = '/cars';
 
-  constructor(
-    private db: AngularFirestore,
-    private dialog: MatDialog
-  ) {}
+  constructor(private db: AngularFirestore, private dialog: MatDialog) {}
 
   addCar(data: CarData): void {
     this.db.collection(this.basePath).add(data);
@@ -28,14 +25,18 @@ export class CrudService {
   }
 
   getCarList(): Observable<CarData[]> {
-    return this.db.collection<CarData>(this.basePath).valueChanges({ idField: 'id' });
+    return this.db
+      .collection<CarData>(this.basePath)
+      .valueChanges({ idField: 'id' });
   }
 
-  getCarById(id: string): Observable<CarData> {
-    return this.db.collection<CarData>(this.basePath).doc(id).valueChanges().pipe(
-      map(car => car || {} as CarData)
-    );
+  getCarById(id: string): Observable<CarData | undefined> {
+    return this.db
+      .collection<CarData>(this.basePath)
+      .doc(id)
+      .valueChanges();
   }
+  
 
   deleteCar(id: string): Promise<void> {
     return this.db.collection(this.basePath).doc(id).delete();
