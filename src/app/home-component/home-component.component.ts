@@ -49,6 +49,7 @@ export class HomeComponentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCarList();
+    console.log(this.getCarList());
   }
 
   openAddEditDialog() {

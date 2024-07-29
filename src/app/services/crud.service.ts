@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,33 +15,31 @@ export class CrudService {
   private basePath = '/car';
 
   constructor(
-    private db: AngularFireDatabase,
+    private db: AngularFirestore,
     private dialog: MatDialog
   ) {}
 
-  
   addCar(data: CarData): void {
-    this.db.list(this.basePath).push(data);
+    this.db.collection(this.basePath).add(data);
   }
 
   updateCar(id: string, data: CarData): Promise<void> {
-    return this.db.object(`${this.basePath}/${id}`).update(data);
+    return this.db.collection(this.basePath).doc(id).update(data);
   }
 
   getCarList(): Observable<CarData[]> {
-    return this.db.list<CarData>(this.basePath).valueChanges();
+    return this.db.collection<CarData>(this.basePath).valueChanges({ idField: 'id' });
   }
 
   getCarById(id: string): Observable<CarData> {
-    return this.db.object<CarData>(`${this.basePath}/${id}`).valueChanges().pipe(
-      map(car => car || {} as CarData) 
+    return this.db.collection<CarData>(this.basePath).doc(id).valueChanges().pipe(
+      map(car => car || {} as CarData)
     );
   }
 
   deleteCar(id: string): Promise<void> {
-    return this.db.object(`${this.basePath}/${id}`).remove();
+    return this.db.collection(this.basePath).doc(id).delete();
   }
-
 
   setHomeData(data: any[]): void {
     this.homeData = data;
@@ -62,7 +60,6 @@ export class CrudService {
   getElements(): Observable<CarData[]> {
     return this.getCarList();
   }
-
 
   openEquipmentModal(): void {
     this.dialog.open(ModalComponent, {});
