@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+ 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarAddEditComponent } from './car-add-edit/car-add-edit.component';
@@ -30,10 +30,21 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
-
+ 
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+ 
+const firebaseConfig = {
+  apiKey: 'AIzaSyD0vkhIlHpjSHRpbfk4SGEhUO2d3dd9Rlg',
+  authDomain: 'fire-trucks.firebaseapp.com',
+  projectId: 'fire-trucks',
+  storageBucket: 'fire-trucks.appspot.com',
+  messagingSenderId: '561958466058',
+  appId: '1:561958466058:web:b7454d7d123d2dee69a5f3',
+};
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,11 +80,13 @@ import { environment } from '../environments/environment';
     CommonModule,
     MatCardModule,
     MatListModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
   ],
   providers: [
-    // You can add additional services here if needed
+    
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirestore(() => getFirestore()),
   ],
   bootstrap: [AppComponent],
 })

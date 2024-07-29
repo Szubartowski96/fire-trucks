@@ -9,6 +9,7 @@ import { CoreService } from './core/core.service';
 import { ModalServiceService } from './services/modal-service.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
+import { CrudService } from './services/crud.service';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _dialog: MatDialog,
-    private _carService: CarDetailsService,
+    private _carService: CrudService,
     private _coreService: CoreService,
     private modalService: ModalServiceService,
     private _router: Router,
@@ -102,17 +103,17 @@ export class AppComponent implements OnInit {
     }
   }
 
-  deleteCar(id: number) {
-    this._carService.deleteCar(id).subscribe({
-      next: (res) => {
+  deleteCar(id: string) {
+    this._carService.deleteCar(id)
+      .then(() => {
         this._coreService.openSnackBar('Car deleted', 'ok');
         this.getCarList();
-      },
-      error: (err) => {
+      })
+      .catch((err) => {
         console.log(err);
-      },
-    });
+      });
   }
+  
 
   openEditForm(data: any) {
     const dialogRef = this._dialog.open(CarAddEditComponent, {
