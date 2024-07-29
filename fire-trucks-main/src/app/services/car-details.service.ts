@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 export class CarDetailsService {
   carNames: string[] = [];
   type: string[] = [];
-  private apiUrl = `${environment}/car`;
+  private apiUrl = `${environment.apiUrl}/car`;
 
   constructor(private _http: HttpClient) {}
 

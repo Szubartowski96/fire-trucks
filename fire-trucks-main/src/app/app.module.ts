@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -22,6 +23,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ModalComponent } from './modal/modal.component';
+
 import { AppRoutingModule } from './app-routing.module';
 import { EquipmentCarComponent } from './equipment-car/equipment-car.component';
 import { HomeComponentComponent } from './home-component/home-component.component';
@@ -30,9 +32,10 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -69,12 +72,11 @@ import { environment } from '../environments/environment';
     CommonModule,
     MatCardModule,
     MatListModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
+    HttpClientModule,
   ],
-  providers: [
-    // You can add additional services here if needed
-  ],
+
+  providers: [],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

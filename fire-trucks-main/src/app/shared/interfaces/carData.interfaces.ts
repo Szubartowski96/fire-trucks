@@ -13,7 +13,6 @@ export interface CarData {
   };
   id: number;
   link: string;
-  imagePath: string;
   equipments: Equipment[];
   filteredEquipments?: Equipment[];
 }
