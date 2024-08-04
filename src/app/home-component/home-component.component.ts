@@ -64,7 +64,6 @@ export class HomeComponentComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataService.setHomeData(res);
         this.allCars = res;
-        
       },
       error: (err) => {
         console.error(err);
@@ -107,35 +106,32 @@ export class HomeComponentComponent implements OnInit {
   }
 
   applyEquipmentFilter(event: Event): void {
-    this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase(); 
-    console.log('Filter value:', this.filterValue);
-  
+    this.filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+
     if (this.filterValue) {
-      this.filteredCars = this.allCars.map(car => {
-        if (!car.equipments || !Array.isArray(car.equipments)) {
-          console.error('car.equipments is not defined or not an array');
-          return { ...car, filteredEquipments: [] };
-        }
-  
-        const filteredEquipments = car.equipments.filter(equipment => 
-          equipment.name.toLowerCase().includes(this.filterValue) ||
-          equipment.position.toLowerCase().includes(this.filterValue)
-        );
-  
-        return { ...car, filteredEquipments };
-      }).filter(car => car.filteredEquipments.length > 0);
-  
+      this.filteredCars = this.allCars
+        .map((car) => {
+          if (!car.equipments || !Array.isArray(car.equipments)) {
+            return { ...car, filteredEquipments: [] };
+          }
+
+          const filteredEquipments = car.equipments.filter(
+            (equipment) =>
+              equipment.name.toLowerCase().includes(this.filterValue) ||
+              equipment.position.toLowerCase().includes(this.filterValue)
+          );
+
+          return { ...car, filteredEquipments };
+        })
+        .filter((car) => car.filteredEquipments.length > 0);
+
       this.showNoEquipmentMessage = this.filteredCars.length === 0;
     } else {
       this.filteredCars = [];
       this.showNoEquipmentMessage = false;
     }
-  
-    console.log('Filtered Cars:', this.filteredCars);
+
   }
-  
-  
-  
-  
-  
 }
