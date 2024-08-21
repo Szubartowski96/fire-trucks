@@ -6,17 +6,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CoreService } from '../core/core.service';
 import { CarAddEditComponent } from '../car-add-edit/car-add-edit.component';
 import { DataServiceService } from '../services/data-service.service';
-import { Equipment } from '../shared/interfaces/equipments.interfaces';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { CrudService } from '../services/crud.service';
 
 @Component({
   selector: 'app-home-component',
   templateUrl: './home-component.component.html',
-  styleUrls: ['./home-component.component.css']
+  styleUrls: ['./home-component.component.css'],
 })
 export class HomeComponentComponent implements OnInit {
-
   displayedColumns: string[] = [
     'carName',
     'type',
@@ -28,27 +26,23 @@ export class HomeComponentComponent implements OnInit {
     'action',
   ];
   dataSource!: MatTableDataSource<any>;
-  filteredCars: CarData[] = [];  
-  allCars: CarData[] = [];  
+  filteredCars: CarData[] = [];
+  allCars: CarData[] = [];
   filterValue: string = '';
   showNoEquipmentMessage: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
 
   constructor(
     private _dialog: MatDialog,
     private _carService: CrudService,
     private _coreService: CoreService,
-    private dataService: DataServiceService,
-  
-    
+    private dataService: DataServiceService
   ) {}
 
   ngOnInit(): void {
     this.getCarList();
-    console.log(this.getCarList());
   }
 
   openAddEditDialog() {
@@ -86,13 +80,16 @@ export class HomeComponentComponent implements OnInit {
     }
   }
 
-  deleteCar(id: string) {  
-    this._carService.deleteCar(id).then(() => {  
-      this._coreService.openSnackBar('Car deleted', 'ok');
-      this.getCarList();
-    }).catch((err) => {
-      console.log(err);
-    });
+  deleteCar(id: string) {
+    this._carService
+      .deleteCar(id)
+      .then(() => {
+        this._coreService.openSnackBar('Car deleted', 'ok');
+        this.getCarList();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   openEditForm(data: any) {
@@ -108,30 +105,33 @@ export class HomeComponentComponent implements OnInit {
     });
   }
 
-  applyEquipmentFilter(event: Event) {
-    this.filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase(); 
-  
-    
-  
+  applyEquipmentFilter(event: Event): void {
+    this.filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+
     if (this.filterValue) {
-      this.filteredCars = this.allCars.map(car => {
-        const filteredEquipments = car.equipments?.filter((equipment: any) =>
-          equipment.name.toLowerCase().includes(this.filterValue) ||
-          equipment.position.toLowerCase().includes(this.filterValue)
-        ) || [];
-        return { ...car, filteredEquipments };
-      }).filter(car => car.filteredEquipments && car.filteredEquipments.length > 0);
-  
-     
-  
+      this.filteredCars = this.allCars
+        .map((car) => {
+          if (!car.equipments || !Array.isArray(car.equipments)) {
+            return { ...car, filteredEquipments: [] };
+          }
+
+          const filteredEquipments = car.equipments.filter(
+            (equipment) =>
+              equipment.name.toLowerCase().includes(this.filterValue) ||
+              equipment.position.toLowerCase().includes(this.filterValue)
+          );
+
+          return { ...car, filteredEquipments };
+        })
+        .filter((car) => car.filteredEquipments.length > 0);
+
       this.showNoEquipmentMessage = this.filteredCars.length === 0;
     } else {
       this.filteredCars = [];
       this.showNoEquipmentMessage = false;
     }
+
   }
-  
 }
-
-
-
