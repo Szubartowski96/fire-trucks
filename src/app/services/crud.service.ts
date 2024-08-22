@@ -32,7 +32,7 @@ export class CrudService {
   getCarById(id: number): Observable<CarData | undefined> {
     return this.db
       .collection<CarData>(this.basePath)
-      .doc()
+      .doc(id.toString())
       .valueChanges();
   }
   

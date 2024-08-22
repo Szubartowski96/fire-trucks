@@ -44,6 +44,7 @@ export class ModalComponent implements OnInit {
 
 sumbit() {
   if (!this.selectedCarId) return;
+  console.log(this.selectedCarId);
   this.CarService.getCarById(this.selectedCarId).subscribe({
     next: (res) => {
       console.log(res);
