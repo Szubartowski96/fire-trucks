@@ -29,10 +29,10 @@ export class CrudService {
       .valueChanges({ idField: 'id' });
   }
 
-  getCarById(id: string): Observable<CarData | undefined> {
+  getCarById(id: number): Observable<CarData | undefined> {
     return this.db
       .collection<CarData>(this.basePath)
-      .doc(id)
+      .doc()
       .valueChanges();
   }
   
