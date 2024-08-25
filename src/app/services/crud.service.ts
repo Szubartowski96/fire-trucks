@@ -15,12 +15,13 @@ export class CrudService {
 
   constructor(private db: AngularFirestore, private dialog: MatDialog) {}
 
-  addCar(data: CarData): void {
-    this.db.collection(this.basePath).add(data);
+  updateCar(id: string, data: CarData): Promise<void> {
+    return this.db.collection('cars').doc(id).update(data);
   }
 
-  updateCar(id: string, data: CarData): Promise<void> {
-    return this.db.collection(this.basePath).doc(id).update(data);
+  addCar(data: CarData): Promise<void> {
+    const id = this.db.createId();
+    return this.db.collection('cars').doc(id).set(data);
   }
 
   getCarList(): Observable<CarData[]> {
@@ -35,7 +36,6 @@ export class CrudService {
       .doc(id.toString())
       .valueChanges();
   }
-  
 
   deleteCar(id: string): Promise<void> {
     return this.db.collection(this.basePath).doc(id).delete();
