@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { CarDetailsService } from '../services/car-details.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
-import { DataServiceService } from '../services/data-service.service';
+import { CrudService } from '../services/crud.service';
+import { Equipment } from '../../../fire-trucks-main/src/app/shared/interfaces/equipments.interfaces';
 
 @Component({
   selector: 'app-modal',
@@ -14,14 +14,23 @@ export class ModalComponent implements OnInit {
   dialogRef!: MatDialogRef<ModalComponent, void>;
   selectedCarName: string = '';
 
-  private selectedCar!: number;
+  private selectedCar!: {
+    imagePath: string;
+    carName?: string;
+    type?: string;
+    marking?: string;
+    dateEntry?: string;
+    destiny?: number;
+    operationalNumber?: string;
+    filteredEquipments?: Equipment[];
+  };
+
   private selectedCarId: number | undefined;
 
   constructor(
-    private CarService: CarDetailsService,
-    private dataService: DataServiceService,
+    private CarService: CrudService,
     public _dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
   ngOnInit(): void {
     this.getCarNames();
@@ -40,20 +49,21 @@ export class ModalComponent implements OnInit {
     this.selectedCarId = event.value;
   }
 
-sumbit() {
-  if (!this.selectedCarId) return;
-  this.CarService.getCarById(this.selectedCarId).subscribe({
-    next: (res) => {
-      const imagePath = `assets/images/${res.link}`;
-      this.selectedCar = { ...res, imagePath };
-      this.dataService.setSelectedCarData(this.selectedCar);
-      this._dialogRef.close(this.selectedCar);
-    },
-    error: (err) => {
-      console.log(err);
-    }
-  });
-}
+  sumbit() {
+    if (!this.selectedCarId) return;
+
+    this.CarService.getCarById(this.selectedCarId).subscribe({
+      next: (res) => {
+        const imagePath = `assets/images/${res!.link}`;
+        this.selectedCar = { ...res, imagePath };
+        this.CarService.setSelectedCarData(this.selectedCar);
+        this._dialogRef.close(this.selectedCar);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 
   closeModal() {
     this._dialogRef.close(this.selectedCar);

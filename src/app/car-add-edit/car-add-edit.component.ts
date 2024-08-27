@@ -3,7 +3,7 @@ import { Car } from '../shared/interfaces/car.interfaces';
 import { Employees } from '../shared/interfaces/eployee.interfaces';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, map, startWith, Subscription } from 'rxjs';
-import { CarDetailsService } from '../services/car-details.service';
+import { CrudService } from '../services/crud.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
 
@@ -25,7 +25,7 @@ export class CarAddEditComponent implements OnInit {
     { name: 'Paweł', surname: 'Nowak' },
     { name: 'Artur', surname: 'Izdebski' },
     { name: 'Przemek', surname: 'Adamiak' },
-    { name: 'Marcin', surname: 'Sudół' },
+    { name: 'Marcin', surname: 'zzz' },
     { name: 'Łukasz', surname: 'Zebra' },
   ];
 
@@ -47,7 +47,6 @@ export class CarAddEditComponent implements OnInit {
       })
     );
     this.empForm.patchValue(this.data);
-    
   }
 
   displayFn(user: Employees): string {
@@ -65,7 +64,7 @@ export class CarAddEditComponent implements OnInit {
   }
   constructor(
     private _fb: FormBuilder,
-    private _carService: CarDetailsService,
+    private _carService: CrudService,
     private _dialogRef: MatDialogRef<CarAddEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _coreService: CoreService
@@ -93,26 +92,30 @@ export class CarAddEditComponent implements OnInit {
   }
   onFormSubmit() {
     if (this.empForm.valid) {
+      const formData = this.empForm.value;
+
       if (this.data) {
-        this._carService.updateCar(this.data.id, this.empForm.value).subscribe({
-          next: (val: string) => {
+        this._carService
+          .updateCar(this.data.id, formData)
+          .then(() => {
             this._coreService.openSnackBar('Car details updated');
             this._dialogRef.close(true);
-          },
-          error: (err: string) => {
-            console.error(err);
-          },
-        });
+          })
+          .catch((err: any) => {
+            console.error('Update error:', err);
+            this._coreService.openSnackBar('Failed to update car details');
+          });
       } else {
-        this._carService.addCar(this.empForm.value).subscribe({
-          next: (val: string) => {
+        this._carService
+          .addCar(formData)
+          .then(() => {
             this._coreService.openSnackBar('Car added successfully');
             this._dialogRef.close(true);
-          },
-          error: (err: any) => {
-            console.error(err);
-          },
-        });
+          })
+          .catch((err: any) => {
+            console.error('Add error:', err);
+            this._coreService.openSnackBar('Failed to add car');
+          });
       }
     }
   }

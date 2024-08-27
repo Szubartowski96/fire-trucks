@@ -1,17 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  Form,
-  FormBuilder,
-  FormGroup,
-  NgForm,
-  Validators,
-} from '@angular/forms';
-import { DataServiceService } from '../services/data-service.service';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { MatTableDataSource } from '@angular/material/table';
 import { Equipment } from '../shared/interfaces/equipments.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { CrudService } from '../services/crud.service';
 
 @Component({
   selector: 'app-add-equipment',
@@ -33,7 +27,7 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
   equipmentForm!: FormGroup;
 
   constructor(
-    private dataService: DataServiceService,
+    private crudService: CrudService,
     public dialog: MatDialog,
     private fb: FormBuilder
   ) {}
@@ -46,10 +40,15 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
       comments: [''],
     });
 
-    this.carDataSubscription = this.dataService.selectedCarData$.subscribe(
+    this.carDataSubscription = this.crudService.selectedCarData$.subscribe(
       (carData) => {
-        this.carData = carData;
-        this.loadEquipmentData(carData);
+        if (carData) {
+          this.carData = carData;
+          console.log('Pobrane dane samochodu:', this.carData);
+          this.loadEquipmentData(carData);
+        } else {
+          console.error('Dane samochodu są puste lub niezdefiniowane.');
+        }
       }
     );
   }
@@ -62,17 +61,35 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
 
   addEquipment(form: NgForm): void {
     if (form.valid) {
-      const newEquipment: Equipment = form.value;
-      const data = this.dataSource.data;
-      data.push(newEquipment);
-      this.dataSource.data = data;
-      console.log(data);
-      form.resetForm({
-        position: '',
-        name: '',
-        count: 0,
-        comments: '',
-      });
+      if (this.carData && this.carData.id) {
+        const newEquipment: Equipment = form.value;
+        const data = this.dataSource.data;
+        data.push(newEquipment);
+        this.dataSource.data = data;
+
+        const carId = this.carData.id.toString();
+
+        this.crudService
+          .updateCar(carId, {
+            ...this.carData,
+            equipments: data,
+          })
+          .then(() => {
+            console.log('Wyposażenie dodane do Firebase');
+          })
+          .catch((error) => {
+            console.error('Błąd podczas aktualizacji samochodu:', error);
+          });
+
+        form.resetForm({
+          position: '',
+          name: '',
+          count: 0,
+          comments: '',
+        });
+      } else {
+        console.error('carData lub carData.id są niedostępne');
+      }
     }
   }
 

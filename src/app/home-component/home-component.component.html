@@ -58,7 +58,7 @@
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
-        <td mat-cell *matCellDef="let row" >
+        <td mat-cell *matCellDef="let row">
           <button mat-icon-button color="primary" (click)="openEditForm(row)">
             <mat-icon>edit</mat-icon>
           </button>
@@ -91,7 +91,8 @@
       <div *ngFor="let car of filteredCars">
         <p>{{ car.carName }} - {{ car.type }} - {{ car.operationalNumber }}</p>
         <ul>
-          <li *ngFor="let equipment of car.filteredEquipments">{{ equipment.name }} <b>storage place</b> {{ equipment.position }} <b>count</b> {{equipment.count}}</li>
+          <li *ngFor="let equipment of car.filteredEquipments">{{ equipment.name }} <b>storage place</b> {{
+            equipment.position }} <b>count</b> {{equipment.count}}</li>
         </ul>
       </div>
     </div>
