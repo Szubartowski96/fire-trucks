@@ -34,7 +34,7 @@ export class CrudService {
     return this.db
       .collection<CarData>(this.basePath)
       .doc(id.toString())
-      .valueChanges();
+      .valueChanges({ idField: 'id' });
   }
 
   deleteCar(id: string): Promise<void> {
