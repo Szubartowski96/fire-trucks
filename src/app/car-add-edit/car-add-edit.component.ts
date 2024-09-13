@@ -6,6 +6,8 @@ import { Observable, map, startWith, Subscription } from 'rxjs';
 import { CrudService } from '../services/crud.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FileUploadEvent } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-car-add-edit',
@@ -67,7 +69,8 @@ export class CarAddEditComponent implements OnInit {
     private _carService: CrudService,
     private _dialogRef: MatDialogRef<CarAddEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _coreService: CoreService
+    private _coreService: CoreService,
+    private fireStorage: AngularFirestore
   ) {
     this.empForm = this._fb.group({
       carName: '',
@@ -119,4 +122,7 @@ export class CarAddEditComponent implements OnInit {
       }
     }
   }
+  onUpload($event: FileUploadEvent){
+    console.log($event);
+      }
 }

@@ -35,6 +35,9 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { FileUploadModule } from 'primeng/fileupload';
+
+
  
 const firebaseConfig = {
   apiKey: 'AIzaSyD0vkhIlHpjSHRpbfk4SGEhUO2d3dd9Rlg',
@@ -82,6 +85,7 @@ const firebaseConfig = {
     MatListModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
+    FileUploadModule
   ],
   providers: [
     

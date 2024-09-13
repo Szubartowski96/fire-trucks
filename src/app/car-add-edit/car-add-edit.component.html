@@ -81,12 +81,23 @@
 
             </mat-form-field>
 
-
+         
         </div>
+        <p-fileUpload 
+        mode="basic" 
+        chooseLabel="Choose" 
+        chooseIcon="pi pi-upload"
+        name="demo[]" 
+        url="https://www.primefaces.org/cdn/api/upload.php" 
+        accept="image/*" 
+        [maxFileSize]="1000000" 
+        (onUpload)="onUpload($event)" />
     </div>
     <div mat-dialog-actions class="buttons">
         <button mat-raised-button type="button" [mat-dialog-close]="false">Cancle</button>
         <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">{{data? 'Update':
             'Save'}}</button>
     </div>
+   
+    
 </form>

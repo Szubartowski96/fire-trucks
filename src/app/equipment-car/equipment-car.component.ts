@@ -32,6 +32,8 @@ export class EquipmentCarComponent implements OnInit {
       }
     });
   }
+  
+  
 
   loadEquipmentData(carData: CarData) {
     this.dataService.getElements().subscribe((data) => {
