@@ -30,3 +30,22 @@ mat-error {
   justify-content: center;
   padding-top: 30px;
 }
+
+.upload-container {
+  display: flex;
+  justify-content: center;
+  
+  margin-top: 20px;
+}
+
+p-fileUpload{
+  background-color: #007bff; /* Niebieski kolor tła przycisku */
+    color: white; /* Biały kolor tekstu */
+    border: none; /* Usuń obramowanie */
+    padding: 10px 20px; /* Dodaj wewnętrzne odstępy */
+    font-size: 16px; /* Większy rozmiar czcionki */
+    border-radius: 5px; /* Zaokrąglone rogi */
+    cursor: pointer; /* Zmień kursor na wskazujący */
+    transition: background-color 0.3s ease; 
+}
+

@@ -28,6 +28,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
+
         <div class="row">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Fire truck marking (m³/hl)</mat-label>
@@ -39,6 +40,7 @@
                     Example 3.5/30.
                 </mat-error>
             </mat-form-field>
+
             <mat-form-field>
                 <mat-label>Date of entry</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="dateEntry" required>
@@ -50,6 +52,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
+
         <div class="row">
             <mat-radio-group aria-label="Select an option" formControlName="destiny" required>
                 <mat-label>Destiny</mat-label>
@@ -60,11 +63,12 @@
                 </mat-error>
             </mat-radio-group>
         </div>
+
         <div class="row">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Operational numbers</mat-label>
                 <input matInput placeholder="Ex. 421-22" formControlName="operationalNumber" required>
-                <mat-error *ngIf="empForm && empForm.get('destiny')?.hasError('required')">
+                <mat-error *ngIf="empForm && empForm.get('operationalNumber')?.hasError('required')">
                     The field cannot be empty.
                 </mat-error>
             </mat-form-field>
@@ -78,26 +82,22 @@
                         {{ option.name }} {{ option.surname }}
                     </mat-option>
                 </mat-autocomplete>
-
             </mat-form-field>
-
-         
         </div>
-        <p-fileUpload 
-        mode="basic" 
-        chooseLabel="Choose" 
-        chooseIcon="pi pi-upload"
-        name="demo[]" 
-        url="https://www.primefaces.org/cdn/api/upload.php" 
-        accept="image/*" 
-        [maxFileSize]="1000000" 
-        (onUpload)="onUpload($event)" />
+
+
+        <div class="upload-container">
+            <p-fileUpload mode="basic" chooseLabel="Choose File" chooseIcon="pi pi-upload" name="demo[]"
+                url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [maxFileSize]="1000000"
+                [auto]="true"
+                (onUpload)="onUpload($event)" />
+        </div>
+
     </div>
+
     <div mat-dialog-actions class="buttons">
-        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancle</button>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">{{data? 'Update':
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!empForm.valid">{{data ? 'Update' :
             'Save'}}</button>
     </div>
-   
-    
 </form>

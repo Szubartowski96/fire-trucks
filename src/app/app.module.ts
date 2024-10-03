@@ -38,6 +38,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { FileUploadModule } from 'primeng/fileupload';
 
 
+
  
 const firebaseConfig = {
   apiKey: 'AIzaSyD0vkhIlHpjSHRpbfk4SGEhUO2d3dd9Rlg',
