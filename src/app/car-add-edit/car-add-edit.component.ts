@@ -35,6 +35,7 @@ export class CarAddEditComponent implements OnInit {
   options: Employees[] = this.users;
   filteredOptions!: Observable<Employees[]>;
   empForm: FormGroup;
+  localFile: File | null = null;
   private employeeSubscription: Subscription;
   constructor(
     private _fb: FormBuilder,
@@ -111,8 +112,23 @@ export class CarAddEditComponent implements OnInit {
       } else {
         this._carService
           .addCar(formData)
-          .then(() => {
+          .then((savedCar) => {
             this._coreService.openSnackBar('Car added successfully');
+
+            if (this.localFile) {
+              const carId = savedCar.id;
+              const path = `files/${carId}`;
+
+              this.fireStorage
+                .upload(path, this.localFile)
+                .then(() => {
+                  console.log('Image uploaded successfully');
+                })
+                .catch((err: any) => {
+                  console.error('Upload error:', err);
+                });
+            }
+
             this._dialogRef.close(true);
           })
           .catch((err: any) => {
@@ -122,13 +138,14 @@ export class CarAddEditComponent implements OnInit {
       }
     }
   }
+
   async onUpload($event: FileUploadEvent) {
     console.log($event);
     const file = $event.files[0];
     if (file) {
-      const path = `files/${file.name}`;
-      const uploadedFile = await this.fireStorage.upload(path, file);
-      console.log(uploadedFile);
+      this.localFile = file;
+
+      console.log(this.localFile);
     }
   }
 }

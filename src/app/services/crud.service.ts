@@ -12,6 +12,7 @@ export class CrudService {
   private homeData: any[] = [];
   private selectedCarData = new BehaviorSubject<any>(null);
   private basePath = '/cars';
+  firestore: any;
 
   constructor(private db: AngularFirestore, private dialog: MatDialog) {}
 
@@ -19,11 +20,14 @@ export class CrudService {
     return this.db.collection('cars').doc(id).update(data);
   }
 
-  addCar(data: CarData): Promise<void> {
-    const id = this.db.createId();
-    return this.db.collection('cars').doc(id).set(data);
+  addCar(carData: any): Promise<any> {
+    return this.db
+      .collection('cars')
+      .add(carData)
+      .then((docRef: { id: string }) => {
+        return { id: docRef.id, ...carData };
+      });
   }
-
   getCarList(): Observable<CarData[]> {
     return this.db
       .collection<CarData>(this.basePath)
