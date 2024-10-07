@@ -104,7 +104,6 @@ export class HomeComponentComponent implements OnInit {
       },
     });
   }
-
   applyEquipmentFilter(event: Event): void {
     this.filterValue = (event.target as HTMLInputElement).value
       .trim()

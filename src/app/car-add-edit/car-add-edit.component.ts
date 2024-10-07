@@ -6,6 +6,8 @@ import { Observable, map, startWith, Subscription } from 'rxjs';
 import { CrudService } from '../services/crud.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { FileUploadEvent } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-car-add-edit',
@@ -34,6 +36,29 @@ export class CarAddEditComponent implements OnInit {
   filteredOptions!: Observable<Employees[]>;
   empForm: FormGroup;
   private employeeSubscription: Subscription;
+  constructor(
+    private _fb: FormBuilder,
+    private _carService: CrudService,
+    private _dialogRef: MatDialogRef<CarAddEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _coreService: CoreService,
+    private fireStorage: AngularFireStorage
+  ) {
+    this.empForm = this._fb.group({
+      carName: '',
+      type: '',
+      marking: '',
+      dateEntry: '',
+      destiny: '',
+      operationalNumber: '',
+      employee: '',
+    });
+    this.employeeSubscription = this.emloyeeFormControl.valueChanges.subscribe(
+      (newValue) => {
+        this.empForm.patchValue({ employee: newValue });
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.filteredOptions = this.emloyeeFormControl.valueChanges.pipe(
@@ -60,28 +85,6 @@ export class CarAddEditComponent implements OnInit {
       (option.name.toLowerCase() + ' ' + option.surname.toLowerCase()).includes(
         filterValue
       )
-    );
-  }
-  constructor(
-    private _fb: FormBuilder,
-    private _carService: CrudService,
-    private _dialogRef: MatDialogRef<CarAddEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private _coreService: CoreService
-  ) {
-    this.empForm = this._fb.group({
-      carName: '',
-      type: '',
-      marking: '',
-      dateEntry: '',
-      destiny: '',
-      operationalNumber: '',
-      employee: '',
-    });
-    this.employeeSubscription = this.emloyeeFormControl.valueChanges.subscribe(
-      (newValue) => {
-        this.empForm.patchValue({ employee: newValue });
-      }
     );
   }
 
@@ -117,6 +120,15 @@ export class CarAddEditComponent implements OnInit {
             this._coreService.openSnackBar('Failed to add car');
           });
       }
+    }
+  }
+  async onUpload($event: FileUploadEvent) {
+    console.log($event);
+    const file = $event.files[0];
+    if (file) {
+      const path = `files/${file.name}`;
+      const uploadedFile = await this.fireStorage.upload(path, file);
+      console.log(uploadedFile);
     }
   }
 }
