@@ -118,6 +118,7 @@ export class CarAddEditComponent implements OnInit {
             if (this.localFile) {
               const carId = savedCar.id;
               const path = `files/${carId}`;
+              console.log('car id to', carId);
 
               this.fireStorage
                 .upload(path, this.localFile)

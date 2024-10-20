@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { Equipment } from '../shared/interfaces/equipments.interfaces';
 import { CrudService } from '../services/crud.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+
 
 @Component({
   selector: 'app-equipment-car',
@@ -14,7 +16,9 @@ export class EquipmentCarComponent implements OnInit {
   dataSource = new MatTableDataSource<Equipment>();
   carData!: CarData;
 
-  constructor(private dataService: CrudService) {}
+  constructor(private dataService: CrudService,
+    private storage: AngularFireStorage,
+  ) {}
 
   ngOnInit(): void {
     this.dataService.selectedCarData$.subscribe((carData) => {
