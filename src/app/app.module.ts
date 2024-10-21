@@ -34,9 +34,8 @@ import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { FileUploadModule } from 'primeng/fileupload';
-
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 
 
  
@@ -85,13 +84,13 @@ const firebaseConfig = {
     MatCardModule,
     MatListModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule,
-    FileUploadModule
+    FileUploadModule,
+    AngularFireStorageModule
   ],
   providers: [
-    
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),
+    { provide: BUCKET, useValue: 'my-bucket-name' }
   ],
   bootstrap: [AppComponent],
 })

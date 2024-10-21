@@ -12,7 +12,7 @@ export interface CarData {
     surname: string;
   };
   id: number;
-  link: string;
+  link?: string;
   imagePath: string;
   equipments: Equipment[];
   filteredEquipments?: Equipment[];

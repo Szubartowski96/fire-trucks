@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { DataServiceService } from '../services/data-service.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { Equipment } from '../shared/interfaces/equipments.interfaces';
 import { CrudService } from '../services/crud.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+
 
 @Component({
   selector: 'app-equipment-car',
   templateUrl: './equipment-car.component.html',
-  styleUrl: './equipment-car.component.css',
+  styleUrls: ['./equipment-car.component.css'],
 })
 export class EquipmentCarComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'count', 'comments'];
   dataSource = new MatTableDataSource<Equipment>();
   carData!: CarData;
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  constructor(private dataService: CrudService) {}
+  constructor(private dataService: CrudService,
+    private storage: AngularFireStorage,
+  ) {}
 
   ngOnInit(): void {
     this.dataService.selectedCarData$.subscribe((carData) => {
@@ -32,8 +30,11 @@ export class EquipmentCarComponent implements OnInit {
       }
     });
   }
-  
-  
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   loadEquipmentData(carData: CarData) {
     this.dataService.getElements().subscribe((data) => {
