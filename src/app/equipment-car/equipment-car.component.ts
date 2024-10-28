@@ -15,6 +15,7 @@ export class EquipmentCarComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'count', 'comments'];
   dataSource = new MatTableDataSource<Equipment>();
   carData!: CarData;
+  carPhotoUrl: string | null = null;
 
   constructor(private dataService: CrudService,
     private storage: AngularFireStorage,
@@ -25,6 +26,7 @@ export class EquipmentCarComponent implements OnInit {
       this.carData = carData;
       if (carData) {
         this.loadEquipmentData(carData);
+        this.loadCarPhoto(carData.link)
       } else {
         this.clearTableData();
       }
@@ -44,5 +46,21 @@ export class EquipmentCarComponent implements OnInit {
 
   clearTableData(): void {
     this.dataSource.data = [];
+  }
+
+  loadCarPhoto(filePath: string | null): void {
+    if (filePath) {
+      this.storage.ref(filePath).getDownloadURL().subscribe(
+        (url) => {
+          this.carPhotoUrl = url;  
+        },
+        (error) => {
+          console.error("Error loading image:", error);
+          this.carPhotoUrl = null;  
+        }
+      );
+    } else {
+      this.carPhotoUrl = null;
+    }
   }
 }
