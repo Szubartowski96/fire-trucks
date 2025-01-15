@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CarAddEditComponent } from './car-add-edit/car-add-edit.component';
-import { CarDetailsService } from './services/car-details.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,6 +9,9 @@ import { ModalServiceService } from './services/modal-service.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
 import { CrudService } from './services/crud.service';
+import { CarData } from './shared/interfaces/carData.interfaces';
+
+
 
 @Component({
   selector: 'app-root',
@@ -28,20 +30,20 @@ export class AppComponent implements OnInit {
     'employee',
     'action',
   ];
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<CarData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  router: any;
-  addCarLabel: string = 'Add car';
-  equipmentLabel: string = 'Informations about car';
+  
+  addCarLabel = 'Add car';
+  equipmentLabel = 'Informations about car';
 
   constructor(
     private _dialog: MatDialog,
     private _carService: CrudService,
     private _coreService: CoreService,
     private modalService: ModalServiceService,
-    private _router: Router,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -104,7 +106,8 @@ export class AppComponent implements OnInit {
   }
 
   deleteCar(id: string) {
-    this._carService.deleteCar(id)
+    this._carService
+      .deleteCar(id)
       .then(() => {
         this._coreService.openSnackBar('Car deleted', 'ok');
         this.getCarList();
@@ -113,9 +116,8 @@ export class AppComponent implements OnInit {
         console.log(err);
       });
   }
-  
 
-  openEditForm(data: any) {
+  openEditForm(data: CarData) {
     const dialogRef = this._dialog.open(CarAddEditComponent, {
       data,
     });

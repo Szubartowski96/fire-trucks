@@ -8,6 +8,7 @@ import { CarAddEditComponent } from '../car-add-edit/car-add-edit.component';
 import { DataServiceService } from '../services/data-service.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { CrudService } from '../services/crud.service';
+import { DialogData } from '../shared/interfaces/dialog-data';
 
 @Component({
   selector: 'app-home-component',
@@ -25,11 +26,11 @@ export class HomeComponentComponent implements OnInit {
     'employee',
     'action',
   ];
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<CarData>;
   filteredCars: CarData[] = [];
   allCars: CarData[] = [];
-  filterValue: string = '';
-  showNoEquipmentMessage: boolean = false;
+  filterValue = '';
+  showNoEquipmentMessage = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -92,7 +93,7 @@ export class HomeComponentComponent implements OnInit {
       });
   }
 
-  openEditForm(data: any) {
+  openEditForm(data: DialogData) {
     const dialogRef = this._dialog.open(CarAddEditComponent, {
       data,
     });

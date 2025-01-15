@@ -6,8 +6,6 @@ import { Equipment } from '../shared/interfaces/equipments.interfaces';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CrudService } from '../services/crud.service';
-import { FileUploadEvent } from 'primeng/fileupload';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-add-equipment',
@@ -31,8 +29,7 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
   constructor(
     private crudService: CrudService,
     public dialog: MatDialog,
-    private fb: FormBuilder,
-    
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -47,10 +44,7 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
       (carData) => {
         if (carData) {
           this.carData = carData;
-          console.log('Pobrane dane samochodu:', this.carData);
           this.loadEquipmentData(carData);
-        } else {
-          console.error('Dane samochodu są puste lub niezdefiniowane.');
         }
       }
     );
@@ -107,5 +101,4 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
       this.carDataSubscription.unsubscribe();
     }
   }
- 
 }

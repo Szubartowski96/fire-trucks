@@ -5,7 +5,6 @@ import { Equipment } from '../shared/interfaces/equipments.interfaces';
 import { CrudService } from '../services/crud.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
-
 @Component({
   selector: 'app-equipment-car',
   templateUrl: './equipment-car.component.html',
@@ -14,21 +13,22 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 export class EquipmentCarComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'count', 'comments'];
   dataSource = new MatTableDataSource<Equipment>();
-  carData!: CarData;
+  carData: CarData | null = null;
   carPhotoUrl: string | null = null;
 
-  constructor(private dataService: CrudService,
-    private storage: AngularFireStorage,
+  constructor(
+    private dataService: CrudService,
+    private storage: AngularFireStorage
   ) {}
 
   ngOnInit(): void {
     this.dataService.selectedCarData$.subscribe((carData) => {
       this.carData = carData;
       if (carData) {
-        this.loadEquipmentData(carData);
-        this.loadCarPhoto(carData.link)
+        this.loadEquipmentData(carData);  
+        this.loadCarPhoto(carData.link);  
       } else {
-        this.clearTableData();
+        this.clearTableData(); 
       }
     });
   }
@@ -39,28 +39,31 @@ export class EquipmentCarComponent implements OnInit {
   }
 
   loadEquipmentData(carData: CarData) {
-    this.dataService.getElements().subscribe((data) => {
+    if (carData.equipments && carData.equipments.length > 0) {
       this.dataSource.data = carData.equipments;
-    });
+    } else {
+      console.log("Brak sprzętu do wyświetlenia.");
+    }
   }
 
   clearTableData(): void {
     this.dataSource.data = [];
   }
 
-  loadCarPhoto(filePath: string | null): void {
+  loadCarPhoto(filePath: string | undefined): void {
     if (filePath) {
       this.storage.ref(filePath).getDownloadURL().subscribe(
         (url) => {
           this.carPhotoUrl = url;  
         },
         (error) => {
-          console.error("Error loading image:", error);
+          console.error("Błąd podczas ładowania zdjęcia:", error);
           this.carPhotoUrl = null;  
         }
       );
     } else {
-      this.carPhotoUrl = null;
+      console.log("Brak linku do zdjęcia.");
+      this.carPhotoUrl = null;  
     }
   }
 }

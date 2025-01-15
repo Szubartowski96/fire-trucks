@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy} from '@angular/core';
 import { Car } from '../shared/interfaces/car.interfaces';
 import { Employees } from '../shared/interfaces/eployee.interfaces';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -8,13 +8,14 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FileUploadEvent } from 'primeng/fileupload';
+import { DialogData } from '../shared/interfaces/dialog-data';
 
 @Component({
   selector: 'app-car-add-edit',
   templateUrl: './car-add-edit.component.html',
   styleUrls: ['./car-add-edit.component.css'],
 })
-export class CarAddEditComponent implements OnInit {
+export class CarAddEditComponent implements OnInit, OnDestroy {
   cars: Car[] = [
     { value: 'GBA', viewValue: 'GBA' },
     { value: 'GCBA', viewValue: 'GCBA' },
@@ -41,7 +42,7 @@ export class CarAddEditComponent implements OnInit {
     private _fb: FormBuilder,
     private _carService: CrudService,
     private _dialogRef: MatDialogRef<CarAddEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private _coreService: CoreService,
     private fireStorage: AngularFireStorage
   ) {
@@ -100,12 +101,12 @@ export class CarAddEditComponent implements OnInit {
 
       if (this.data) {
         this._carService
-          .updateCar(this.data.id, formData)
+          .updateCar(this.data.id!, formData)
           .then(() => {
             this._coreService.openSnackBar('Car details updated');
             this._dialogRef.close(true);
           })
-          .catch((err: any) => {
+          .catch((err: Error) => {
             console.error('Update error:', err);
             this._coreService.openSnackBar('Failed to update car details');
           });
@@ -125,14 +126,14 @@ export class CarAddEditComponent implements OnInit {
                 .then(() => {
                   console.log('Image uploaded successfully');
                 })
-                .catch((err: any) => {
+                .catch((err: Error) => {
                   console.error('Upload error:', err);
                 });
             }
 
             this._dialogRef.close(true);
           })
-          .catch((err: any) => {
+          .catch((err: Error) => {
             console.error('Add error:', err);
             this._coreService.openSnackBar('Failed to add car');
           });

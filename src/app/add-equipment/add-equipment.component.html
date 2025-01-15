@@ -1,76 +1,75 @@
 <mat-card-content>
-    <form #form="ngForm" (ngSubmit)="addEquipment(form)" class='form-container'>
-        <mat-form-field class="form-field">
-          <mat-label>Position</mat-label>
-          <input matInput name="position" ngModel required minlength="3" #position="ngModel">
-          <mat-error *ngIf="position.invalid && (position.dirty || position.touched)">
-            <ng-container *ngIf="position.errors?.['required']">
-              Position is required
-            </ng-container>
-            <ng-container *ngIf="position.errors?.['minlength']">
-            Must be at least 3 characters long
-            </ng-container>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Name</mat-label>
-          <input matInput name="name" ngModel required minlength="3" #name="ngModel">
-          <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
-            <ng-container *ngIf="name.errors?.['required']">
-              Name is required
-            </ng-container>
-            <ng-container *ngIf="name.errors?.['minlength']">
-              Name must be at least 3 characters long
-            </ng-container>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Count</mat-label>
-          <input matInput type="number" name="count" ngModel required #count="ngModel">
-          <mat-error *ngIf="count.invalid && (count.dirty || count.touched)">
-            Count is required
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-field">
-          <mat-label>Comments</mat-label>
-          <input matInput name="comments" ngModel>
-        </mat-form-field>
-        <button mat-raised-button type="submit" class="button" [disabled]="form.invalid">Add Equipment</button>
-      </form>
-      
-  
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="count">
-        <mat-header-cell *matHeaderCellDef> Count </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.count}} </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="comments">
-        <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.comments}} </mat-cell>
-      </ng-container>
-  
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-        <mat-cell *matCellDef="let element; let i = index">
-          <button mat-button color="warn" (click)="removeEquipment(i)">Delete</button>
-        </mat-cell>
-      </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+  <form #form="ngForm" (ngSubmit)="addEquipment(form)" class='form-container'>
+    <mat-form-field class="form-field">
+      <mat-label>Position</mat-label>
+      <input matInput name="position" ngModel required minlength="3" #position="ngModel">
+      <mat-error *ngIf="position.invalid && (position.dirty || position.touched)">
+        <ng-container *ngIf="position.errors?.['required']">
+          Position is required
+        </ng-container>
+        <ng-container *ngIf="position.errors?.['minlength']">
+          Must be at least 3 characters long
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Name</mat-label>
+      <input matInput name="name" ngModel required minlength="3" #name="ngModel">
+      <mat-error *ngIf="name.invalid && (name.dirty || name.touched)">
+        <ng-container *ngIf="name.errors?.['required']">
+          Name is required
+        </ng-container>
+        <ng-container *ngIf="name.errors?.['minlength']">
+          Name must be at least 3 characters long
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Count</mat-label>
+      <input matInput type="number" name="count" ngModel required #count="ngModel">
+      <mat-error *ngIf="count.invalid && (count.dirty || count.touched)">
+        Count is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Comments</mat-label>
+      <input matInput name="comments" ngModel>
+    </mat-form-field>
+    <button mat-raised-button type="submit" class="button" [disabled]="form.invalid">Add Equipment</button>
+  </form>
 
 
-  </mat-card-content>
-  
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="count">
+      <mat-header-cell *matHeaderCellDef> Count </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.count}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="comments">
+      <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.comments}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index">
+        <button mat-button color="warn" (click)="removeEquipment(i)">Delete</button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+</mat-card-content>

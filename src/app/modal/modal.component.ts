@@ -3,6 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { CrudService } from '../services/crud.service';
 import { Equipment } from '../../../fire-trucks-main/src/app/shared/interfaces/equipments.interfaces';
+import { DialogData } from '../shared/interfaces/dialog-data';
+import { CarData } from '../shared/interfaces/carData.interfaces';
 
 @Component({
   selector: 'app-modal',
@@ -12,7 +14,7 @@ import { Equipment } from '../../../fire-trucks-main/src/app/shared/interfaces/e
 export class ModalComponent implements OnInit {
   carNames: { id: number; name: string }[] = [];
   dialogRef!: MatDialogRef<ModalComponent, void>;
-  selectedCarName: string = '';
+  selectedCarName = '';
 
   private selectedCar!: {
     imagePath: string;
@@ -30,21 +32,22 @@ export class ModalComponent implements OnInit {
   constructor(
     private CarService: CrudService,
     public _dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
   ngOnInit(): void {
     this.getCarNames();
   }
-  getCarNames() {
+  getCarNames(): void {
     this.CarService.getCarList().subscribe({
-      next: (res: any[]) => {
-        this.carNames = res.map((car) => ({ id: car.id, name: car.carName }));
+      next: (res: CarData[]) => {
+        this.carNames = res.map((car) => ({ id: Number(car.id), name: car.carName }));
       },
       error: (err) => {
-        console.error(err);
+        console.error('Error fetching car names:', err);
       },
     });
   }
+  
   onCarSelectionChange(event: MatSelectChange): void {
     this.selectedCarId = event.value;
   }
@@ -52,7 +55,7 @@ export class ModalComponent implements OnInit {
   sumbit() {
     if (!this.selectedCarId) return;
 
-    this.CarService.getCarById(this.selectedCarId).subscribe({
+    this.CarService.getCarById(String(this.selectedCarId)).subscribe({
       next: (res) => {
         const imagePath = `assets/images/${res!.link}`;
         this.selectedCar = { ...res, imagePath };

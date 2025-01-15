@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../modal/modal.component';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -15,8 +14,6 @@ export class ModalServiceService {
     
   ) {}
 
-  openEquipmentModal(): void {
-    const dialogRef = this.dialog.open(ModalComponent, {});
-  }
+ 
   
 }

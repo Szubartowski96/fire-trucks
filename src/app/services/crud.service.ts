@@ -9,10 +9,9 @@ import { CarData } from '../shared/interfaces/carData.interfaces';
   providedIn: 'root',
 })
 export class CrudService {
-  private homeData: any[] = [];
-  private selectedCarData = new BehaviorSubject<any>(null);
+  private homeData: CarData[] = [];
+  private selectedCarData = new BehaviorSubject<CarData | null>(null);
   private basePath = '/cars';
-  firestore: any;
 
   constructor(private db: AngularFirestore, private dialog: MatDialog) {}
 
@@ -20,21 +19,22 @@ export class CrudService {
     return this.db.collection('cars').doc(id).update(data);
   }
 
-  addCar(carData: any): Promise<any> {
+  addCar(carData: CarData): Promise<CarData> {
     return this.db
       .collection('cars')
       .add(carData)
       .then((docRef: { id: string }) => {
-        return { id: docRef.id, ...carData };
+        return { ...carData, id: docRef.id };
       });
   }
+  
   getCarList(): Observable<CarData[]> {
     return this.db
       .collection<CarData>(this.basePath)
       .valueChanges({ idField: 'id' });
   }
 
-  getCarById(id: number): Observable<CarData | undefined> {
+  getCarById(id: string): Observable<CarData | undefined> {
     return this.db
       .collection<CarData>(this.basePath)
       .doc(id.toString())
@@ -45,19 +45,19 @@ export class CrudService {
     return this.db.collection(this.basePath).doc(id).delete();
   }
 
-  setHomeData(data: any[]): void {
+  setHomeData(data: CarData[]): void {
     this.homeData = data;
   }
 
-  getHomeData(): any[] {
+  getHomeData(): CarData[] {
     return this.homeData;
   }
 
-  setSelectedCarData(data: any): void {
+  setSelectedCarData(data: CarData): void {
     this.selectedCarData.next(data);
   }
 
-  get selectedCarData$(): Observable<any> {
+  get selectedCarData$(): Observable<CarData | null> {
     return this.selectedCarData.asObservable();
   }
 

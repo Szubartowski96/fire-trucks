@@ -9,13 +9,13 @@ import { CarData } from '../shared/interfaces/carData.interfaces';
   providedIn: 'root',
 })
 export class DataServiceService {
-  private homeData: any[] = [];
-  private selectedCarData = new BehaviorSubject<any>(null);
+  private homeData: CarData[] = [];
+  private selectedCarData = new BehaviorSubject<CarData|null>(null);
   private apiUrl = `${environment}/car`;
 
   constructor(private http: HttpClient) {}
 
-  setHomeData(data: any[]) {
+  setHomeData(data: CarData[]) {
     this.homeData = data;
   }
 
@@ -25,7 +25,7 @@ export class DataServiceService {
 
   selectedCarData$ = this.selectedCarData;
 
-  setSelectedCarData(data: any) {
+  setSelectedCarData(data: CarData) {
     this.selectedCarData.next(data);
   }
   getElements(): Observable<CarData[]> {
