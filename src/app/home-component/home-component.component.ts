@@ -64,7 +64,7 @@ export class HomeComponentComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataService.setHomeData(res);
-        this.allCars = res;
+        this.allCars = res; 
       },
       error: (err) => {
         console.error(err);
@@ -79,6 +79,9 @@ export class HomeComponentComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+
+    
+    this.applyEquipmentFilter(event);
   }
 
   deleteCar(id: string) {
@@ -105,12 +108,13 @@ export class HomeComponentComponent implements OnInit {
       },
     });
   }
-  applyEquipmentFilter(event: Event): void {
-    this.filterValue = (event.target as HTMLInputElement).value
-      .trim()
-      .toLowerCase();
 
-    if (this.filterValue) {
+ 
+  applyEquipmentFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+
+    if (filterValue) {
+   
       this.filteredCars = this.allCars
         .map((car) => {
           if (!car.equipments || !Array.isArray(car.equipments)) {
@@ -119,8 +123,8 @@ export class HomeComponentComponent implements OnInit {
 
           const filteredEquipments = car.equipments.filter(
             (equipment) =>
-              equipment.name.toLowerCase().includes(this.filterValue) ||
-              equipment.position.toLowerCase().includes(this.filterValue)
+              equipment.name.toLowerCase().includes(filterValue) ||
+              equipment.position.toLowerCase().includes(filterValue)
           );
 
           return { ...car, filteredEquipments };
@@ -128,10 +132,14 @@ export class HomeComponentComponent implements OnInit {
         .filter((car) => car.filteredEquipments.length > 0);
 
       this.showNoEquipmentMessage = this.filteredCars.length === 0;
+
+      
+      this.dataSource.data = this.filteredCars;
     } else {
+    
       this.filteredCars = [];
       this.showNoEquipmentMessage = false;
+      this.dataSource.data = this.allCars; 
     }
-
   }
 }

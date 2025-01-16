@@ -67,9 +67,7 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
       startWith(''),
       map((value) => {
         const inputValue =
-          typeof value === 'string'
-            ? value
-            : value?.name + ' ' + value?.surname;
+          typeof value === 'string' ? value : value?.name + ' ' + value?.surname;
         return inputValue ? this._filter(inputValue) : this.options.slice();
       })
     );

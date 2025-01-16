@@ -7,6 +7,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ModalServiceService {
+  openEquipmentModal() {
+    throw new Error('Method not implemented.');
+  }
 
 
   constructor(private dialog: MatDialog,
