@@ -34,7 +34,7 @@
 
       <ng-container matColumnDef="dateEntry">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Date entry </th>
-        <td mat-cell *matCellDef="let row"> {{row.dateEntry | date}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.dateEntry | date:'dd/MM/yyyy'}} </td>
       </ng-container>
 
 

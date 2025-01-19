@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { CrudService } from '../services/crud.service';
-import { Equipment } from '../../../fire-trucks-main/src/app/shared/interfaces/equipments.interfaces';
+
 
 @Component({
   selector: 'app-modal',
@@ -12,7 +12,7 @@ import { Equipment } from '../../../fire-trucks-main/src/app/shared/interfaces/e
 export class ModalComponent implements OnInit {
   carNames: { id: number; name: string }[] = [];
   dialogRef!: MatDialogRef<ModalComponent, void>;
-  selectedCarName: string = '';
+  selectedCarName = '';
 
   private selectedCar!: {
     imagePath: string;
@@ -22,7 +22,7 @@ export class ModalComponent implements OnInit {
     dateEntry?: string;
     destiny?: number;
     operationalNumber?: string;
-    filteredEquipments?: Equipment[];
+   
   };
 
   private selectedCarId: number | undefined;

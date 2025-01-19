@@ -28,8 +28,8 @@ export class HomeComponentComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   filteredCars: CarData[] = [];
   allCars: CarData[] = [];
-  filterValue: string = '';
-  showNoEquipmentMessage: boolean = false;
+  filterValue = '';
+  showNoEquipmentMessage = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -59,11 +59,16 @@ export class HomeComponentComponent implements OnInit {
   getCarList() {
     this._carService.getCarList().subscribe({
       next: (res) => {
+        console.log(res);
+        res.forEach((row: any) => {
+          console.log(row.dateEntry); 
+        });
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataService.setHomeData(res);
         this.allCars = res;
+        
       },
       error: (err) => {
         console.error(err);
