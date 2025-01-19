@@ -64,7 +64,6 @@ export class AppComponent implements OnInit {
 
   openChangeCarModal(): void {
     this._dialog.open(ModalComponent);
-    console.log('modal');
   }
   openAddEditDialog() {
     if (this._router.url === '/equipment') {

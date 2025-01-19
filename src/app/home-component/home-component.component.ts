@@ -9,6 +9,7 @@ import { DataServiceService } from '../services/data-service.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { CrudService } from '../services/crud.service';
 
+
 @Component({
   selector: 'app-home-component',
   templateUrl: './home-component.component.html',
@@ -25,7 +26,7 @@ export class HomeComponentComponent implements OnInit {
     'employee',
     'action',
   ];
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<CarData>;
   filteredCars: CarData[] = [];
   allCars: CarData[] = [];
   filterValue = '';
@@ -58,11 +59,7 @@ export class HomeComponentComponent implements OnInit {
 
   getCarList() {
     this._carService.getCarList().subscribe({
-      next: (res) => {
-        console.log(res);
-        res.forEach((row: any) => {
-          console.log(row.dateEntry); 
-        });
+      next: (res) => {  
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -97,7 +94,7 @@ export class HomeComponentComponent implements OnInit {
       });
   }
 
-  openEditForm(data: any) {
+  openEditForm(data: CarData) {
     const dialogRef = this._dialog.open(CarAddEditComponent, {
       data,
     });

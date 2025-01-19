@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Car } from '../shared/interfaces/car.interfaces';
 import { Employees } from '../shared/interfaces/eployee.interfaces';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -6,6 +6,7 @@ import { Observable, map, startWith, Subscription } from 'rxjs';
 import { CrudService } from '../services/crud.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
+import { CarData } from '../shared/interfaces/carData.interfaces';
 
 @Component({
   selector: 'app-car-add-edit',
@@ -29,44 +30,11 @@ export class CarAddEditComponent implements OnInit {
     { name: 'Łukasz', surname: 'Zebra' },
   ];
 
-  emloyeeFormControl = new FormControl<string | Employees>('');
-  options: Employees[] = this.users;
-  filteredOptions!: Observable<Employees[]>;
-  empForm: FormGroup;
-  private employeeSubscription: Subscription;
-
-  ngOnInit(): void {
-    this.filteredOptions = this.emloyeeFormControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => {
-        const inputValue =
-          typeof value === 'string'
-            ? value
-            : value?.name + ' ' + value?.surname;
-        return inputValue ? this._filter(inputValue) : this.options.slice();
-      })
-    );
-    this.empForm.patchValue(this.data);
-  }
-
-  displayFn(user: Employees): string {
-    return user && user.name ? `${user.name} ${user.surname}` : '';
-  }
-
-  private _filter(inputValue: string): Employees[] {
-    const filterValue = inputValue.toLowerCase();
-
-    return this.options.filter((option) =>
-      (option.name.toLowerCase() + ' ' + option.surname.toLowerCase()).includes(
-        filterValue
-      )
-    );
-  }
   constructor(
     private _fb: FormBuilder,
     private _carService: CrudService,
     private _dialogRef: MatDialogRef<CarAddEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: CarData,
     private _coreService: CoreService
   ) {
     this.empForm = this._fb.group({
@@ -85,6 +53,42 @@ export class CarAddEditComponent implements OnInit {
     );
   }
 
+  emloyeeFormControl = new FormControl<string | Employees>('');
+  options: Employees[] = this.users;
+  filteredOptions!: Observable<Employees[]>;
+  empForm: FormGroup;
+  private employeeSubscription: Subscription;
+
+  ngOnInit(): void {
+    this.filteredOptions = this.emloyeeFormControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const inputValue =
+          typeof value === 'string'
+            ? value
+            : value?.name + ' ' + value?.surname;
+        return inputValue ? this._filter(inputValue) : this.options.slice();
+      })
+    );
+    this.empForm.patchValue(this.data);
+ 
+  }
+
+  displayFn(user: Employees): string {
+    return user && user.name ? `${user.name} ${user.surname}` : '';
+  }
+
+  private _filter(inputValue: string): Employees[] {
+    const filterValue = inputValue.toLowerCase();
+
+    return this.options.filter((option) =>
+      (option.name.toLowerCase() + ' ' + option.surname.toLowerCase()).includes(
+        filterValue
+      )
+    );
+  }
+  
+
   ngOnDestroy() {
     if (this.employeeSubscription) {
       this.employeeSubscription.unsubscribe();
@@ -93,6 +97,7 @@ export class CarAddEditComponent implements OnInit {
   onFormSubmit() {
     if (this.empForm.valid) {
       const formData = this.empForm.value;
+      console.log(formData);
 
       if (this.data) {
         this._carService
@@ -101,7 +106,7 @@ export class CarAddEditComponent implements OnInit {
             this._coreService.openSnackBar('Car details updated');
             this._dialogRef.close(true);
           })
-          .catch((err: any) => {
+          .catch((err: Error) => {
             console.error('Update error:', err);
             this._coreService.openSnackBar('Failed to update car details');
           });
@@ -112,7 +117,7 @@ export class CarAddEditComponent implements OnInit {
             this._coreService.openSnackBar('Car added successfully');
             this._dialogRef.close(true);
           })
-          .catch((err: any) => {
+          .catch((err: Error) => {
             console.error('Add error:', err);
             this._coreService.openSnackBar('Failed to add car');
           });

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { DataServiceService } from '../services/data-service.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { Equipment } from '../shared/interfaces/equipments.interfaces';
 import { CrudService } from '../services/crud.service';
@@ -11,7 +10,7 @@ import { CrudService } from '../services/crud.service';
   styleUrl: './equipment-car.component.css',
 })
 export class EquipmentCarComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'count', 'comments'];
+  displayedColumns = ['position', 'name', 'count', 'comments'];
   dataSource = new MatTableDataSource<Equipment>();
   carData!: CarData;
 
@@ -34,7 +33,7 @@ export class EquipmentCarComponent implements OnInit {
   }
 
   loadEquipmentData(carData: CarData) {
-    this.dataService.getElements().subscribe((data) => {
+    this.dataService.getElements().subscribe(() => {
       this.dataSource.data = carData.equipments;
     });
   }

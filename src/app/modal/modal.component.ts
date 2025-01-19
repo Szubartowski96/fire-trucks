@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { CrudService } from '../services/crud.service';
+import { CarData } from '../shared/interfaces/carData.interfaces';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { CrudService } from '../services/crud.service';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent implements OnInit {
-  carNames: { id: number; name: string }[] = [];
+  carNames: { id: string; name: string }[] = [];
   dialogRef!: MatDialogRef<ModalComponent, void>;
   selectedCarName = '';
 
@@ -30,14 +31,14 @@ export class ModalComponent implements OnInit {
   constructor(
     private CarService: CrudService,
     public _dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: CarData
   ) {}
   ngOnInit(): void {
     this.getCarNames();
   }
   getCarNames() {
     this.CarService.getCarList().subscribe({
-      next: (res: any[]) => {
+      next: (res: CarData[]) => {
         this.carNames = res.map((car) => ({ id: car.id, name: car.carName }));
       },
       error: (err) => {
@@ -63,6 +64,7 @@ export class ModalComponent implements OnInit {
         console.log(err);
       },
     });
+    console.log(this.CarService);
   }
 
   closeModal() {
