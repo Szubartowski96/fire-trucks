@@ -16,7 +16,7 @@ export class ModalServiceService {
   ) {}
 
   openEquipmentModal(): void {
-    const dialogRef = this.dialog.open(ModalComponent, {});
+     this.dialog.open(ModalComponent, {});
   }
   
 }

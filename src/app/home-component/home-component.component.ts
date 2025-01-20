@@ -64,6 +64,7 @@ export class HomeComponentComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataService.setHomeData(res);
+        console.log(this.dataService);
         this.allCars = res;
         
       },
