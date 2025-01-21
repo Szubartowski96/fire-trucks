@@ -4,7 +4,6 @@ import { MatSelectChange } from '@angular/material/select';
 import { CrudService } from '../services/crud.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 
-
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -23,7 +22,6 @@ export class ModalComponent implements OnInit {
     dateEntry?: string;
     destiny?: number;
     operationalNumber?: string;
-   
   };
 
   private selectedCarId: number | undefined;
@@ -31,7 +29,7 @@ export class ModalComponent implements OnInit {
   constructor(
     private CarService: CrudService,
     public _dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: CarData
+    @Inject(MAT_DIALOG_DATA) public data: CarData,
   ) {}
   ngOnInit(): void {
     this.getCarNames();

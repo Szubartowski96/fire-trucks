@@ -2,7 +2,7 @@
   flex: 1 1 auto;
 }
 
-button{
+button {
   margin: 5px;
 }
 .main-body {
@@ -12,6 +12,4 @@ button{
   mat-form-field {
     width: 100%;
   }
-  
-  
 }

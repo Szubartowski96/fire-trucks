@@ -9,7 +9,6 @@ import { DataServiceService } from '../services/data-service.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { CrudService } from '../services/crud.service';
 
-
 @Component({
   selector: 'app-home-component',
   templateUrl: './home-component.component.html',
@@ -39,7 +38,7 @@ export class HomeComponentComponent implements OnInit {
     private _dialog: MatDialog,
     private _carService: CrudService,
     private _coreService: CoreService,
-    private dataService: DataServiceService
+    private dataService: DataServiceService,
   ) {}
 
   ngOnInit(): void {
@@ -59,14 +58,13 @@ export class HomeComponentComponent implements OnInit {
 
   getCarList() {
     this._carService.getCarList().subscribe({
-      next: (res) => {  
+      next: (res) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataService.setHomeData(res);
         console.log(this.dataService);
         this.allCars = res;
-        
       },
       error: (err) => {
         console.error(err);
@@ -123,7 +121,7 @@ export class HomeComponentComponent implements OnInit {
           const filteredEquipments = car.equipments.filter(
             (equipment) =>
               equipment.name.toLowerCase().includes(this.filterValue) ||
-              equipment.position.toLowerCase().includes(this.filterValue)
+              equipment.position.toLowerCase().includes(this.filterValue),
           );
 
           return { ...car, filteredEquipments };
@@ -135,6 +133,5 @@ export class HomeComponentComponent implements OnInit {
       this.filteredCars = [];
       this.showNoEquipmentMessage = false;
     }
-
   }
 }

@@ -27,14 +27,16 @@ export class CrudService {
     id: '0',
     link: 'https://example.com',
     imagePath: '/assets/default-car-image.png',
-    equipments: [], 
-    filteredEquipments: [], 
+    equipments: [],
+    filteredEquipments: [],
   };
-  
 
   private selectedCarData = new BehaviorSubject<CarData>(this.defaultCarData);
 
-  constructor(private db: AngularFirestore, private dialog: MatDialog) {}
+  constructor(
+    private db: AngularFirestore,
+    private dialog: MatDialog,
+  ) {}
 
   updateCar(id: string, data: CarData): Promise<void> {
     return this.db.collection('cars').doc(id).update(data);

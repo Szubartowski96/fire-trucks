@@ -35,7 +35,7 @@ export class CarAddEditComponent implements OnInit {
     private _carService: CrudService,
     private _dialogRef: MatDialogRef<CarAddEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CarData,
-    private _coreService: CoreService
+    private _coreService: CoreService,
   ) {
     this.empForm = this._fb.group({
       carName: '',
@@ -49,7 +49,7 @@ export class CarAddEditComponent implements OnInit {
     this.employeeSubscription = this.emloyeeFormControl.valueChanges.subscribe(
       (newValue) => {
         this.empForm.patchValue({ employee: newValue });
-      }
+      },
     );
   }
 
@@ -68,10 +68,9 @@ export class CarAddEditComponent implements OnInit {
             ? value
             : value?.name + ' ' + value?.surname;
         return inputValue ? this._filter(inputValue) : this.options.slice();
-      })
+      }),
     );
     this.empForm.patchValue(this.data);
- 
   }
 
   displayFn(user: Employees): string {
@@ -83,11 +82,10 @@ export class CarAddEditComponent implements OnInit {
 
     return this.options.filter((option) =>
       (option.name.toLowerCase() + ' ' + option.surname.toLowerCase()).includes(
-        filterValue
-      )
+        filterValue,
+      ),
     );
   }
-  
 
   ngOnDestroy() {
     if (this.employeeSubscription) {

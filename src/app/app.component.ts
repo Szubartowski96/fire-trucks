@@ -103,7 +103,8 @@ export class AppComponent implements OnInit {
   }
 
   deleteCar(id: string) {
-    this._carService.deleteCar(id)
+    this._carService
+      .deleteCar(id)
       .then(() => {
         this._coreService.openSnackBar('Car deleted', 'ok');
         this.getCarList();
@@ -112,7 +113,6 @@ export class AppComponent implements OnInit {
         console.log(err);
       });
   }
-  
 
   openEditForm(data: CarData) {
     const dialogRef = this._dialog.open(CarAddEditComponent, {

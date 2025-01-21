@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 
-
 @Injectable({
   providedIn: 'root',
 })

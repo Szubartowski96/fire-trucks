@@ -29,7 +29,7 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
   constructor(
     private crudService: CrudService,
     public dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
         } else {
           console.error('Dane samochodu są puste lub niezdefiniowane.');
         }
-      }
+      },
     );
   }
 
