@@ -1,6 +1,6 @@
-import { Equipment } from "./equipments.interfaces";
+import { Equipment } from './equipments.interfaces';
 
 export interface GroupedEquipment {
-    position: string;
-    items: Equipment[];
-  }
+  position: string;
+  items: Equipment[];
+}

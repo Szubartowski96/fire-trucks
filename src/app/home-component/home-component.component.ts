@@ -25,11 +25,11 @@ export class HomeComponentComponent implements OnInit {
     'employee',
     'action',
   ];
-  dataSource!: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<CarData> = new MatTableDataSource<CarData>();
   filteredCars: CarData[] = [];
   allCars: CarData[] = [];
-  filterValue: string = '';
-  showNoEquipmentMessage: boolean = false;
+  filterValue = '';
+  showNoEquipmentMessage = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -38,10 +38,11 @@ export class HomeComponentComponent implements OnInit {
     private _dialog: MatDialog,
     private _carService: CrudService,
     private _coreService: CoreService,
-    private dataService: DataServiceService
+    private dataService: DataServiceService,
   ) {}
 
   ngOnInit(): void {
+    
     this.getCarList();
   }
 
@@ -92,7 +93,7 @@ export class HomeComponentComponent implements OnInit {
       });
   }
 
-  openEditForm(data: any) {
+  openEditForm(data: CarData) {
     const dialogRef = this._dialog.open(CarAddEditComponent, {
       data,
     });
@@ -120,7 +121,7 @@ export class HomeComponentComponent implements OnInit {
           const filteredEquipments = car.equipments.filter(
             (equipment) =>
               equipment.name.toLowerCase().includes(this.filterValue) ||
-              equipment.position.toLowerCase().includes(this.filterValue)
+              equipment.position.toLowerCase().includes(this.filterValue),
           );
 
           return { ...car, filteredEquipments };
@@ -131,7 +132,7 @@ export class HomeComponentComponent implements OnInit {
     } else {
       this.filteredCars = [];
       this.showNoEquipmentMessage = false;
+      this.dataSource.data = this.allCars; 
     }
-
   }
 }

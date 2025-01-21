@@ -9,11 +9,34 @@ import { CarData } from '../shared/interfaces/carData.interfaces';
   providedIn: 'root',
 })
 export class CrudService {
-  private homeData: any[] = [];
-  private selectedCarData = new BehaviorSubject<any>(null);
+  private homeData: CarData[] = [];
+
   private basePath = '/cars';
 
-  constructor(private db: AngularFirestore, private dialog: MatDialog) {}
+  private readonly defaultCarData: CarData = {
+    carName: 'Unknown Car',
+    type: 'Unknown Type',
+    marking: 'N/A',
+    dateEntry: '1970-01-01',
+    destiny: 0,
+    operationalNumber: '0000',
+    employee: {
+      name: 'Unknown',
+      surname: 'Employee',
+    },
+    id: '0',
+    link: 'https://example.com',
+    imagePath: '/assets/default-car-image.png',
+    equipments: [],
+    filteredEquipments: [],
+  };
+
+  private selectedCarData = new BehaviorSubject<CarData>(this.defaultCarData);
+
+  constructor(
+    private db: AngularFirestore,
+    private dialog: MatDialog,
+  ) {}
 
   updateCar(id: string, data: CarData): Promise<void> {
     return this.db.collection('cars').doc(id).update(data);
@@ -41,19 +64,19 @@ export class CrudService {
     return this.db.collection(this.basePath).doc(id).delete();
   }
 
-  setHomeData(data: any[]): void {
+  setHomeData(data: CarData[]): void {
     this.homeData = data;
   }
 
-  getHomeData(): any[] {
+  getHomeData(): CarData[] {
     return this.homeData;
   }
 
-  setSelectedCarData(data: any): void {
+  setSelectedCarData(data: CarData): void {
     this.selectedCarData.next(data);
   }
 
-  get selectedCarData$(): Observable<any> {
+  get selectedCarData$(): Observable<CarData> {
     return this.selectedCarData.asObservable();
   }
 

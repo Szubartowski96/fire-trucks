@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { CrudService } from '../services/crud.service';
-import { Equipment } from '../../../fire-trucks-main/src/app/shared/interfaces/equipments.interfaces';
+import { CarData } from '../shared/interfaces/carData.interfaces';
 
 @Component({
   selector: 'app-modal',
@@ -10,9 +10,9 @@ import { Equipment } from '../../../fire-trucks-main/src/app/shared/interfaces/e
   styleUrl: './modal.component.css',
 })
 export class ModalComponent implements OnInit {
-  carNames: { id: number; name: string }[] = [];
+  carNames: { id: string; name: string }[] = [];
   dialogRef!: MatDialogRef<ModalComponent, void>;
-  selectedCarName: string = '';
+  selectedCarName = '';
 
   private selectedCar!: {
     imagePath: string;
@@ -22,7 +22,6 @@ export class ModalComponent implements OnInit {
     dateEntry?: string;
     destiny?: number;
     operationalNumber?: string;
-    filteredEquipments?: Equipment[];
   };
 
   private selectedCarId: number | undefined;
@@ -30,14 +29,14 @@ export class ModalComponent implements OnInit {
   constructor(
     private CarService: CrudService,
     public _dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: CarData,
   ) {}
   ngOnInit(): void {
     this.getCarNames();
   }
   getCarNames() {
     this.CarService.getCarList().subscribe({
-      next: (res: any[]) => {
+      next: (res: CarData[]) => {
         this.carNames = res.map((car) => ({ id: car.id, name: car.carName }));
       },
       error: (err) => {
@@ -56,7 +55,7 @@ export class ModalComponent implements OnInit {
       next: (res) => {
         const imagePath = `assets/images/${res!.link}`;
         this.selectedCar = { ...res, imagePath };
-        this.CarService.setSelectedCarData(this.selectedCar);
+        // this.CarService.setSelectedCarData(this.selectedCar);
         this._dialogRef.close(this.selectedCar);
       },
       error: (err) => {
