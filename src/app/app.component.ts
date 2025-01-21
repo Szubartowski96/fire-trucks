@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
         console.log(err);
       });
   }
-
+  
   openEditForm(data: CarData) {
     const dialogRef = this._dialog.open(CarAddEditComponent, {
       data,

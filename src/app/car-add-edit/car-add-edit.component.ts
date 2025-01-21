@@ -41,7 +41,7 @@ export class CarAddEditComponent implements OnInit {
       carName: '',
       type: '',
       marking: '',
-      dateEntry: '',
+      dateEntry: '02/02/2020',
       destiny: '',
       operationalNumber: '',
       employee: '',
@@ -95,7 +95,6 @@ export class CarAddEditComponent implements OnInit {
   onFormSubmit() {
     if (this.empForm.valid) {
       const formData = this.empForm.value;
-      console.log(formData);
 
       if (this.data) {
         this._carService

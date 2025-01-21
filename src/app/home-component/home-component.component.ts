@@ -25,7 +25,7 @@ export class HomeComponentComponent implements OnInit {
     'employee',
     'action',
   ];
-  dataSource!: MatTableDataSource<CarData>;
+  dataSource: MatTableDataSource<CarData> = new MatTableDataSource<CarData>();
   filteredCars: CarData[] = [];
   allCars: CarData[] = [];
   filterValue = '';
@@ -42,6 +42,7 @@ export class HomeComponentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     this.getCarList();
   }
 
@@ -63,7 +64,6 @@ export class HomeComponentComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataService.setHomeData(res);
-        console.log(this.dataService);
         this.allCars = res;
       },
       error: (err) => {
@@ -132,6 +132,7 @@ export class HomeComponentComponent implements OnInit {
     } else {
       this.filteredCars = [];
       this.showNoEquipmentMessage = false;
+      this.dataSource.data = this.allCars; 
     }
   }
 }

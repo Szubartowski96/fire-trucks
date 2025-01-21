@@ -55,14 +55,13 @@ export class ModalComponent implements OnInit {
       next: (res) => {
         const imagePath = `assets/images/${res!.link}`;
         this.selectedCar = { ...res, imagePath };
-        this.CarService.setSelectedCarData(this.selectedCar);
+        // this.CarService.setSelectedCarData(this.selectedCar);
         this._dialogRef.close(this.selectedCar);
       },
       error: (err) => {
         console.log(err);
       },
     });
-    console.log(this.CarService);
   }
 
   closeModal() {
