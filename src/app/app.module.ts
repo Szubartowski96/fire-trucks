@@ -36,6 +36,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
 import { FileUploadModule } from 'primeng/fileupload';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
+import { AddEmployeeesComponent } from './add-employeees/add-employeees.component';
 
 
  
@@ -56,6 +57,7 @@ const firebaseConfig = {
     EquipmentCarComponent,
     HomeComponentComponent,
     AddEquipmentComponent,
+    AddEmployeeesComponent,
   ],
   imports: [
     BrowserModule,

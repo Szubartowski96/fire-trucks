@@ -117,7 +117,7 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
             if (this.localFile) {
               const carId = savedCar.id;
               const path = `files/${carId}`;
-              console.log('car id to', carId);
+            
 
               this.fireStorage
                 .upload(path, this.localFile)
@@ -140,7 +140,6 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
   }
 
   async onUpload($event: FileUploadEvent) {
-    console.log($event);
     const file = $event.files[0];
     if (file) {
       this.localFile = file;
