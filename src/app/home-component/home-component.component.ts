@@ -65,11 +65,13 @@ export class HomeComponentComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataService.setHomeData(res);
         this.allCars = res; 
+      
       },
       error: (err) => {
         console.error(err);
       },
     });
+ 
   }
 
   applyFilter(event: Event) {
