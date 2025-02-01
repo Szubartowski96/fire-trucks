@@ -1,6 +1,6 @@
 .dialog-title {
     color: #333;
-    padding: 30px;
+    padding: 2rem;
     display: flex;
     justify-content: center;
   }
@@ -15,9 +15,24 @@
     padding: 10px;
   }
   
-
-
   mat-form-field{
-    margin-left: 1rem;
+    width: 100%;
+  }
+
+  .filter{
+    margin-top: 2rem;
+  }
+
+  table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
   }
   

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+
 import { Employees } from '../shared/interfaces/eployee.interfaces';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployessService {
 
- private basePath = `${environment}/employees`;
+  private basePath = 'employees';
  constructor(private db: AngularFirestore) {}
 
  
@@ -20,4 +21,10 @@ export class EmployessService {
        return { ...employee, id: docRef.id }; 
      });
  }
+
+ getNameList(): Observable<Employees[]> {
+  return this.db.collection<Employees>(this.basePath).valueChanges({ idField: 'id' });
+}
+   
+ 
 }
