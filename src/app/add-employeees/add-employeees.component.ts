@@ -57,9 +57,9 @@ private coreService: CoreService,){}
   
   fetchEmployees() {
     this.employeesService.getNameList().subscribe({
-      next: (data: Employees[]) => {
-        if (data) {
-          this.dataSource = new MatTableDataSource(data);
+      next: (employee: Employees[]) => {
+        if (employee) {
+          this.dataSource = new MatTableDataSource(employee);
           if (this.sort) {
             this.dataSource.sort = this.sort;
           }
