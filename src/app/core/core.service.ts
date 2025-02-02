@@ -10,7 +10,7 @@ export class CoreService {
 
   openSnackBar(message: string, action = 'open') {
     this._snackBar.open(message, action, {
-      duration: 1000,
+      duration: 3000,
       verticalPosition: 'top',
     });
 }

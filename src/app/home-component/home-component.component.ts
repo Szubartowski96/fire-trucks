@@ -90,7 +90,7 @@ export class HomeComponentComponent implements OnInit {
     this._carService
       .deleteCar(id)
       .then(() => {
-        this._coreService.openSnackBar('Car deleted', 'ok');
+        this._coreService.openSnackBar('Car deleted');
         this.getCarList();
       })
       .catch((err) => {

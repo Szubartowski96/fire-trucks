@@ -6,6 +6,7 @@ import { Employees } from '../shared/interfaces/employees';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { CoreService } from '../core/core.service';
 
 
 
@@ -15,8 +16,9 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrl: './add-employeees.component.css'
 })
 export class AddEmployeeesComponent implements OnInit  {
+
 @ViewChild('addEmployess') addEmployess!: NgForm;
-displayedColumns: string[] = ['name', 'surname']; 
+displayedColumns: string[] = ['name', 'surname', 'actions']; 
 dataSource = new MatTableDataSource<Employees>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -26,7 +28,8 @@ dataSource = new MatTableDataSource<Employees>([]);
   
   
 constructor(public dialogRef: MatDialog, 
-  private employeesService: EmployessService){}
+  private employeesService: EmployessService,
+private coreService: CoreService,){}
   ngOnInit(): void {
     this.fetchEmployees(); 
   }
@@ -37,14 +40,19 @@ constructor(public dialogRef: MatDialog,
       const newEmployee = {
         name: this.addEmployess.value.name,
         surname: this.addEmployess.value.surname
+        
       };
+     
   
       this.employeesService.addEmployee(newEmployee).then(() => {
         this.fetchEmployees();
+        this.addEmployess.resetForm();
+        
       }).catch(error => {
         console.error('Błąd dodania:', error);
       });
     }
+    
   }
   
   fetchEmployees() {
@@ -62,8 +70,8 @@ constructor(public dialogRef: MatDialog,
           console.warn('Brak danych do wyświetlenia');
         }
       },
-      error: (err) => {
-        console.error('Błąd pobierania danych:', err);
+      error: (Error) => {
+        console.error('Błąd pobierania danych:', Error);
       }
     });
   }
@@ -76,4 +84,12 @@ constructor(public dialogRef: MatDialog,
 closeModalAddEmployees() {
   this.dialogRef.closeAll();
 }
+
+ deleteEmployee(id: string) {
+ this.employeesService.deleteEmployee(id)
+ .then(()=>{
+  this.coreService.openSnackBar('Employer deleted')
+ })
+ console.log('usunieto pracownika');
+  }
 }

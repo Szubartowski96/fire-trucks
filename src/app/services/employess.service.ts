@@ -25,6 +25,8 @@ export class EmployessService {
  getNameList(): Observable<Employees[]> {
   return this.db.collection<Employees>(this.basePath).valueChanges({ idField: 'id' });
 }
-   
+deleteEmployee(id: string): Promise<void> {
+  return this.db.collection(this.basePath).doc(id).delete();
+}
  
 }
