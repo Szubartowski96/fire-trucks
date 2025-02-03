@@ -20,7 +20,7 @@
   }
 
   .filter{
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 
   table {
@@ -35,4 +35,11 @@
   td, th {
     width: 25%;
   }
-  
+  h2{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+  }

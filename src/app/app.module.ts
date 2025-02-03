@@ -37,6 +37,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { FileUploadModule } from 'primeng/fileupload';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
 import { AddEmployeeesComponent } from './add-employeees/add-employeees.component';
+import { ModalEmployeesDeleteComponent } from './modal/modal-employees-delete/modal-employees-delete.component';
 
 
  
@@ -58,6 +59,7 @@ const firebaseConfig = {
     HomeComponentComponent,
     AddEquipmentComponent,
     AddEmployeeesComponent,
+    ModalEmployeesDeleteComponent,
   ],
   imports: [
     BrowserModule,

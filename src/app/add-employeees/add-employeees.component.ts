@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { CoreService } from '../core/core.service';
+import { ModalEmployeesDeleteComponent } from '../modal/modal-employees-delete/modal-employees-delete.component';
 
 
 
@@ -85,11 +86,24 @@ closeModalAddEmployees() {
   this.dialogRef.closeAll();
 }
 
- deleteEmployee(id: string) {
- this.employeesService.deleteEmployee(id)
- .then(()=>{
-  this.coreService.openSnackBar('Employer deleted')
- })
- console.log('usunieto pracownika');
-  }
+deleteEmployee(id: string, name: string, surname: string) {
+  const dialogRef = this.dialogRef.open(ModalEmployeesDeleteComponent, {
+    data: { id, name, surname } 
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result === 'delete') {
+      console.log('Delete');
+       this.employeesService.deleteEmployee(id)
+        .then(() => {
+           this.coreService.openSnackBar('Employee deleted');
+          this.fetchEmployees(); 
+         })
+        .catch(Error => {
+          console.error('Error deleting employee:', Error);
+        });
+    }
+  });
+}
+
 }
