@@ -28,5 +28,11 @@ export class EmployessService {
 deleteEmployee(id: string): Promise<void> {
   return this.db.collection(this.basePath).doc(id).delete();
 }
- 
+updateEmployee(employee: Employees): Promise<void> {
+  return this.db.collection(this.basePath).doc().update({
+    name: employee.name,
+    surname: employee.surname
+  });
+}
+
 }

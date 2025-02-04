@@ -21,20 +21,15 @@ export class AddEmployeeesComponent implements OnInit  {
 @ViewChild('addEmployess') addEmployess!: NgForm;
 displayedColumns: string[] = ['name', 'surname', 'actions']; 
 dataSource = new MatTableDataSource<Employees>([]);
+@ViewChild(MatPaginator) paginator!: MatPaginator;
+@ViewChild(MatSort) sort!: MatSort;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  
-
-  
-  
 constructor(public dialogRef: MatDialog, 
-  private employeesService: EmployessService,
+private employeesService: EmployessService,
 private coreService: CoreService,){}
   ngOnInit(): void {
     this.fetchEmployees(); 
   }
-  
 
   onFormSubmit() {
     if (this.addEmployess.valid) {
@@ -50,7 +45,7 @@ private coreService: CoreService,){}
         this.addEmployess.resetForm();
         
       }).catch(error => {
-        console.error('Błąd dodania:', error);
+        console.error('błąd dodania:', error);
       });
     }
     

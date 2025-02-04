@@ -9,6 +9,7 @@ import { CoreService } from '../core/core.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FileUploadEvent } from 'primeng/fileupload';
 import { DialogData } from '../shared/interfaces/dialog-data';
+import { EmployessService } from '../services/employess.service';
 
 @Component({
   selector: 'app-car-add-edit',
@@ -23,14 +24,7 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
     { value: 'SLOP', viewValue: 'SLOP' },
   ];
 
-  users: Employees[] = [
-    { name: 'John', surname: 'Kowalski' },
-    { name: 'Paweł', surname: 'Nowak' },
-    { name: 'Artur', surname: 'Izdebski' },
-    { name: 'Przemek', surname: 'Adamiak' },
-    { name: 'Marcin', surname: 'zzz' },
-    { name: 'Łukasz', surname: 'Zebra' },
-  ];
+  users: Employees[] = [];
 
   emloyeeFormControl = new FormControl<string | Employees>('');
   options: Employees[] = this.users;
@@ -44,7 +38,8 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
     private _dialogRef: MatDialogRef<CarAddEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private _coreService: CoreService,
-    private fireStorage: AngularFireStorage
+    private fireStorage: AngularFireStorage,
+    private employeesService: EmployessService,
   ) {
     this.empForm = this._fb.group({
       carName: '',
@@ -63,6 +58,19 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+     this.employeesService.getNameList().subscribe({
+      next: (employees: Employees[]) => {
+       this.users = employees.map(employee => ({
+        name: employee.name,
+        surname: employee.surname,
+       }))
+       this.options = [...this.users];  
+
+       console.log(this.users); 
+       
+      },
+      error: (error) => console.error('Błąd pobierania pracowników:', error),
+    });
     this.filteredOptions = this.emloyeeFormControl.valueChanges.pipe(
       startWith(''),
       map((value) => {
@@ -75,7 +83,7 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
   }
 
   displayFn(user: Employees): string {
-    return user && user.name ? `${user.name} ${user.surname}` : '';
+    return user && user.name ? `${user.name} ${user.surname}` : ''; 
   }
 
   private _filter(inputValue: string): Employees[] {
