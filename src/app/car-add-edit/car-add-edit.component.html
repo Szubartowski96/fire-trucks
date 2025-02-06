@@ -73,18 +73,16 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Employee</mat-label>
-                <input type="text" matInput [formControl]="emloyeeFormControl" [matAutocomplete]="auto"
-                    formControlName="employee" required>
-                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{ option.name }} {{ option.surname }}
-                    </mat-option>
-                </mat-autocomplete>
+            <mat-form-field>
+              <mat-label>Employee</mat-label>
+              <mat-select [formControl]="emloyeeFormControl">
+                  <mat-option *ngFor="let employee of users" [value]="employee">
+                    {{ employee.name}} {{ employee.surname }}
+                  </mat-option>
+              </mat-select>
             </mat-form-field>
+              
         </div>
-
 
         <div class="upload-container">
             <p-fileUpload mode="basic" chooseLabel="Choose File" chooseIcon="pi pi-upload" name="demo[]"

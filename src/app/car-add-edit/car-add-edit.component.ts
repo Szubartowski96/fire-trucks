@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, OnDestroy} from '@angular/core';
 import { Car } from '../shared/interfaces/car.interfaces';
 import { Employees } from '../shared/interfaces/eployee.interfaces';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Observable, map, startWith, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CrudService } from '../services/crud.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
@@ -65,34 +65,13 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
         surname: employee.surname,
        }))
        this.options = [...this.users];  
-
-       console.log(this.users); 
-       
       },
-      error: (error) => console.error('Błąd pobierania pracowników:', error),
+      error: (error) => console.error('Błąd pobierania', error),
     });
-    this.filteredOptions = this.emloyeeFormControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => {
-        const inputValue =
-          typeof value === 'string' ? value : value?.name + ' ' + value?.surname;
-        return inputValue ? this._filter(inputValue) : this.options.slice();
-      })
-    );
-    this.empForm.patchValue(this.data);
-  }
-
-  displayFn(user: Employees): string {
-    return user && user.name ? `${user.name} ${user.surname}` : ''; 
-  }
-
-  private _filter(inputValue: string): Employees[] {
-    const filterValue = inputValue.toLowerCase();
-
-    return this.options.filter((option) =>
-      (option.name.toLowerCase() + ' ' + option.surname.toLowerCase()).includes(
-        filterValue
-      )
+    this.employeeSubscription = this.emloyeeFormControl.valueChanges.subscribe(
+      (selectedUser) => {
+        this.empForm.patchValue({ employee: selectedUser });
+      }
     );
   }
 
