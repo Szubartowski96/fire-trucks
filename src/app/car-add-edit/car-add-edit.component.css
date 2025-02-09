@@ -1,9 +1,9 @@
 .content {
-  padding-top: 10px;
+  padding-top: var(--padding-medium);
 }
 .row {
   display: flex;
-  gap: 10px;
+  gap: var(--padding-medium);
 
   mat-form-field {
     width: 100%;
@@ -22,11 +22,18 @@
 }
 
 mat-error {
-  background-color: rgb(89, 88, 88);
+  background-color: var(--background-color);
 }
 
 .title {
   display: flex;
   justify-content: center;
   padding-top: 30px;
+}
+
+.upload-container {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 20px;
 }

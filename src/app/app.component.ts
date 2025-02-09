@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     private _carService: CrudService,
     private _coreService: CoreService,
     private modalService: ModalServiceService,
-    private _router: Router,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +64,9 @@ export class AppComponent implements OnInit {
 
   openChangeCarModal(): void {
     this._dialog.open(ModalComponent);
+  }
+  openAddEmployeesModal(): void {
+    this._dialog.open(AddEmployeeesComponent);
   }
   openAddEditDialog() {
     if (this._router.url === '/equipment') {

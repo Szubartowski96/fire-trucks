@@ -11,7 +11,7 @@ export interface CarData {
     name: string;
     surname: string;
   };
-  id: string;
+  id: number;
   link: string;
   imagePath: string;
   equipments: Equipment[];
