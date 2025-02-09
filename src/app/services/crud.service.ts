@@ -9,42 +9,23 @@ import { CarData } from '../shared/interfaces/carData.interfaces';
   providedIn: 'root',
 })
 export class CrudService {
-  private homeData: CarData[] = [];
-
+  private homeData: any[] = [];
+  private selectedCarData = new BehaviorSubject<any>(null);
   private basePath = '/cars';
 
-  private readonly defaultCarData: CarData = {
-    carName: 'Unknown Car',
-    type: 'Unknown Type',
-    marking: 'N/A',
-    dateEntry: '1970-01-01',
-    destiny: 0,
-    operationalNumber: '0000',
-    employee: {
-      name: 'Unknown',
-      surname: 'Employee',
-    },
-    id: '0',
-    link: 'https://example.com',
-    imagePath: '/assets/default-car-image.png',
-    equipments: [],
-    filteredEquipments: [],
-  };
-
-  private selectedCarData = new BehaviorSubject<CarData>(this.defaultCarData);
-
-  constructor(
-    private db: AngularFirestore,
-    private dialog: MatDialog,
-  ) {}
+  constructor(private db: AngularFirestore, private dialog: MatDialog) {}
 
   updateCar(id: string, data: CarData): Promise<void> {
     return this.db.collection('cars').doc(id).update(data);
   }
 
-  addCar(data: CarData): Promise<void> {
-    const id = this.db.createId();
-    return this.db.collection('cars').doc(id).set(data);
+  addCar(carData: CarData): Promise<CarData> {
+    return this.db
+      .collection('cars')
+      .add(carData)
+      .then((docRef: { id: string }) => {
+        return { ...carData, id: docRef.id };
+      });
   }
 
   getCarList(): Observable<CarData[]> {
@@ -53,7 +34,7 @@ export class CrudService {
       .valueChanges({ idField: 'id' });
   }
 
-  getCarById(id: number): Observable<CarData | undefined> {
+  getCarById(id: string): Observable<CarData | undefined> {
     return this.db
       .collection<CarData>(this.basePath)
       .doc(id.toString())
@@ -76,7 +57,7 @@ export class CrudService {
     this.selectedCarData.next(data);
   }
 
-  get selectedCarData$(): Observable<CarData> {
+  get selectedCarData$(): Observable<any> {
     return this.selectedCarData.asObservable();
   }
 

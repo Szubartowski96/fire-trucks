@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { FirebaseInitService } from './firebase-init.service';
 
 describe('FirebaseInitService', () => {

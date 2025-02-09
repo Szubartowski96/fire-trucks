@@ -45,8 +45,6 @@ export class AddEquipmentComponent implements OnInit, OnDestroy {
         if (carData) {
           this.carData = carData;
           this.loadEquipmentData(carData);
-        } else {
-          console.error('Dane samochodu są puste lub niezdefiniowane.');
         }
       },
     );

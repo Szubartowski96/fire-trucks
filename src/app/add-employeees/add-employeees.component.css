@@ -1,0 +1,48 @@
+.title {
+  color: var(--text-color);
+  padding: var(--padding-xxlarge);
+  display: flex;
+  justify-content: center;
+}
+.dialog-content {
+  padding: var(--padding-xxlarge);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  padding: var(--padding-medium);
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.filter {
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+h2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  color: var(--text-color);
+  font-weight: 800;
+}
+h1 {
+  color: var(--text-color);
+}

@@ -8,6 +8,7 @@ import { CarAddEditComponent } from '../car-add-edit/car-add-edit.component';
 import { DataServiceService } from '../services/data-service.service';
 import { CarData } from '../shared/interfaces/carData.interfaces';
 import { CrudService } from '../services/crud.service';
+import { DialogData } from '../shared/interfaces/dialog-data';
 
 @Component({
   selector: 'app-home-component',
@@ -28,6 +29,8 @@ export class HomeComponentComponent implements OnInit {
   dataSource: MatTableDataSource<CarData> = new MatTableDataSource<CarData>();
   filteredCars: CarData[] = [];
   allCars: CarData[] = [];
+  filterValue = '';
+  showNoEquipmentMessage = false;
   filterValue = '';
   showNoEquipmentMessage = false;
 
@@ -79,13 +82,15 @@ export class HomeComponentComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+
+    this.applyEquipmentFilter(event);
   }
 
   deleteCar(id: string) {
     this._carService
       .deleteCar(id)
       .then(() => {
-        this._coreService.openSnackBar('Car deleted', 'ok');
+        this._coreService.openSnackBar('Car deleted');
         this.getCarList();
       })
       .catch((err) => {
@@ -107,11 +112,11 @@ export class HomeComponentComponent implements OnInit {
   }
 
   applyEquipmentFilter(event: Event): void {
-    this.filterValue = (event.target as HTMLInputElement).value
+    const filterValue = (event.target as HTMLInputElement).value
       .trim()
       .toLowerCase();
 
-    if (this.filterValue) {
+    if (filterValue) {
       this.filteredCars = this.allCars
         .map((car) => {
           if (!car.equipments || !Array.isArray(car.equipments)) {
@@ -129,6 +134,8 @@ export class HomeComponentComponent implements OnInit {
         .filter((car) => car.filteredEquipments.length > 0);
 
       this.showNoEquipmentMessage = this.filteredCars.length === 0;
+
+      this.dataSource.data = this.filteredCars;
     } else {
       this.filteredCars = [];
       this.showNoEquipmentMessage = false;

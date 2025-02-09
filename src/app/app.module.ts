@@ -53,6 +53,8 @@ const firebaseConfig = {
     EquipmentCarComponent,
     HomeComponentComponent,
     AddEquipmentComponent,
+    AddEmployeeesComponent,
+    ModalEmployeesDeleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,11 +83,13 @@ const firebaseConfig = {
     MatCardModule,
     MatListModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule,
+    FileUploadModule,
+    AngularFireStorageModule,
   ],
   providers: [
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),
+    { provide: BUCKET, useValue: 'my-bucket-name' },
   ],
   bootstrap: [AppComponent],
 })

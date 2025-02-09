@@ -70,7 +70,7 @@
           formControlName="dateEntry"
           required
         />
-        <mat-hint>mm/dd/yyyy</mat-hint>
+        <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
           [for]="picker"
@@ -109,42 +109,48 @@
           required
         />
         <mat-error
-          *ngIf="empForm && empForm.get('destiny')?.hasError('required')"
+          *ngIf="
+            empForm && empForm.get('operationalNumber')?.hasError('required')
+          "
         >
           The field cannot be empty.
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="example-full-width">
+      <mat-form-field>
         <mat-label>Employee</mat-label>
-        <input
-          type="text"
-          matInput
-          [formControl]="emloyeeFormControl"
-          [matAutocomplete]="auto"
-          formControlName="employee"
-          required
-        />
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option
-            *ngFor="let option of filteredOptions | async"
-            [value]="option"
-          >
-            {{ option.name }} {{ option.surname }}
+        <mat-select [formControl]="emloyeeFormControl">
+          <mat-option *ngFor="let employee of users" [value]="employee">
+            {{ employee.name }} {{ employee.surname }}
           </mat-option>
-        </mat-autocomplete>
+        </mat-select>
       </mat-form-field>
     </div>
+
+    <div class="upload-container">
+      <p-fileUpload
+        mode="basic"
+        chooseLabel="Choose File"
+        chooseIcon="pi pi-upload"
+        name="demo[]"
+        url=""
+        accept="image/*"
+        [maxFileSize]="1000000"
+        [auto]="true"
+        (onUpload)="onUpload($event)"
+      />
+    </div>
   </div>
+
   <div mat-dialog-actions class="buttons">
     <button mat-raised-button type="button" [mat-dialog-close]="false">
-      Cancle
+      Cancel
     </button>
     <button
       mat-raised-button
       color="primary"
       type="submit"
-      [disabled]="!form.valid"
+      [disabled]="!empForm.valid"
     >
       {{ data ? 'Update' : 'Save' }}
     </button>
