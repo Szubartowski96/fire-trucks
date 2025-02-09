@@ -10,7 +10,7 @@ import { CarData } from '../shared/interfaces/carData.interfaces';
 })
 export class DataServiceService {
   private homeData: CarData[] = [];
-  private selectedCarData = new BehaviorSubject<CarData|null>(null);
+  private selectedCarData = new BehaviorSubject<CarData | null>(null);
   private apiUrl = `${environment}/cars`;
 
   constructor(private http: HttpClient) {}

@@ -64,14 +64,12 @@ export class HomeComponentComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.dataService.setHomeData(res);
-        this.allCars = res; 
-      
+        this.allCars = res;
       },
       error: (err) => {
         console.error(err);
       },
     });
- 
   }
 
   applyFilter(event: Event) {
@@ -82,7 +80,6 @@ export class HomeComponentComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
 
-    
     this.applyEquipmentFilter(event);
   }
 
@@ -111,12 +108,12 @@ export class HomeComponentComponent implements OnInit {
     });
   }
 
- 
   applyEquipmentFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
 
     if (filterValue) {
-   
       this.filteredCars = this.allCars
         .map((car) => {
           if (!car.equipments || !Array.isArray(car.equipments)) {
@@ -135,13 +132,11 @@ export class HomeComponentComponent implements OnInit {
 
       this.showNoEquipmentMessage = this.filteredCars.length === 0;
 
-      
       this.dataSource.data = this.filteredCars;
     } else {
-    
       this.filteredCars = [];
       this.showNoEquipmentMessage = false;
-      this.dataSource.data = this.allCars; 
+      this.dataSource.data = this.allCars;
     }
   }
 }

@@ -8,10 +8,9 @@ describe('ModalEmployeesDeleteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ModalEmployeesDeleteComponent]
-    })
-    .compileComponents();
-    
+      declarations: [ModalEmployeesDeleteComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ModalEmployeesDeleteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

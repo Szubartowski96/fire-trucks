@@ -1,4 +1,4 @@
 export interface Car {
-    value: string;
-    viewValue: string;
-  }
+  value: string;
+  viewValue: string;
+}

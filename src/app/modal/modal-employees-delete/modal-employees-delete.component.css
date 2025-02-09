@@ -1,21 +1,23 @@
 .dialog-title {
-    color: #333;
-    padding: 30px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .dialog-content {
-    padding: 20px;
-  }
-  
-  .dialog-actions {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-  }
-  
-  .dialog-actions button {
-    margin-left: 10px;
-  }
-  
+  color: var(--text-color);
+  padding: var(--padding-xlarge);
+  display: flex;
+  justify-content: center;
+}
+
+.dialog-content {
+  padding: var(--padding-normal);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--padding-medium);
+}
+
+.dialog-actions button {
+  margin-left: var(--padding-medium);
+}
+.cancel-btn {
+  background-color: var(--background-color);
+}

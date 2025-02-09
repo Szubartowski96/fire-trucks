@@ -25,10 +25,10 @@ export class EquipmentCarComponent implements OnInit {
     this.dataService.selectedCarData$.subscribe((carData) => {
       this.carData = carData;
       if (carData) {
-        this.loadEquipmentData(carData);  
-        this.loadCarPhoto(carData.link);  
+        this.loadEquipmentData(carData);
+        this.loadCarPhoto(carData.link);
       } else {
-        this.clearTableData(); 
+        this.clearTableData();
       }
     });
   }
@@ -42,7 +42,7 @@ export class EquipmentCarComponent implements OnInit {
     if (carData.equipments && carData.equipments.length > 0) {
       this.dataSource.data = carData.equipments;
     } else {
-      console.log("Brak sprzętu do wyświetlenia.");
+      console.log('Brak sprzętu do wyświetlenia.');
     }
   }
 
@@ -52,18 +52,21 @@ export class EquipmentCarComponent implements OnInit {
 
   loadCarPhoto(filePath: string | undefined): void {
     if (filePath) {
-      this.storage.ref(filePath).getDownloadURL().subscribe(
-        (url) => {
-          this.carPhotoUrl = url;  
-        },
-        (error) => {
-          console.error("Błąd podczas ładowania zdjęcia:", error);
-          this.carPhotoUrl = null;  
-        }
-      );
+      this.storage
+        .ref(filePath)
+        .getDownloadURL()
+        .subscribe(
+          (url) => {
+            this.carPhotoUrl = url;
+          },
+          (error) => {
+            console.error('Błąd podczas ładowania zdjęcia:', error);
+            this.carPhotoUrl = null;
+          }
+        );
     } else {
-      console.log("Brak linku do zdjęcia.");
-      this.carPhotoUrl = null;  
+      console.log('Brak linku do zdjęcia.');
+      this.carPhotoUrl = null;
     }
   }
 }

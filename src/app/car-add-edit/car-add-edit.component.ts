@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, OnDestroy} from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Car } from '../shared/interfaces/car.interfaces';
 import { Employees } from '../shared/interfaces/eployee.interfaces';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -39,7 +39,7 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private _coreService: CoreService,
     private fireStorage: AngularFireStorage,
-    private employeesService: EmployessService,
+    private employeesService: EmployessService
   ) {
     this.empForm = this._fb.group({
       carName: '',
@@ -58,13 +58,13 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-     this.employeesService.getNameList().subscribe({
+    this.employeesService.getNameList().subscribe({
       next: (employees: Employees[]) => {
-       this.users = employees.map(employee => ({
-        name: employee.name,
-        surname: employee.surname,
-       }))
-       this.options = [...this.users];  
+        this.users = employees.map((employee) => ({
+          name: employee.name,
+          surname: employee.surname,
+        }));
+        this.options = [...this.users];
       },
       error: (error) => console.error('Błąd pobierania', error),
     });
@@ -104,7 +104,6 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
             if (this.localFile) {
               const carId = savedCar.id;
               const path = `files/${carId}`;
-            
 
               this.fireStorage
                 .upload(path, this.localFile)

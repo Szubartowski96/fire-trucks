@@ -21,7 +21,7 @@ export class ModalComponent implements OnInit {
   constructor(
     private CarService: CrudService,
     public _dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
   ngOnInit(): void {
@@ -31,8 +31,6 @@ export class ModalComponent implements OnInit {
   getCarNames(): void {
     this.CarService.getCarList().subscribe({
       next: (res: CarData[]) => {
-    
-
         this.carNames = res.map((car) => ({
           id: String(car.id),
           name: car.carName || 'Unnamed Car',
@@ -50,7 +48,6 @@ export class ModalComponent implements OnInit {
       console.error('Invalid car ID:', event.value);
     } else {
       this.selectedCarId = carId;
-
     }
   }
 

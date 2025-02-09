@@ -1,19 +1,11 @@
-button{
-    margin: 5px;
+button {
+  margin: 5px;
+}
+.main-body {
+  padding-top: var(--padding-normal);
+  margin: 0 auto;
+  max-width: 1248px;
+  mat-form-field {
+    width: 100%;
   }
-  .main-body {
-    padding-top: 20px;
-    margin: 0 auto;
-    max-width: 1248px;
-    mat-form-field {
-      width: 100%;
-    }
-    
-    
-  }
- 
- 
-
-
-  
-  
+}

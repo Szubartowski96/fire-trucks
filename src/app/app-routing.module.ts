@@ -4,7 +4,6 @@ import { EquipmentCarComponent } from './equipment-car/equipment-car.component';
 import { HomeComponentComponent } from './home-component/home-component.component';
 import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
 
-
 const routes: Routes = [
   { path: '', component: HomeComponentComponent },
   { path: 'equipment', component: EquipmentCarComponent },

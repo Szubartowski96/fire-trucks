@@ -12,8 +12,6 @@ import { CrudService } from './services/crud.service';
 import { CarData } from './shared/interfaces/carData.interfaces';
 import { AddEmployeeesComponent } from './add-employeees/add-employeees.component';
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,7 +33,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   addCarLabel = 'Add car';
   equipmentLabel = 'Informations about car';
 

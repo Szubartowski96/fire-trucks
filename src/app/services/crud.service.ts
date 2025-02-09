@@ -13,7 +13,10 @@ export class CrudService {
   private selectedCarData = new BehaviorSubject<CarData | null>(null);
   private basePath = '/cars';
 
-  constructor(private db: AngularFirestore, private dialog: MatDialog) {}
+  constructor(
+    private db: AngularFirestore,
+    private dialog: MatDialog
+  ) {}
 
   updateCar(id: string, data: CarData): Promise<void> {
     return this.db.collection('cars').doc(id).update(data);
@@ -27,7 +30,7 @@ export class CrudService {
         return { ...carData, id: docRef.id };
       });
   }
-  
+
   getCarList(): Observable<CarData[]> {
     return this.db
       .collection<CarData>(this.basePath)

@@ -1,9 +1,9 @@
 .content {
-  padding-top: 10px;
+  padding-top: var(--padding-medium);
 }
 .row {
   display: flex;
-  gap: 10px;
+  gap: var(--padding-medium);
 
   mat-form-field {
     width: 100%;
@@ -22,7 +22,7 @@
 }
 
 mat-error {
-  background-color: rgb(89, 88, 88);
+  background-color: var(--background-color);
 }
 
 .title {
@@ -34,18 +34,6 @@ mat-error {
 .upload-container {
   display: flex;
   justify-content: center;
-  
+
   margin-top: 20px;
 }
-
-p-fileUpload{
-  background-color: #007bff; /* Niebieski kolor tła przycisku */
-    color: white; /* Biały kolor tekstu */
-    border: none; /* Usuń obramowanie */
-    padding: 10px 20px; /* Dodaj wewnętrzne odstępy */
-    font-size: 16px; /* Większy rozmiar czcionki */
-    border-radius: 5px; /* Zaokrąglone rogi */
-    cursor: pointer; /* Zmień kursor na wskazujący */
-    transition: background-color 0.3s ease; 
-}
-
