@@ -9,11 +9,14 @@ import { CarData } from '../shared/interfaces/carData.interfaces';
   providedIn: 'root',
 })
 export class CrudService {
-  private homeData: any[] = [];
-  private selectedCarData = new BehaviorSubject<any>(null);
+  private homeData: CarData[] = [];
+  private selectedCarData = new BehaviorSubject<CarData | null>(null);
   private basePath = '/cars';
 
-  constructor(private db: AngularFirestore, private dialog: MatDialog) {}
+  constructor(
+    private db: AngularFirestore,
+    private dialog: MatDialog
+  ) {}
 
   updateCar(id: string, data: CarData): Promise<void> {
     return this.db.collection('cars').doc(id).update(data);
@@ -57,7 +60,7 @@ export class CrudService {
     this.selectedCarData.next(data);
   }
 
-  get selectedCarData$(): Observable<any> {
+  get selectedCarData$(): Observable<CarData | null> {
     return this.selectedCarData.asObservable();
   }
 

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Car } from '../shared/interfaces/car.interfaces';
 import { Employees } from '../shared/interfaces/eployee.interfaces';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -6,6 +6,10 @@ import { Observable, Subscription } from 'rxjs';
 import { CrudService } from '../services/crud.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoreService } from '../core/core.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { FileUploadEvent } from 'primeng/fileupload';
+import { DialogData } from '../shared/interfaces/dialog-data';
+import { EmployessService } from '../services/employess.service';
 
 @Component({
   selector: 'app-car-add-edit',
@@ -20,14 +24,7 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
     { value: 'SLOP', viewValue: 'SLOP' },
   ];
 
-  users: Employees[] = [
-    { name: 'John', surname: 'Kowalski' },
-    { name: 'Paweł', surname: 'Nowak' },
-    { name: 'Artur', surname: 'Izdebski' },
-    { name: 'Przemek', surname: 'Adamiak' },
-    { name: 'Marcin', surname: 'zzz' },
-    { name: 'Łukasz', surname: 'Zebra' },
-  ];
+  users: Employees[] = [];
 
   emloyeeFormControl = new FormControl<string | Employees>('');
   options: Employees[] = this.users;
@@ -35,40 +32,14 @@ export class CarAddEditComponent implements OnInit, OnDestroy {
   empForm: FormGroup;
   localFile: File | null = null;
   private employeeSubscription: Subscription;
-
-  ngOnInit(): void {
-    this.filteredOptions = this.emloyeeFormControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => {
-        const inputValue =
-          typeof value === 'string'
-            ? value
-            : value?.name + ' ' + value?.surname;
-        return inputValue ? this._filter(inputValue) : this.options.slice();
-      })
-    );
-    this.empForm.patchValue(this.data);
-  }
-
-  displayFn(user: Employees): string {
-    return user && user.name ? `${user.name} ${user.surname}` : '';
-  }
-
-  private _filter(inputValue: string): Employees[] {
-    const filterValue = inputValue.toLowerCase();
-
-    return this.options.filter((option) =>
-      (option.name.toLowerCase() + ' ' + option.surname.toLowerCase()).includes(
-        filterValue
-      )
-    );
-  }
   constructor(
     private _fb: FormBuilder,
     private _carService: CrudService,
     private _dialogRef: MatDialogRef<CarAddEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private _coreService: CoreService
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private _coreService: CoreService,
+    private fireStorage: AngularFireStorage,
+    private employeesService: EmployessService
   ) {
     this.empForm = this._fb.group({
       carName: '',

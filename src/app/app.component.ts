@@ -10,6 +10,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { ModalComponent } from './modal/modal.component';
 import { CrudService } from './services/crud.service';
 import { CarData } from './shared/interfaces/carData.interfaces';
+import { AddEmployeeesComponent } from './add-employeees/add-employeees.component';
 
 @Component({
   selector: 'app-root',

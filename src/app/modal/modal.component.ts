@@ -2,7 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { CrudService } from '../services/crud.service';
-import { Equipment } from '../../../fire-trucks-main/src/app/shared/interfaces/equipments.interfaces';
+import { DialogData } from '../shared/interfaces/dialog-data';
+import { CarData } from '../shared/interfaces/carData.interfaces';
 
 @Component({
   selector: 'app-modal',
@@ -14,23 +15,13 @@ export class ModalComponent implements OnInit {
   dialogRef!: MatDialogRef<ModalComponent, void>;
   selectedCarName = '';
 
-  private selectedCar!: {
-    imagePath: string;
-    carName?: string;
-    type?: string;
-    marking?: string;
-    dateEntry?: string;
-    destiny?: number;
-    operationalNumber?: string;
-    filteredEquipments?: Equipment[];
-  };
-
-  private selectedCarId: number | undefined;
+  private selectedCar: CarData | null = null;
+  private selectedCarId: string | null = null;
 
   constructor(
     private CarService: CrudService,
     public _dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +30,11 @@ export class ModalComponent implements OnInit {
 
   getCarNames(): void {
     this.CarService.getCarList().subscribe({
-      next: (res: any[]) => {
-        this.carNames = res.map((car) => ({ id: car.id, name: car.carName }));
+      next: (res: CarData[]) => {
+        this.carNames = res.map((car) => ({
+          id: String(car.id),
+          name: car.carName || 'Unnamed Car',
+        }));
       },
       error: (err) => {
         console.error('Error fetching car names:', err);
@@ -64,9 +58,19 @@ export class ModalComponent implements OnInit {
     }
 
     this.CarService.getCarById(this.selectedCarId).subscribe({
-      next: (res) => {
-        const imagePath = `assets/images/${res!.link}`;
-        this.selectedCar = { ...res, imagePath };
+      next: (res: CarData | undefined) => {
+        if (!res) {
+          console.error('No car data received');
+          return;
+        }
+
+        const imagePath = `assets/images/${res.link || 'default.jpg'}`;
+
+        this.selectedCar = {
+          ...res,
+          imagePath,
+        };
+
         this.CarService.setSelectedCarData(this.selectedCar);
         this._dialogRef.close(this.selectedCar);
       },

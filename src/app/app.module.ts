@@ -34,7 +34,9 @@ import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AddEmployeeesComponent } from './add-employeees/add-employeees.component';
+import { ModalEmployeesDeleteComponent } from './modal/modal-employees-delete/modal-employees-delete.component';
+import { BUCKET } from '@angular/fire/compat/storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD0vkhIlHpjSHRpbfk4SGEhUO2d3dd9Rlg',
@@ -83,8 +85,6 @@ const firebaseConfig = {
     MatCardModule,
     MatListModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    FileUploadModule,
-    AngularFireStorageModule,
   ],
   providers: [
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
