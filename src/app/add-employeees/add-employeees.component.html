@@ -48,7 +48,7 @@
     <mat-label>Filter</mat-label>
     <input
       matInput
-      placeholder="Ex. Mia"
+      placeholder="Name or Surname"
       (input)="applyFilter($event)"
       #input
     />
@@ -68,7 +68,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element; let i = index">
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" >
             <mat-icon>edit</mat-icon></button
           ><button
             mat-icon-button

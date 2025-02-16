@@ -15,6 +15,7 @@ import { ModalEmployeesDeleteComponent } from '../modal/modal-employees-delete/m
   styleUrl: './add-employeees.component.css',
 })
 export class AddEmployeeesComponent implements OnInit {
+
   @ViewChild('addEmployess') addEmployess!: NgForm;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -99,4 +100,5 @@ export class AddEmployeeesComponent implements OnInit {
       }
     });
   }
+  
 }

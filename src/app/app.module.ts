@@ -37,6 +37,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AddEmployeeesComponent } from './add-employeees/add-employeees.component';
 import { ModalEmployeesDeleteComponent } from './modal/modal-employees-delete/modal-employees-delete.component';
 import { BUCKET } from '@angular/fire/compat/storage';
+import { AddPhotoComponent } from './add-photo/add-photo.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD0vkhIlHpjSHRpbfk4SGEhUO2d3dd9Rlg',
@@ -57,6 +58,7 @@ const firebaseConfig = {
     AddEquipmentComponent,
     AddEmployeeesComponent,
     ModalEmployeesDeleteComponent,
+    AddPhotoComponent,
   ],
   imports: [
     BrowserModule,
