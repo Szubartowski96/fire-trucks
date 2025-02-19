@@ -38,6 +38,7 @@ import { AddEmployeeesComponent } from './add-employeees/add-employeees.componen
 import { ModalEmployeesDeleteComponent } from './modal/modal-employees-delete/modal-employees-delete.component';
 import { BUCKET } from '@angular/fire/compat/storage';
 import { AddPhotoComponent } from './add-photo/add-photo.component';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD0vkhIlHpjSHRpbfk4SGEhUO2d3dd9Rlg',
@@ -92,6 +93,17 @@ const firebaseConfig = {
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),
     { provide: BUCKET, useValue: 'my-bucket-name' },
+    provideFirebaseApp(() =>
+      initializeApp({
+        projectId: 'fire-trucks',
+        appId: '1:561958466058:web:b7454d7d123d2dee69a5f3',
+        storageBucket: 'fire-trucks.appspot.com',
+        apiKey: 'AIzaSyD0vkhIlHpjSHRpbfk4SGEhUO2d3dd9Rlg',
+        authDomain: 'fire-trucks.firebaseapp.com',
+        messagingSenderId: '561958466058',
+      })
+    ),
+    provideStorage(() => getStorage()),
   ],
   bootstrap: [AppComponent],
 })
